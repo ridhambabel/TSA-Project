@@ -15,4 +15,7 @@ export default defineNuxtConfig({
       title: "NAME",
     },
   },
+  plugins: [
+        './plugins/fontawesome.js'
+      ]
 });

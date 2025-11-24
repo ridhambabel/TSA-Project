@@ -479,7 +479,8 @@
               <label
                 class="block text-[11px] font-semibold tracking-[0.16em] uppercase text-amber-200 mb-2"
               >
-                Short description
+                Short description 
+                <font-awesome-icon icon="fa-solid fa-circle-question" />
               </label>
               <textarea
                 v-model="form.description"
