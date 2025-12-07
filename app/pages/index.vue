@@ -1,123 +1,296 @@
 <template>
-  <div class="min-h-screen bg-amber-50 text-slate-900 overflow-x-hidden">
-    <!-- HERO -->
-    <header class="relative h-screen overflow-hidden">
-      <!-- Background -->
-      <img
-        src="/assets/img/TopIMG.jpg"
-        alt="Community skyline"
-        class="absolute inset-0 h-full w-full object-cover"
-      />
+  <div
+    class="min-h-screen bg-amber-50 text-slate-900 overflow-x-hidden selection:bg-amber-300 selection:text-slate-900 font-sans"
+  >
+    <!-- BACKPACK DRAWER -->
+    <div
+      class="fixed inset-0 z-[100] overflow-hidden transition-visibility duration-300"
+      :class="
+        isBackpackOpen
+          ? 'visible pointer-events-auto'
+          : 'invisible pointer-events-none'
+      "
+    >
+      <!-- Backdrop -->
       <div
-        class="absolute inset-0 bg-linear-to-b from-slate-900/80 via-slate-900/40 to-amber-50/95"
+        class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300"
+        :class="isBackpackOpen ? 'opacity-100' : 'opacity-0'"
+        @click="isBackpackOpen = false"
       ></div>
 
-      <!-- NAVBAR -->
-      <nav
-        class="relative z-20 flex items-center justify-between px-6 md:px-10 py-4 text-sm font-medium text-amber-50"
+      <!-- Drawer Panel -->
+      <div
+        class="absolute top-0 bottom-0 right-0 w-full max-w-md bg-white shadow-2xl transform transition-transform duration-300 flex flex-col h-full"
+        :class="isBackpackOpen ? 'translate-x-0' : 'translate-x-full'"
       >
-        <div class="flex items-center gap-3">
-          <div
-            class="h-9 w-9 rounded-full bg-amber-400/90 grid place-items-center text-slate-900 font-black text-lg shadow-md"
-          >
-            CH
-          </div>
-          <div class="leading-tight">
-            <p class="text-xs uppercase tracking-[0.25em] text-amber-200">
-              Community
+        <!-- Drawer Header -->
+        <div
+          class="p-6 bg-amber-400 flex items-center justify-between shrink-0"
+        >
+          <div>
+            <h2 class="text-xl font-bold text-slate-900">
+              My Resource Backpack
+            </h2>
+            <p class="text-xs text-slate-800/80">
+              Your saved contacts & services
             </p>
-            <p class="text-sm font-semibold">Resource Hub</p>
           </div>
+          <!-- Close Button -->
+          <button
+            @click.stop="isBackpackOpen = false"
+            class="group h-10 w-10 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center transition-colors cursor-pointer"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-slate-900 group-hover:scale-110 transition-transform"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
         </div>
 
-        <div class="hidden md:flex items-center gap-6">
+        <!-- Drawer Content -->
+        <div class="flex-1 overflow-y-auto p-6 space-y-4">
           <div
-            @click="scrollToSection('directory')"
-            class="nav-link hover:cursor-pointer"
+            v-if="savedResources.length === 0"
+            class="text-center py-10 text-slate-500"
           >
-            Resources
+            <div
+              class="inline-block p-4 rounded-full bg-slate-100 mb-3 text-slate-400"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                ></path>
+              </svg>
+            </div>
+            <p>Your backpack is empty.</p>
+            <p class="text-sm mt-2">
+              Click the heart icon on any resource to save it here for quick
+              access.
+            </p>
           </div>
+
           <div
-            @click="scrollToSection('highlights')"
-            class="nav-link hover:cursor-pointer"
+            v-for="item in savedResources"
+            :key="item.id"
+            class="relative rounded-xl border border-slate-200 bg-slate-50 p-4 shadow-sm"
           >
-            Highlights
-          </div>
-          <div
-            @click="scrollToSection('events')"
-            class="nav-link hover:cursor-pointer"
-          >
-            Events
-          </div>
-          <div
-            @click="scrollToSection('submit')"
-            class="nav-link hover:cursor-pointer"
-          >
-            Add a Resource
-          </div>
-          <div
-            @click="scrollToSection('about')"
-            class="nav-link hover:cursor-pointer"
-          >
-            About
+            <div class="pr-8">
+              <h4 class="font-bold text-slate-900">{{ item.name }}</h4>
+              <p class="text-xs text-slate-600 mt-1">{{ item.phone }}</p>
+              <p class="text-xs text-slate-600">{{ item.address }}</p>
+            </div>
+            <button
+              @click="toggleSave(item)"
+              class="absolute top-4 right-4 text-amber-500 hover:text-red-500 transition-colors"
+              title="Remove"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                ></path>
+              </svg>
+            </button>
+            <a
+              v-if="item.website"
+              :href="item.website"
+              target="_blank"
+              class="mt-3 block text-xs font-semibold text-amber-600 hover:underline"
+            >
+              Visit Website &rarr;
+            </a>
           </div>
         </div>
+        <!-- Print button removed -->
+      </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav
+      class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 transition-all duration-300"
+      :class="[
+        isScrolled
+          ? 'py-3 bg-slate-950/90 backdrop-blur-md shadow-lg border-b border-white/5'
+          : 'py-6 bg-transparent',
+      ]"
+    >
+      <div
+        class="flex items-center gap-3 cursor-pointer group"
+        @click="scrollToSection('hero')"
+      >
+        <div
+          class="h-9 w-9 rounded-full bg-amber-400/90 grid place-items-center text-slate-900 font-black text-lg shadow-md group-hover:bg-amber-300 transition-colors"
+        >
+          CH
+        </div>
+        <div class="leading-tight text-amber-50">
+          <p class="text-xs uppercase tracking-[0.25em] text-amber-200">
+            Community
+          </p>
+          <p
+            class="text-sm font-semibold"
+            :class="{ 'drop-shadow-md': !isScrolled }"
+          >
+            Resource Hub
+          </p>
+        </div>
+      </div>
+
+      <div class="hidden md:flex items-center gap-6 font-medium text-amber-50">
+        <div
+          v-for="link in [
+            'directory',
+            'highlights',
+            'events',
+            'submit',
+            'about',
+          ]"
+          :key="link"
+          @click="scrollToSection(link)"
+          class="nav-link hover:cursor-pointer hover:text-amber-300 transition-colors capitalize"
+          :class="{ 'drop-shadow-sm': !isScrolled }"
+        >
+          {{ link === "submit" ? "Add Resource" : link }}
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <!-- BACKPACK TRIGGER -->
+        <button
+          @click="isBackpackOpen = true"
+          class="relative rounded-full p-2 text-amber-50 hover:bg-white/10 transition cursor-pointer"
+          title="My Backpack"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+            ></path>
+          </svg>
+          <span
+            v-if="savedResources.length > 0"
+            class="absolute top-0 right-0 h-4 w-4 rounded-full bg-amber-400 text-[10px] font-bold text-slate-900 grid place-items-center shadow-sm"
+          >
+            {{ savedResources.length }}
+          </span>
+        </button>
 
         <div
           @click="scrollToSection('directory')"
-          class="hidden hover:cursor-pointer md:inline-flex rounded-full bg-amber-400 px-5 py-2 text-xs font-semibold text-slate-900 shadow-lg hover:bg-amber-300 transition"
+          class="hidden hover:cursor-pointer md:inline-flex rounded-full bg-amber-400 px-5 py-2 text-xs font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
         >
           Find Help
         </div>
-      </nav>
+      </div>
+    </nav>
 
-      <!-- HERO -->
+    <!-- HERO -->
+    <header class="relative h-screen overflow-hidden">
+      <div ref="heroBg" class="absolute inset-0 h-full w-full">
+        <img
+          src="/assets/img/TopIMG.jpg"
+          alt="Community skyline"
+          class="h-full w-full object-cover"
+        />
+      </div>
       <div
-        class="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center text-amber-50"
-      >
-        <p
-          class="mb-3 text-[11px] uppercase tracking-[0.35em] text-amber-200/90"
-        >
-          Welcome to
-        </p>
-        <h1
-          class="max-w-4xl text-3xl sm:text-5xl md:text-6xl font-extrabold leading-tight"
-        >
-          <span class="block">Coppell Community Resource Hub</span>
-        </h1>
-        <p
-          class="mt-4 max-w-2xl text-sm sm:text-base md:text-lg text-amber-100/90"
-        >
-          One place to find local food, housing, health, education, and support
-          services—curated for residents, students, and families.
-        </p>
+        class="absolute inset-0 bg-linear-to-b from-slate-900/90 via-slate-900/40 to-amber-50/95"
+      ></div>
 
-        <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
-          <div
-            @click="scrollToSection('directory')"
-            class="hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 transition"
+      <div
+        id="hero"
+        class="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center text-amber-50 pt-16"
+      >
+        <div ref="heroContent">
+          <p
+            class="hero-elem mb-3 text-[11px] uppercase tracking-[0.35em] text-amber-200/90 opacity-0 translate-y-4"
           >
-            Browse Resources
-          </div>
-          <div
-            @click="scrollToSection('submit')"
-            class="hover:cursor-pointer rounded-full border border-amber-200/70 px-6 py-3 text-sm font-semibold text-amber-50 hover:bg-amber-50/10 transition"
+            Welcome to
+          </p>
+          <h1
+            class="hero-elem max-w-4xl text-3xl sm:text-5xl md:text-6xl font-extrabold leading-tight opacity-0 translate-y-4"
           >
-            Suggest a Resource
+            <span class="block">Coppell Community Resource Hub</span>
+          </h1>
+          <p
+            class="hero-elem mt-4 max-w-2xl text-sm sm:text-base md:text-lg text-amber-100/90 opacity-0 translate-y-4"
+          >
+            One place to find local food, housing, health, education, and
+            support services. Curated for residents, students, and families.
+          </p>
+          <div
+            class="hero-elem mt-6 flex flex-wrap items-center justify-center gap-3 opacity-0 translate-y-4"
+          >
+            <div
+              @click="scrollToSection('directory')"
+              class="hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
+            >
+              Browse Resources
+            </div>
+            <div
+              @click="scrollToSection('submit')"
+              class="hover:cursor-pointer rounded-full border border-amber-200/70 px-6 py-3 text-sm font-semibold text-amber-50 hover:bg-amber-50/10 active:scale-95 transition-all"
+            >
+              Suggest a Resource
+            </div>
           </div>
         </div>
 
-        <!-- QUICK FILTER -->
         <div class="mt-10 w-full flex justify-center px-4">
           <div
-            class="flex flex-wrap items-center justify-center gap-3 rounded-full bg-slate-900/55 px-6 py-3 backdrop-blur-lg shadow-2xl max-w-4xl"
+            ref="quickFilters"
+            class="flex flex-wrap items-center justify-center gap-3 rounded-full bg-slate-900/55 px-6 py-3 backdrop-blur-lg shadow-2xl max-w-4xl opacity-0 scale-95"
           >
             <button
               v-for="cat in categories"
               :key="cat"
               type="button"
-              class="quick-chip"
-              @click="selectedCategory = cat"
+              class="rounded-full border border-amber-200/60 px-4 py-1.5 text-[11px] font-semibold transition-all duration-200 hover:scale-105 active:scale-95"
+              :class="
+                selectedCategory === cat
+                  ? 'bg-amber-400 text-slate-900'
+                  : 'text-amber-100 hover:text-white'
+              "
+              @click="selectedCategory = cat === selectedCategory ? '' : cat"
             >
               {{ cat }}
             </button>
@@ -127,28 +300,106 @@
     </header>
 
     <main>
-      <!-- DIRECTORY SECTION -->
+      <!-- COMMUNITY GUIDES -->
       <section
-        id="directory"
-        class="py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-16"
+        class="scroll-section py-12 px-6 bg-white border-b border-slate-100"
       >
         <div class="max-w-6xl mx-auto">
           <div
-            class="flex flex-col md:flex-row md:items-end md:justify-between gap-6"
+            class="text-center mb-8 animate-on-scroll opacity-0 translate-y-4"
+          >
+            <h2 class="text-2xl font-bold text-slate-900">
+              Who are you seeking help for?
+            </h2>
+            <p class="text-slate-600 text-sm mt-1">
+              Select a group to see recommended resources.
+            </p>
+          </div>
+
+          <div
+            class="grid grid-cols-2 md:grid-cols-4 gap-4 animate-on-scroll opacity-0 translate-y-4"
+          >
+            <div
+              @click="filterByGuide('Families')"
+              class="group cursor-pointer rounded-xl bg-amber-50 p-6 text-center hover:bg-amber-400 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            >
+              <div
+                class="mb-3 mx-auto h-12 w-12 rounded-full bg-amber-200 group-hover:bg-white text-amber-800 grid place-items-center text-xl"
+              >
+                👨‍👩‍👧
+              </div>
+              <h3 class="font-bold text-slate-900">Families</h3>
+              <p class="text-xs text-slate-600 group-hover:text-slate-900 mt-1">
+                Food, housing & care
+              </p>
+            </div>
+            <div
+              @click="filterByGuide('Students')"
+              class="group cursor-pointer rounded-xl bg-amber-50 p-6 text-center hover:bg-amber-400 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            >
+              <div
+                class="mb-3 mx-auto h-12 w-12 rounded-full bg-amber-200 group-hover:bg-white text-amber-800 grid place-items-center text-xl"
+              >
+                🎓
+              </div>
+              <h3 class="font-bold text-slate-900">Students</h3>
+              <p class="text-xs text-slate-600 group-hover:text-slate-900 mt-1">
+                Tutoring & supplies
+              </p>
+            </div>
+            <div
+              @click="filterByGuide('Seniors')"
+              class="group cursor-pointer rounded-xl bg-amber-50 p-6 text-center hover:bg-amber-400 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            >
+              <div
+                class="mb-3 mx-auto h-12 w-12 rounded-full bg-amber-200 group-hover:bg-white text-amber-800 grid place-items-center text-xl"
+              >
+                👴
+              </div>
+              <h3 class="font-bold text-slate-900">Seniors</h3>
+              <p class="text-xs text-slate-600 group-hover:text-slate-900 mt-1">
+                Health & connection
+              </p>
+            </div>
+            <div
+              @click="filterByGuide('Everyone')"
+              class="group cursor-pointer rounded-xl bg-amber-50 p-6 text-center hover:bg-amber-400 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            >
+              <div
+                class="mb-3 mx-auto h-12 w-12 rounded-full bg-amber-200 group-hover:bg-white text-amber-800 grid place-items-center text-xl"
+              >
+                🤝
+              </div>
+              <h3 class="font-bold text-slate-900">Community</h3>
+              <p class="text-xs text-slate-600 group-hover:text-slate-900 mt-1">
+                Events & legal aid
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DIRECTORY SECTION -->
+      <section
+        id="directory"
+        class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20 overflow-hidden"
+      >
+        <div class="max-w-6xl mx-auto">
+          <div
+            class="animate-on-scroll flex flex-col md:flex-row md:items-end md:justify-between gap-6 opacity-0 translate-y-8"
           >
             <div>
               <h2 class="text-3xl font-bold text-slate-900">
                 Find community resources
               </h2>
               <p class="mt-2 text-slate-600 text-sm md:text-base">
-                Search by keyword, filter by category, or explore all services
-                in our directory.
+                Search by keyword, filter by category, or explore all services.
               </p>
             </div>
             <div class="flex flex-wrap gap-3">
               <select
                 v-model="selectedCategory"
-                class="rounded-full border border-slate-300 bg-white px-4 py-2 text-xs md:text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                class="rounded-full border border-slate-300 bg-white px-4 py-2 text-xs md:text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-400 transition-shadow"
               >
                 <option value="">All categories</option>
                 <option v-for="cat in categories" :key="cat" :value="cat">
@@ -157,7 +408,7 @@
               </select>
               <button
                 type="button"
-                class="rounded-full border border-slate-300 px-4 py-2 text-xs md:text-sm text-slate-600 hover:bg-slate-100"
+                class="rounded-full border border-slate-300 px-4 py-2 text-xs md:text-sm text-slate-600 hover:bg-slate-100 hover:border-slate-400 transition-colors"
                 @click="clearFilters"
               >
                 Clear filters
@@ -166,11 +417,11 @@
           </div>
 
           <div
-            class="mt-6 flex flex-col md:flex-row md:items-center gap-4 md:gap-6"
+            class="animate-on-scroll mt-6 flex flex-col md:flex-row md:items-center gap-4 md:gap-6 opacity-0 translate-y-8"
           >
             <div class="relative flex-1">
               <span
-                class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2"
+                class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -188,43 +439,82 @@
                 v-model="searchQuery"
                 type="text"
                 placeholder="Search by name, keyword, or neighborhood..."
-                class="w-full rounded-full border border-slate-300 bg-white pl-11 pr-4 py-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                class="w-full rounded-full border border-slate-300 bg-white pl-11 pr-4 py-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-400 transition-shadow"
               />
             </div>
           </div>
 
-          <!-- Resource cards -->
-          <div class="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <TransitionGroup
+            name="list"
+            tag="div"
+            class="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3 relative"
+          >
             <article
               v-for="resource in filteredResources"
               :key="resource.id"
-              class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition"
+              class="group relative rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
             >
-              <div class="flex items-center justify-between gap-2">
-                <h3 class="font-semibold text-lg text-slate-900">
+              <!-- SAVE BUTTON -->
+              <button
+                @click.stop="toggleSave(resource)"
+                class="absolute top-4 right-4 z-10 h-8 w-8 rounded-full bg-slate-50 border border-slate-200 grid place-items-center transition-all hover:scale-110 active:scale-95 cursor-pointer"
+                :class="
+                  isSaved(resource)
+                    ? 'text-red-500 bg-red-50 border-red-100'
+                    : 'text-slate-400 hover:text-red-400'
+                "
+                title="Save to Backpack"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  :fill="isSaved(resource) ? 'currentColor' : 'none'"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                  ></path>
+                </svg>
+              </button>
+
+              <div class="flex items-center justify-between gap-2 pr-8">
+                <h3
+                  class="font-semibold text-lg text-slate-900 group-hover:text-amber-600 transition-colors"
+                >
                   {{ resource.name }}
                 </h3>
+              </div>
+
+              <div class="mt-2 flex flex-wrap gap-2">
                 <span
                   class="inline-flex items-center rounded-full bg-amber-100 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-amber-800"
                 >
                   {{ resource.category }}
                 </span>
               </div>
-              <p class="mt-2 text-sm text-slate-600">
+
+              <p class="mt-3 text-sm text-slate-600 line-clamp-3">
                 {{ resource.description }}
               </p>
 
-              <dl class="mt-3 space-y-1 text-xs text-slate-500">
+              <dl
+                class="mt-4 space-y-2 text-xs text-slate-500 border-t border-slate-100 pt-3"
+              >
                 <div v-if="resource.address" class="flex gap-2">
-                  <dt class="font-semibold">Address:</dt>
+                  <dt class="font-semibold min-w-[50px]">Address:</dt>
                   <dd>{{ resource.address }}</dd>
                 </div>
                 <div v-if="resource.phone" class="flex gap-2">
-                  <dt class="font-semibold">Phone:</dt>
+                  <dt class="font-semibold min-w-[50px]">Phone:</dt>
                   <dd>{{ resource.phone }}</dd>
                 </div>
                 <div v-if="resource.hours" class="flex gap-2">
-                  <dt class="font-semibold">Hours:</dt>
+                  <dt class="font-semibold min-w-[50px]">Hours:</dt>
                   <dd>{{ resource.hours }}</dd>
                 </div>
               </dl>
@@ -235,7 +525,7 @@
                   :href="resource.website"
                   target="_blank"
                   rel="noopener"
-                  class="text-xs font-semibold text-amber-700 hover:text-amber-900"
+                  class="text-xs font-semibold text-amber-700 hover:text-amber-900 hover:underline"
                 >
                   Visit website →
                 </a>
@@ -243,18 +533,17 @@
                   v-if="resource.tags && resource.tags.length"
                   class="text-[11px] rounded-full bg-slate-100 px-2 py-1 text-slate-600"
                 >
-                  {{ resource.tags.join(" • ") }}
+                  {{ resource.tags.slice(0, 2).join(" • ") }}
                 </span>
               </div>
             </article>
+          </TransitionGroup>
 
-            <p
-              v-if="filteredResources.length === 0"
-              class="text-sm text-slate-500 col-span-full"
-            >
-              No resources match your search yet. Try another term or suggest a
-              new resource below.
-            </p>
+          <div
+            v-if="filteredResources.length === 0"
+            class="mt-8 text-center text-sm text-slate-500 py-12 bg-slate-50 rounded-2xl border border-dashed border-slate-300"
+          >
+            No resources match your search yet.
           </div>
         </div>
       </section>
@@ -262,32 +551,24 @@
       <!-- HIGHLIGHTS SECTION -->
       <section
         id="highlights"
-        class="bg-slate-900 text-amber-50 py-16 px-6 md:px-10 lg:px-20 scroll-mt-16"
+        class="scroll-section bg-slate-900 text-amber-50 py-16 px-6 md:px-10 lg:px-20 scroll-mt-20"
       >
         <div class="max-w-6xl mx-auto">
           <div
-            class="flex flex-col md:flex-row md:items-end md:justify-between gap-6"
+            class="animate-on-scroll flex flex-col md:flex-row md:items-end md:justify-between gap-6 opacity-0 translate-y-8"
           >
             <div>
-              <h2 class="text-3xl font-bold">
-                Spotlight: Featured community resources
-              </h2>
+              <h2 class="text-3xl font-bold">Spotlight: Featured resources</h2>
               <p class="mt-2 text-sm md:text-base text-amber-100/90">
-                These programs were nominated by students, families, and
-                neighbors.
+                Programs nominated by students, families, and neighbors.
               </p>
             </div>
-            <p class="text-xs max-w-xs text-amber-200/80">
-              Want to nominate a resource to be featured here? Use the form
-              below or speak with us.
-            </p>
           </div>
-
-          <div class="mt-8 grid gap-6 md:grid-cols-3">
+          <div class="mt-8 grid gap-6 md:grid-cols-3 stagger-container">
             <article
               v-for="resource in featuredResources"
               :key="resource.id"
-              class="rounded-2xl bg-slate-800/70 p-5 border border-slate-700/80"
+              class="stagger-item opacity-0 translate-y-8 rounded-2xl bg-slate-800/70 p-5 border border-slate-700/80 hover:bg-slate-800 transition-colors duration-300"
             >
               <h3 class="text-lg font-semibold">{{ resource.name }}</h3>
               <p class="mt-2 text-sm text-amber-100/90">
@@ -298,20 +579,15 @@
                   <span class="font-semibold">Impact:</span>
                   {{ resource.impact }}
                 </li>
-                <li v-if="resource.serves">
-                  <span class="font-semibold">Serves:</span>
-                  {{ resource.serves }}
-                </li>
               </ul>
               <a
                 v-if="resource.website"
                 :href="resource.website"
                 target="_blank"
                 rel="noopener"
-                class="mt-4 inline-flex text-xs font-semibold text-amber-300 hover:text-white"
+                class="mt-4 inline-flex text-xs font-semibold text-amber-300 hover:text-white transition-colors"
+                >Learn more →</a
               >
-                Learn more →
-              </a>
             </article>
           </div>
         </div>
@@ -320,32 +596,26 @@
       <!-- EVENTS -->
       <section
         id="events"
-        class="py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-16"
+        class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20"
       >
         <div class="max-w-6xl mx-auto">
           <div
-            class="flex flex-col md:flex-row md:items-end md:justify-between gap-6"
+            class="animate-on-scroll flex flex-col md:flex-row md:items-end md:justify-between gap-6 opacity-0 translate-y-8"
           >
             <div>
               <h2 class="text-3xl font-bold text-slate-900">
                 Upcoming community events
               </h2>
               <p class="mt-2 text-slate-600 text-sm md:text-base">
-                Workshops, food distributions, health fairs, and more hosted by
-                our partner organizations.
+                Workshops, food distributions, and health fairs.
               </p>
             </div>
-            <p class="text-xs text-slate-500 max-w-xs">
-              Times and details may change. Use the contact information to
-              confirm with each organization.
-            </p>
           </div>
-
-          <div class="mt-8 grid gap-4 md:grid-cols-2">
+          <div class="mt-8 grid gap-4 md:grid-cols-2 stagger-container">
             <article
               v-for="event in events"
               :key="event.id"
-              class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+              class="stagger-item opacity-0 translate-y-8 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow"
             >
               <div class="flex items-center justify-between gap-3">
                 <div>
@@ -357,25 +627,18 @@
                 <div class="flex flex-col items-end text-right">
                   <span
                     class="inline-flex items-center rounded-xl bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800"
+                    >{{ event.date }}</span
                   >
-                    {{ event.date }}
-                  </span>
-                  <span class="mt-1 text-[11px] text-slate-500">
-                    {{ event.time }}
-                  </span>
+                  <span class="mt-1 text-[11px] text-slate-500">{{
+                    event.time
+                  }}</span>
                 </div>
               </div>
-              <p class="mt-3 text-sm text-slate-600">
-                {{ event.description }}
-              </p>
+              <p class="mt-3 text-sm text-slate-600">{{ event.description }}</p>
               <dl class="mt-3 space-y-1 text-xs text-slate-500">
                 <div class="flex gap-2">
                   <dt class="font-semibold">Location:</dt>
                   <dd>{{ event.location }}</dd>
-                </div>
-                <div v-if="event.contact" class="flex gap-2">
-                  <dt class="font-semibold">Contact:</dt>
-                  <dd>{{ event.contact }}</dd>
                 </div>
               </dl>
             </article>
@@ -386,42 +649,39 @@
       <!-- SUBMISSION FORM -->
       <section
         id="submit"
-        class="py-16 px-6 md:px-10 lg:px-20 bg-slate-900 text-amber-50 scroll-mt-16"
+        class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-slate-900 text-amber-50 scroll-mt-20"
       >
         <div class="max-w-4xl mx-auto">
-          <h2 class="text-3xl font-bold">Suggest a new resource</h2>
-          <p class="mt-2 text-sm md:text-base text-amber-100/90">
-            Know a non-profit, support program, or event that should be listed
-            here? Share it and our team will review it.
-          </p>
-
+          <div class="animate-on-scroll opacity-0 translate-y-8">
+            <h2 class="text-3xl font-bold">Suggest a new resource</h2>
+            <p class="mt-2 text-sm md:text-base text-amber-100/90">
+              Share a program or event with the community.
+            </p>
+          </div>
           <form
-            class="mt-8 rounded-2xl bg-slate-800/90 p-6 md:p-8 shadow-xl grid gap-6 md:grid-cols-2"
+            class="animate-on-scroll opacity-0 translate-y-8 mt-8 rounded-2xl bg-slate-800/90 p-6 md:p-8 shadow-xl grid gap-6 md:grid-cols-2"
             @submit.prevent="handleSubmit"
           >
             <div class="md:col-span-2">
               <label
                 class="block text-[11px] font-semibold tracking-[0.16em] uppercase text-amber-200 mb-2"
+                >Organization Name</label
               >
-                Organization / program name
-              </label>
               <input
                 v-model="form.name"
                 required
-                class="w-full rounded-xl border border-slate-300 bg-white/95 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400"
+                class="w-full rounded-xl border border-slate-300 bg-white/95 px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition-all"
               />
             </div>
-
             <div>
               <label
                 class="block text-[11px] font-semibold tracking-[0.16em] uppercase text-amber-200 mb-2"
+                >Category</label
               >
-                Category
-              </label>
               <select
                 v-model="form.category"
                 required
-                class="w-full rounded-xl border border-slate-300 bg-white/95 px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400"
+                class="w-full rounded-xl border border-slate-300 bg-white/95 px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition-all"
               >
                 <option value="" disabled>Select a category</option>
                 <option
@@ -434,96 +694,79 @@
                 </option>
               </select>
             </div>
-
             <div>
               <label
                 class="block text-[11px] font-semibold tracking-[0.16em] uppercase text-amber-200 mb-2"
+                >Who serves?</label
               >
-                Who does it serve?
-              </label>
               <input
                 v-model="form.serves"
-                placeholder="e.g., teens, families, seniors"
-                class="w-full rounded-xl border border-slate-300 bg-white/95 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400"
+                class="w-full rounded-xl border border-slate-300 bg-white/95 px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition-all"
               />
             </div>
-
             <div>
               <label
                 class="block text-[11px] font-semibold tracking-[0.16em] uppercase text-amber-200 mb-2"
+                >Website</label
               >
-                Website (optional)
-              </label>
               <input
                 v-model="form.website"
                 type="url"
-                placeholder="https://example.org"
-                class="w-full rounded-xl border border-slate-300 bg-white/95 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400"
+                class="w-full rounded-xl border border-slate-300 bg-white/95 px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition-all"
               />
             </div>
-
             <div>
               <label
                 class="block text-[11px] font-semibold tracking-[0.16em] uppercase text-amber-200 mb-2"
+                >Contact</label
               >
-                Contact email or phone
-              </label>
               <input
                 v-model="form.contact"
                 required
-                class="w-full rounded-xl border border-slate-300 bg-white/95 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400"
+                class="w-full rounded-xl border border-slate-300 bg-white/95 px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition-all"
               />
             </div>
-
             <div class="md:col-span-2">
               <label
                 class="block text-[11px] font-semibold tracking-[0.16em] uppercase text-amber-200 mb-2"
+                >Description</label
               >
-                Short description 
-                <font-awesome-icon icon="fa-solid fa-circle-question" />
-              </label>
               <textarea
                 v-model="form.description"
                 rows="4"
                 required
-                class="w-full rounded-xl border border-slate-300 bg-white/95 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400 resize-none"
+                class="w-full rounded-xl border border-slate-300 bg-white/95 px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400 resize-none transition-all"
               ></textarea>
             </div>
-
             <div
               class="md:col-span-2 flex flex-col md:flex-row md:items-center md:justify-between gap-4 pt-2"
             >
-              <p class="text-xs text-amber-200/80">
-                Submissions are reviewed before being published.
-              </p>
               <button
                 type="submit"
-                class="inline-flex items-center justify-center rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 transition"
+                class="inline-flex items-center justify-center rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
               >
                 Submit resource
               </button>
             </div>
           </form>
-
           <p
             v-if="submitted"
             class="mt-4 text-sm text-emerald-300 transition-opacity"
           >
-            Thank you! Your resource has been submitted. We’ll review it and add
-            it soon if it meets our criteria.
+            Thank you! Your resource has been submitted.
           </p>
         </div>
       </section>
 
-      <!-- ABOUT / EXTRA CONTENT -->
+      <!-- ABOUT (Restored Full Text) -->
       <section
         id="about"
-        class="py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-16"
+        class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20 overflow-hidden"
       >
         <div
           class="max-w-5xl mx-auto grid gap-10 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] items-start"
         >
-          <div>
+          <div class="animate-on-scroll opacity-0 translate-y-8">
             <h2 class="text-3xl font-bold text-slate-900">About this hub</h2>
             <p class="mt-3 text-sm md:text-base text-slate-700">
               This Community Resource Hub was created by
@@ -566,7 +809,7 @@
           </div>
 
           <aside
-            class="rounded-2xl bg-white shadow-md border border-slate-200 p-5 space-y-4"
+            class="animate-on-scroll-side opacity-0 translate-x-12 rounded-2xl bg-white shadow-md border border-slate-200 p-5 space-y-4"
           >
             <h3 class="text-lg font-semibold text-slate-900">
               Emergency & crisis contacts
@@ -597,7 +840,6 @@
       </section>
     </main>
 
-    <!-- FOOTER -->
     <footer
       class="bg-slate-950 text-slate-300 py-8 px-6 md:px-10 lg:px-20 text-sm"
     >
@@ -611,15 +853,17 @@
           <p>
             Created by the <span class="font-semibold">Names</span> • 2025–2026
           </p>
-          <p class="text-xs text-slate-400">
-            Information is subject to change. Always contact organizations
-            directly to confirm details.
-          </p>
         </div>
         <div class="flex flex-wrap gap-4 text-xs">
-          <a href="#directory" class="hover:text-amber-200">Browse resources</a>
-          <a href="#events" class="hover:text-amber-200">View events</a>
-          <a href="#submit" class="hover:text-amber-200">Suggest a resource</a>
+          <a href="#directory" class="hover:text-amber-200 transition-colors"
+            >Browse</a
+          >
+          <a href="#events" class="hover:text-amber-200 transition-colors"
+            >Events</a
+          >
+          <a href="#submit" class="hover:text-amber-200 transition-colors"
+            >Suggest</a
+          >
         </div>
       </div>
     </footer>
@@ -627,12 +871,46 @@
 </template>
 
 <script setup>
+import { ref, computed, onMounted, onUnmounted } from "vue";
+import gsap from "gsap";
+
 function scrollToSection(id) {
   const targetSection = document.getElementById(id);
-  targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  const headerOffset = 80;
+  const elementPosition = targetSection.getBoundingClientRect().top;
+  const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+  window.scrollTo({ top: offsetPosition, behavior: "smooth" });
 }
 
-// CATEGORIES
+const isScrolled = ref(false);
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 20;
+};
+
+// -- BACKPACK LOGIC --
+const isBackpackOpen = ref(false);
+const savedResources = ref([]);
+
+const toggleSave = (resource) => {
+  const index = savedResources.value.findIndex((r) => r.id === resource.id);
+  if (index === -1) {
+    savedResources.value.push(resource);
+  } else {
+    savedResources.value.splice(index, 1);
+  }
+  if (typeof window !== "undefined") {
+    localStorage.setItem(
+      "community-hub-saves",
+      JSON.stringify(savedResources.value)
+    );
+  }
+};
+
+const isSaved = (resource) => {
+  return savedResources.value.some((r) => r.id === resource.id);
+};
+
+// -- DATA --
 const categories = [
   "Food & Groceries",
   "Housing & Shelter",
@@ -641,8 +919,6 @@ const categories = [
   "Jobs & Legal Help",
   "Other Support",
 ];
-
-// DIRECTORY DATA
 const resources = ref([
   {
     id: 1,
@@ -717,8 +993,30 @@ const resources = ref([
     tags: ["Mental Health", "Community"],
   },
 ]);
+const events = ref([
+  {
+    id: 1,
+    title: "Back-to-School Supply Drive",
+    host: "Neighborhood Alliance",
+    date: "Aug 15",
+    time: "4:00–7:00 PM",
+    location: "[School] Gym",
+    contact: "info@neighborhoodalliance.org",
+    description: "Free backpacks, notebooks, and supplies for K–12 students.",
+  },
+  {
+    id: 2,
+    title: "Community Health Fair",
+    host: "Neighborhood Health Clinic",
+    date: "Sep 10",
+    time: "10:00 AM–2:00 PM",
+    location: "City Park Pavilion",
+    contact: "(555) 222-1212",
+    description: "Blood pressure checks, flu shots, mental health resources.",
+  },
+]);
 
-// FEATURED RESOURCES
+// -- LOGIC --
 const featuredIds = [1, 3, 4];
 const featuredResources = computed(() =>
   resources.value
@@ -736,76 +1034,21 @@ const featuredResources = computed(() =>
     }))
 );
 
-// EVENTS
-const events = ref([
-  {
-    id: 1,
-    title: "Back-to-School Supply Drive",
-    host: "Neighborhood Alliance",
-    date: "Aug 15",
-    time: "4:00–7:00 PM",
-    location: "[School] Gym",
-    contact: "info@neighborhoodalliance.org",
-    description:
-      "Free backpacks, notebooks, and supplies for K–12 students. First come, first served.",
-  },
-  {
-    id: 2,
-    title: "Community Health Fair",
-    host: "Neighborhood Health Clinic",
-    date: "Sep 10",
-    time: "10:00 AM–2:00 PM",
-    location: "City Park Pavilion",
-    contact: "(555) 222-1212",
-    description:
-      "Blood pressure checks, flu shots, mental health resources, and wellness activities.",
-  },
-  {
-    id: 3,
-    title: "Job Search & Resume Workshop",
-    host: "Community Legal Aid",
-    date: "Sep 22",
-    time: "5:30–7:30 PM",
-    location: "Public Library Meeting Room",
-    contact: "(555) 555-0101",
-    description:
-      "One-on-one resume help, interview tips, and information about worker rights.",
-  },
-  {
-    id: 4,
-    title: "Youth STEM Night",
-    host: "Youth Learning Lab",
-    date: "Oct 3",
-    time: "6:00–8:00 PM",
-    location: "[School] Innovation Lab",
-    contact: "stem@learninglab.org",
-    description:
-      "Hands-on robotics and coding activities for middle and high school students.",
-  },
-]);
-
-// SEARCH
 const searchQuery = ref("");
 const selectedCategory = ref("");
 
 const filteredResources = computed(() => {
   const q = searchQuery.value.toLowerCase().trim();
   const cat = selectedCategory.value;
-
   return resources.value.filter((r) => {
-    const matchesCategory = !cat || r.category === cat;
-
-    const haystack = [
-      r.name,
-      r.description,
-      r.address || "",
-      (r.tags || []).join(" "),
-    ]
-      .join(" ")
-      .toLowerCase();
-
-    const matchesQuery = !q || haystack.includes(q);
-    return matchesCategory && matchesQuery;
+    return (
+      (!cat || r.category === cat) &&
+      (!q ||
+        [r.name, r.description, r.address || "", (r.tags || []).join(" ")]
+          .join(" ")
+          .toLowerCase()
+          .includes(q))
+    );
   });
 });
 
@@ -813,8 +1056,15 @@ const clearFilters = () => {
   searchQuery.value = "";
   selectedCategory.value = "";
 };
+const filterByGuide = (guide) => {
+  searchQuery.value = "";
+  if (guide === "Families") selectedCategory.value = "Housing & Shelter";
+  if (guide === "Students") selectedCategory.value = "Youth & Education";
+  if (guide === "Seniors") selectedCategory.value = "Health & Wellness";
+  if (guide === "Everyone") selectedCategory.value = "";
+  scrollToSection("directory");
+};
 
-// SUBMISSION FORM
 const form = ref({
   name: "",
   category: "",
@@ -823,12 +1073,8 @@ const form = ref({
   contact: "",
   description: "",
 });
-
 const submitted = ref(false);
-
 const handleSubmit = () => {
-  console.log("New resource submission:", form.value);
-
   submitted.value = true;
   form.value = {
     name: "",
@@ -838,27 +1084,93 @@ const handleSubmit = () => {
     contact: "",
     description: "",
   };
-
   setTimeout(() => {
     submitted.value = false;
   }, 5000);
 };
+
+// -- ANIMATION --
+const heroBg = ref(null);
+const quickFilters = ref(null);
+
+onMounted(() => {
+  if (typeof window !== "undefined") {
+    const saves = localStorage.getItem("community-hub-saves");
+    if (saves) savedResources.value = JSON.parse(saves);
+  }
+
+  window.addEventListener("scroll", handleScroll);
+
+  const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+  tl.to(heroBg.value, { scale: 1.05, duration: 15, ease: "none" }, 0);
+  tl.to(".hero-elem", { y: 0, opacity: 1, duration: 0.8, stagger: 0.15 }, 0.4);
+  tl.to(
+    quickFilters.value,
+    { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.5)" },
+    "-=0.3"
+  );
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const standardElems =
+            entry.target.querySelectorAll(".animate-on-scroll");
+          if (standardElems.length)
+            gsap.to(standardElems, {
+              y: 0,
+              opacity: 1,
+              duration: 0.7,
+              stagger: 0.1,
+              ease: "power2.out",
+            });
+          const staggerItems = entry.target.querySelectorAll(".stagger-item");
+          if (staggerItems.length)
+            gsap.to(staggerItems, {
+              y: 0,
+              opacity: 1,
+              duration: 0.6,
+              stagger: 0.1,
+              delay: 0.1,
+              ease: "power2.out",
+            });
+          const sideItems = entry.target.querySelectorAll(
+            ".animate-on-scroll-side"
+          );
+          if (sideItems.length)
+            gsap.to(sideItems, {
+              x: 0,
+              opacity: 1,
+              duration: 1,
+              delay: 0.2,
+              ease: "power3.out",
+            });
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }
+  );
+  document
+    .querySelectorAll(".scroll-section")
+    .forEach((s) => observer.observe(s));
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
 </script>
 
 <style scoped>
-/* .nav-link {
-  @apply text-xs md:text-sm hover:text-amber-200 transition;
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
 }
 
-.quick-chip {
-  @apply rounded-full border border-amber-200/60 bg-slate-900/40 px-4 py-1.5 text-[11px] font-semibold text-amber-100 hover:bg-amber-400 hover:text-slate-900 transition;
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: scale(0.95);
 }
-
-.form-label {
-  @apply block text-[11px] font-semibold tracking-[0.15em] uppercase text-amber-200 mb-1.5;
-}
-
-.form-input {
-  @apply w-full rounded-xl border border-slate-500/60 bg-slate-900/40 px-3 py-2.5 text-sm text-amber-50 placeholder:text-amber-200/50 focus:outline-none focus:ring-2 focus:ring-amber-400/80 focus:border-amber-400/80;
-} */
 </style>
