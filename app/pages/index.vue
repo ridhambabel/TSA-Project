@@ -300,6 +300,38 @@
     </header>
 
     <main>
+      <div id="chatbot" class="fixed right-10 bottom-10">
+        <div class="relative">
+          <font-awesome-icon icon="fa-solid fa-circle-question" class="text-5xl text-amber-700 z-5 relative" @click="toggleChatBot()"/>
+          <div id="chatbot-body" class="hidden h-[400px] w-[300px] bg-white rounded-3xl border border-black bottom-14 right-1 z-1 transition-all duration-300 p-4">
+            <p class="text-slate-600 text-sm mt-1 text-center font-semibold">
+              What do you need help with today?
+            </p>
+            <div class="flex gap-3 flex-col pt-3">
+              <div
+                @click="scrollToSection('directory')"
+                class="hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
+              >
+                I want to find resources!
+              </div>
+
+              <div
+                @click="scrollToSection('submit')"
+                class="hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
+              >
+                I want to submit a resource!
+              </div>
+
+              <div
+                @click="scrollToSection('about')"
+                class="hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
+              >
+                I want to learn more about this tool!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- COMMUNITY GUIDES -->
       <section
         class="scroll-section py-12 px-6 bg-white border-b border-slate-100"
@@ -886,6 +918,12 @@ const isScrolled = ref(false);
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 20;
 };
+
+function toggleChatBot() {
+  const chatbot = document.getElementById("chatbot-body");
+  chatbot.classList.toggle("hidden");
+  chatbot.classList.toggle("absolute");
+}
 
 // -- BACKPACK LOGIC --
 const isBackpackOpen = ref(false);
