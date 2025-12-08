@@ -802,7 +802,7 @@
             <h2 class="text-3xl font-bold text-slate-900">About this hub</h2>
             <p class="mt-3 text-sm md:text-base text-slate-700">
               This Community Resource Hub was created by
-              <span class="font-semibold">Names</span> Our goal is to make it
+              <span class="font-semibold">the Coppell community</span>. Our goal is to make it
               easier for residents to connect with local support, especially
               students and families who might not know where to start.
             </p>
@@ -860,7 +860,7 @@
                 1-800-799-SAFE (7233)
               </li>
               <li>
-                <strong>Local crisis hotline:</strong> [Add local number here]
+                <strong>Local crisis hotline:</strong> 866-260-8000
               </li>
             </ul>
             <p class="text-xs text-slate-500">
@@ -964,7 +964,7 @@ const resources = ref([
     category: "Food & Groceries",
     description:
       "Weekly food distribution for local families, with fresh produce and pantry staples at no cost.",
-    address: "123 Main St, [City], ST",
+    address: "123 Main St, Irving, TX",
     phone: "(555) 123-4567",
     hours: "Sat 9:00–11:00 AM",
     website: "#",
@@ -976,7 +976,7 @@ const resources = ref([
     category: "Housing & Shelter",
     description:
       "Short-term shelter and housing support services for individuals and families experiencing homelessness.",
-    address: "45 Elm Ave, [City], ST",
+    address: "45 Elm Ave, Irving, TX",
     phone: "(555) 987-6543",
     hours: "Open 24/7",
     website: "#",
@@ -988,7 +988,7 @@ const resources = ref([
     category: "Health & Wellness",
     description:
       "Low-cost medical visits, vaccines, and mental health counseling for residents without regular care.",
-    address: "10 Oak Blvd, [City], ST",
+    address: "10 Oak Blvd, Coppell, TX",
     phone: "(555) 222-1212",
     hours: "Mon–Fri 8:00 AM–5:00 PM",
     website: "#",
@@ -1000,7 +1000,7 @@ const resources = ref([
     category: "Youth & Education",
     description:
       "After-school tutoring and STEM workshops for middle and high school students.",
-    address: "High School Library, 200 School Dr",
+    address: "Coppell High School 9th Grade Campus Library, 200 School Dr",
     phone: "(555) 765-4321",
     hours: "Mon–Thu 3:30–6:00 PM",
     website: "#",
@@ -1012,7 +1012,7 @@ const resources = ref([
     category: "Jobs & Legal Help",
     description:
       "Free legal clinics for housing, employment, and immigration questions.",
-    address: "210 Justice Ln, [City], ST",
+    address: "210 Justice Ln, Irving, TX",
     phone: "(555) 555-0101",
     hours: "Wed 4:00–7:00 PM",
     website: "#",
@@ -1038,7 +1038,7 @@ const events = ref([
     host: "Neighborhood Alliance",
     date: "Aug 15",
     time: "4:00–7:00 PM",
-    location: "[School] Gym",
+    location: "Coppell High School Gym",
     contact: "info@neighborhoodalliance.org",
     description: "Free backpacks, notebooks, and supplies for K–12 students.",
   },
@@ -1048,7 +1048,7 @@ const events = ref([
     host: "Neighborhood Health Clinic",
     date: "Sep 10",
     time: "10:00 AM–2:00 PM",
-    location: "City Park Pavilion",
+    location: "Coppell City Park Pavilion",
     contact: "(555) 222-1212",
     description: "Blood pressure checks, flu shots, mental health resources.",
   },
