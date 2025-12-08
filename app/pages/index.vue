@@ -823,11 +823,11 @@
                 </span>
               </li>
               <li class="flex gap-2">
-                <span class="mt-1 h-2.5 w-2.5 rounded-full bg-amber-500"></span>
+                <span class="mt-1 h-2.5 min-w-2.5 rounded-full bg-amber-500"></span>
                 <span>
-                  <strong>Student-built:</strong>
-                  designed, researched, and coded by students using Nuxt and
-                  Tailwind CSS.
+                  <strong>City-built:</strong>
+                  designed, researched, and coded by specialists experienced in finding underappreciated resources 
+                  and presenting them to the community.
                 </span>
               </li>
               <li class="flex gap-2">
