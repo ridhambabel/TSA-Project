@@ -289,7 +289,7 @@
               class="rounded-full border border-amber-200/60 px-4 py-1.5 text-[11px] font-semibold transition-all duration-200 hover:scale-105 active:scale-95"
               :class="
                 selectedCategory === cat
-                  ? 'bg-amber-400 text-slate-900'
+                  ? 'text-amber-100 hover:text-white'
                   : 'text-amber-100 hover:text-white'
               "
               @click="selectedCategory = cat === selectedCategory ? '' : cat"
