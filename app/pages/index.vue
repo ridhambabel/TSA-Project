@@ -4,7 +4,7 @@
   >
     <!-- BACKPACK DRAWER -->
     <div
-      class="fixed inset-0 z-[100] overflow-hidden transition-visibility duration-300"
+      class="fixed inset-0 z-100 overflow-hidden transition-visibility duration-300"
       :class="
         isBackpackOpen
           ? 'visible pointer-events-auto'
@@ -121,14 +121,6 @@
                 ></path>
               </svg>
             </button>
-            <a
-              v-if="item.website"
-              :href="item.website"
-              target="_blank"
-              class="mt-3 block text-xs font-semibold text-amber-600 hover:underline"
-            >
-              Visit Website &rarr;
-            </a>
           </div>
         </div>
         <!-- Print button removed -->
@@ -144,48 +136,57 @@
           : 'py-6 bg-transparent',
       ]"
     >
-      <div
-        class="flex items-center gap-3 cursor-pointer group"
-        @click="scrollToSection('hero')"
-      >
+      <div class="flex items-center gap-3 cursor-pointer group" @click="goHome">
         <div
-          class="h-9 w-9 rounded-full bg-amber-400/90 grid place-items-center text-slate-900 font-black text-lg shadow-md group-hover:bg-amber-300 transition-colors"
+          class="h-10 w-10 rounded-xl bg-amber-400 grid place-items-center text-slate-900 shadow-amber-400/20 shadow-lg group-hover:bg-amber-300 group-hover:scale-105 transition-all duration-300"
         >
-          CH
-        </div>
-        <div class="leading-tight text-amber-50">
-          <p class="text-xs uppercase tracking-[0.25em] text-amber-200">
-            Community
-          </p>
-          <p
-            class="text-sm font-semibold"
-            :class="{ 'drop-shadow-md': !isScrolled }"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6"
           >
-            Resource Hub
+            <path
+              d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"
+            />
+            <path
+              d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"
+            />
+          </svg>
+        </div>
+        <div class="leading-tight text-amber-50 hidden sm:block">
+          <p class="text-[10px] uppercase tracking-[0.2em] text-amber-200/80">
+            Harborough
           </p>
+          <p class="text-sm font-bold tracking-wide">Resource Hub</p>
         </div>
       </div>
 
       <div class="hidden md:flex items-center gap-6 font-medium text-amber-50">
-        <div
-          v-for="link in [
-            'directory',
-            'highlights',
-            'events',
-            'submit',
-            'about',
-          ]"
-          :key="link"
-          @click="scrollToSection(link)"
-          class="nav-link hover:cursor-pointer hover:text-amber-300 transition-colors capitalize"
+        <NuxtLink
+          to="/"
+          class="nav-link hover:text-amber-300 transition-colors"
           :class="{ 'drop-shadow-sm': !isScrolled }"
         >
-          {{ link === "submit" ? "Add Resource" : link }}
-        </div>
+          Home
+        </NuxtLink>
+        <NuxtLink
+          to="/guides"
+          class="nav-link hover:text-amber-300 transition-colors"
+          :class="{ 'drop-shadow-sm': !isScrolled }"
+        >
+          Guides
+        </NuxtLink>
+        <NuxtLink
+          to="/Addresource"
+          class="nav-link hover:text-amber-300 transition-colors"
+          :class="{ 'drop-shadow-sm': !isScrolled }"
+        >
+          Add Resource
+        </NuxtLink>
       </div>
 
       <div class="flex items-center gap-3">
-        <!-- BACKPACK TRIGGER -->
         <button
           @click="isBackpackOpen = true"
           class="relative rounded-full p-2 text-amber-50 hover:bg-white/10 transition cursor-pointer"
@@ -214,12 +215,13 @@
           </span>
         </button>
 
-        <div
-          @click="scrollToSection('directory')"
+        <!-- FIND HELP BUTTON -->
+        <NuxtLink
+          to="/"
           class="hidden hover:cursor-pointer md:inline-flex rounded-full bg-amber-400 px-5 py-2 text-xs font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
         >
           Find Help
-        </div>
+        </NuxtLink>
       </div>
     </nav>
 
@@ -249,7 +251,7 @@
           <h1
             class="hero-elem max-w-4xl text-3xl sm:text-5xl md:text-6xl font-extrabold leading-tight opacity-0 translate-y-4"
           >
-            <span class="block">Coppell Community Resource Hub</span>
+            <span class="block">Harborough Community Resource Hub</span>
           </h1>
           <p
             class="hero-elem mt-4 max-w-2xl text-sm sm:text-base md:text-lg text-amber-100/90 opacity-0 translate-y-4"
@@ -266,12 +268,12 @@
             >
               Browse Resources
             </div>
-            <div
-              @click="scrollToSection('submit')"
+            <NuxtLink
+              to="/Addresource"
               class="hover:cursor-pointer rounded-full border border-amber-200/70 px-6 py-3 text-sm font-semibold text-amber-50 hover:bg-amber-50/10 active:scale-95 transition-all"
             >
               Suggest a Resource
-            </div>
+            </NuxtLink>
           </div>
         </div>
 
@@ -301,9 +303,16 @@
 
     <main>
       <div id="chatbot" class="fixed right-10 bottom-10">
-        <div class="relative">
-          <font-awesome-icon icon="fa-solid fa-circle-question" class="text-5xl text-amber-700 z-5 relative" @click="toggleChatBot()"/>
-          <div id="chatbot-body" class="hidden h-[400px] w-[300px] bg-white rounded-3xl border border-black bottom-14 right-1 z-1 transition-all duration-300 p-4">
+        <div class="relative z-1000">
+          <font-awesome-icon
+            icon="fa-solid fa-circle-question"
+            class="text-5xl text-amber-700 z-5 relative"
+            @click="toggleChatBot()"
+          />
+          <div
+            id="chatbot-body"
+            class="hidden h-[400px] w-[300px] bg-white rounded-3xl border border-black bottom-14 right-1 z-1000 transition-all duration-300 p-4"
+          >
             <p class="text-slate-600 text-sm mt-1 text-center font-semibold">
               What do you need help with today?
             </p>
@@ -552,7 +561,7 @@
               </dl>
 
               <div class="mt-4 flex items-center justify-between gap-3">
-                <a
+                <!-- <a
                   v-if="resource.website"
                   :href="resource.website"
                   target="_blank"
@@ -560,7 +569,7 @@
                   class="text-xs font-semibold text-amber-700 hover:text-amber-900 hover:underline"
                 >
                   Visit website →
-                </a>
+                </a> -->
                 <span
                   v-if="resource.tags && resource.tags.length"
                   class="text-[11px] rounded-full bg-slate-100 px-2 py-1 text-slate-600"
@@ -612,14 +621,14 @@
                   {{ resource.impact }}
                 </li>
               </ul>
-              <a
+              <!-- <a
                 v-if="resource.website"
                 :href="resource.website"
                 target="_blank"
                 rel="noopener"
                 class="mt-4 inline-flex text-xs font-semibold text-amber-300 hover:text-white transition-colors"
-                >Learn more →</a
-              >
+                >Learn more →</a 
+              >-->
             </article>
           </div>
         </div>
@@ -679,7 +688,7 @@
       </section>
 
       <!-- SUBMISSION FORM -->
-      <section
+      <!-- <section
         id="submit"
         class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-slate-900 text-amber-50 scroll-mt-20"
       >
@@ -788,7 +797,7 @@
             Thank you! Your resource has been submitted.
           </p>
         </div>
-      </section>
+      </section> -->
 
       <!-- ABOUT (Restored Full Text) -->
       <section
@@ -802,9 +811,10 @@
             <h2 class="text-3xl font-bold text-slate-900">About this hub</h2>
             <p class="mt-3 text-sm md:text-base text-slate-700">
               This Community Resource Hub was created by
-              <span class="font-semibold">the Coppell community</span>. Our goal is to make it
-              easier for residents to connect with local support, especially
-              students and families who might not know where to start.
+              <span class="font-semibold">the Coppell community</span>. Our goal
+              is to make it easier for residents to connect with local support,
+              especially students and families who might not know where to
+              start.
             </p>
             <p class="mt-3 text-sm md:text-base text-slate-700">
               We focus on resources that are low-cost or free, within or near
@@ -823,11 +833,14 @@
                 </span>
               </li>
               <li class="flex gap-2">
-                <span class="mt-1 h-2.5 min-w-2.5 rounded-full bg-amber-500"></span>
+                <span
+                  class="mt-1 h-2.5 min-w-2.5 rounded-full bg-amber-500"
+                ></span>
                 <span>
                   <strong>City-built:</strong>
-                  designed, researched, and coded by specialists experienced in finding underappreciated resources 
-                  and presenting them to the community.
+                  designed, researched, and coded by specialists experienced in
+                  finding underappreciated resources and presenting them to the
+                  community.
                 </span>
               </li>
               <li class="flex gap-2">
@@ -859,9 +872,7 @@
                 <strong>National Domestic Violence Hotline:</strong>
                 1-800-799-SAFE (7233)
               </li>
-              <li>
-                <strong>Local crisis hotline:</strong> 866-260-8000
-              </li>
+              <li><strong>Local crisis hotline:</strong> 866-260-8000</li>
             </ul>
             <p class="text-xs text-slate-500">
               These services are not run by this website, but we list them so
@@ -893,9 +904,12 @@
           <a href="#events" class="hover:text-amber-200 transition-colors"
             >Events</a
           >
-          <a href="#submit" class="hover:text-amber-200 transition-colors"
-            >Suggest</a
+          <NuxtLink
+            to="/Addresource"
+            class="hover:text-amber-200 transition-colors"
           >
+            Suggest
+          </NuxtLink>
         </div>
       </div>
     </footer>
@@ -957,26 +971,27 @@ const categories = [
   "Jobs & Legal Help",
   "Other Support",
 ];
+
 const resources = ref([
   {
     id: 1,
-    name: "Community Food Pantry",
+    name: "Harborough Community Pantry",
     category: "Food & Groceries",
     description:
-      "Weekly food distribution for local families, with fresh produce and pantry staples at no cost.",
-    address: "123 Main St, Irving, TX",
+      "Weekly food distribution for local families, offering fresh produce, canned goods, and baby supplies at no cost.",
+    address: "12 High Street, Harborough",
     phone: "(555) 123-4567",
-    hours: "Sat 9:00–11:00 AM",
+    hours: "Tue & Sat 9:00–11:00 AM",
     website: "#",
     tags: ["Free", "Families", "Emergency"],
   },
   {
     id: 2,
-    name: "Hope Housing Center",
+    name: "Harborough Haven Shelter",
     category: "Housing & Shelter",
     description:
-      "Short-term shelter and housing support services for individuals and families experiencing homelessness.",
-    address: "45 Elm Ave, Irving, TX",
+      "Emergency overnight shelter and transitional housing support services for individuals and families facing homelessness.",
+    address: "45 Elm Avenue, Harborough",
     phone: "(555) 987-6543",
     hours: "Open 24/7",
     website: "#",
@@ -984,11 +999,11 @@ const resources = ref([
   },
   {
     id: 3,
-    name: "Neighborhood Health Clinic",
+    name: "St. Mary’s Wellness Centre",
     category: "Health & Wellness",
     description:
-      "Low-cost medical visits, vaccines, and mental health counseling for residents without regular care.",
-    address: "10 Oak Blvd, Coppell, TX",
+      "Low-cost medical visits, flu shots, and mental health counseling for residents without private insurance.",
+    address: "10 Oak Boulevard, Harborough",
     phone: "(555) 222-1212",
     hours: "Mon–Fri 8:00 AM–5:00 PM",
     website: "#",
@@ -996,64 +1011,182 @@ const resources = ref([
   },
   {
     id: 4,
-    name: "Youth Learning Lab",
+    name: "Harborough Youth Hub",
     category: "Youth & Education",
     description:
-      "After-school tutoring and STEM workshops for middle and high school students.",
-    address: "Coppell High School 9th Grade Campus Library, 200 School Dr",
+      "Safe after-school space providing homework help, computer access, and STEM workshops for ages 12-18.",
+    address: "Harborough Central Library, 200 School Dr",
     phone: "(555) 765-4321",
-    hours: "Mon–Thu 3:30–6:00 PM",
+    hours: "Mon–Thu 3:30–6:30 PM",
     website: "#",
     tags: ["Students", "Tutoring", "STEM"],
   },
   {
     id: 5,
-    name: "Community Legal Aid",
+    name: "Harborough Citizens Legal Aid",
     category: "Jobs & Legal Help",
     description:
-      "Free legal clinics for housing, employment, and immigration questions.",
-    address: "210 Justice Ln, Irving, TX",
+      "Free legal clinics covering tenant rights, employment disputes, and family law questions.",
+    address: "210 Justice Lane, Harborough",
     phone: "(555) 555-0101",
     hours: "Wed 4:00–7:00 PM",
     website: "#",
-    tags: ["Legal", "Free Clinic"],
+    tags: ["Legal", "Free Clinic", "Advice"],
   },
   {
     id: 6,
-    name: "Neighborhood Wellness Walk",
+    name: "River Welland Walk & Talk",
     category: "Other Support",
     description:
-      "Weekly community walk and check-in focused on mental health and connection.",
-    address: "Meet at City Park Pavilion",
+      "A weekly guided walking group designed to combat loneliness and improve mental health through connection.",
+    address: "Meet at The Square Pavilion",
     phone: "",
     hours: "Sat 8:00–9:00 AM",
     website: "#",
-    tags: ["Mental Health", "Community"],
+    tags: ["Mental Health", "Community", "Social"],
+  },
+  {
+    id: 7,
+    name: "The Daily Bread Kitchen",
+    category: "Food & Groceries",
+    description:
+      "Serving hot, nutritious nutritious meals every evening to anyone in need. No questions asked.",
+    address: "88 Coventry Road, Harborough",
+    phone: "(555) 333-9999",
+    hours: "Daily 5:00–7:00 PM",
+    website: "#",
+    tags: ["Hot Meals", "No-ID Required"],
+  },
+  {
+    id: 8,
+    name: "Pathways Job Corps",
+    category: "Jobs & Legal Help",
+    description:
+      "Resume writing workshops, interview attire provision, and job placement assistance for the unemployed.",
+    address: "Harborough Community Centre, Room 3B",
+    phone: "(555) 444-8888",
+    hours: "Tue/Thu 10:00 AM–2:00 PM",
+    website: "#",
+    tags: ["Employment", "Training", "Suits"],
+  },
+  {
+    id: 9,
+    name: "Tiny Tots Support Circle",
+    category: "Youth & Education",
+    description:
+      "Free diapers, formula, and parenting classes for new mothers and fathers in the Harborough area.",
+    address: "15 Maple Lane, Harborough",
+    phone: "(555) 777-2222",
+    hours: "Mon/Wed 9:00 AM–12:00 PM",
+    website: "#",
+    tags: ["Babies", "Parents", "Supplies"],
+  },
+  {
+    id: 10,
+    name: "Winter Warmth Fund",
+    category: "Housing & Shelter",
+    description:
+      "Assistance with utility bills and heating costs during winter months for qualifying seniors and families.",
+    address: "Harborough Town Hall, Main Desk",
+    phone: "(555) 666-1111",
+    hours: "Mon–Fri 9:00 AM–4:00 PM",
+    website: "#",
+    tags: ["Utilities", "Financial Aid", "Winter"],
+  },
+  {
+    id: 11,
+    name: "Silver Years Connection",
+    category: "Other Support",
+    description:
+      "Transportation services and social events for senior citizens to help them stay independent.",
+    address: "Harborough Senior Center, 400 Park Ave",
+    phone: "(555) 888-5555",
+    hours: "Daily 8:00 AM–6:00 PM",
+    website: "#",
+    tags: ["Seniors", "Transport", "Social"],
+  },
+  {
+    id: 12,
+    name: "Recovery Roads",
+    category: "Health & Wellness",
+    description:
+      "Peer-led support groups for those navigating addiction recovery. Coffee and snacks provided.",
+    address: "St. Peter's Hall, Harborough",
+    phone: "(555) 999-0000",
+    hours: "Thu 7:00–9:00 PM",
+    website: "#",
+    tags: ["Addiction", "Support Group", "AA/NA"],
   },
 ]);
+
 const events = ref([
   {
     id: 1,
     title: "Back-to-School Supply Drive",
-    host: "Neighborhood Alliance",
+    host: "Harborough Alliance",
     date: "Aug 15",
     time: "4:00–7:00 PM",
-    location: "Coppell High School Gym",
-    contact: "info@neighborhoodalliance.org",
-    description: "Free backpacks, notebooks, and supplies for K–12 students.",
+    location: "Harborough Leisure Centre Gym",
+    contact: "info@harboroughalliance.org",
+    description:
+      "Free backpacks, notebooks, uniforms, and stationery for K–12 students in the district.",
   },
   {
     id: 2,
-    title: "Community Health Fair",
-    host: "Neighborhood Health Clinic",
+    title: "Annual Community Health Fair",
+    host: "St. Mary’s Wellness Centre",
     date: "Sep 10",
     time: "10:00 AM–2:00 PM",
-    location: "Coppell City Park Pavilion",
+    location: "Welland Park Pavilion",
     contact: "(555) 222-1212",
-    description: "Blood pressure checks, flu shots, mental health resources.",
+    description:
+      "Free blood pressure checks, flu shots, dental screenings, and mental health resources.",
+  },
+  {
+    id: 3,
+    title: "Winter Coat Exchange",
+    host: "Harborough Rotary Club",
+    date: "Oct 22",
+    time: "9:00 AM–1:00 PM",
+    location: "The Square (Town Centre)",
+    contact: "coats@harboroughrotary.org",
+    description:
+      "Donate a gently used coat or pick one up for the winter season. Sizes available for all ages.",
+  },
+  {
+    id: 4,
+    title: "Resume & Interview Workshop",
+    host: "Pathways Job Corps",
+    date: "Nov 05",
+    time: "6:00–8:00 PM",
+    location: "Harborough Public Library",
+    contact: "(555) 444-8888",
+    description:
+      "Professional HR managers review resumes and conduct mock interviews to help you land your next job.",
+  },
+  {
+    id: 5,
+    title: "Community Garden Spring Kickoff",
+    host: "Green Harborough",
+    date: "Mar 12",
+    time: "10:00 AM–3:00 PM",
+    location: "Harborough Community Gardens",
+    contact: "grow@harboroughgreen.org",
+    description:
+      "Learn how to grow your own vegetables. Seeds, soil, and tools provided for free. Lunch included.",
+  },
+  {
+    id: 6,
+    title: "Tenants Rights Town Hall",
+    host: "Citizens Legal Aid",
+    date: "Feb 18",
+    time: "5:30–7:30 PM",
+    location: "Harborough Town Hall Auditorium",
+    contact: "legal@harborough.gov",
+    description:
+      "Know your rights regarding eviction, rent increases, and repairs. Free consultation available after.",
   },
 ]);
-
 // -- LOGIC --
 const featuredIds = [1, 3, 4];
 const featuredResources = computed(() =>
