@@ -302,7 +302,7 @@
     </header>
 
     <main>
-      <div id="chatbot" class="fixed right-10 bottom-10">
+      <div id="chatbot" class="fixed right-10 bottom-10 z-100">
         <div class="relative z-1000">
           <font-awesome-icon
             icon="fa-solid fa-circle-question"
@@ -313,29 +313,109 @@
             id="chatbot-body"
             class="hidden h-[400px] w-[300px] bg-white rounded-3xl border border-black bottom-14 right-1 z-1000 transition-all duration-300 p-4"
           >
-            <p class="text-slate-600 text-sm mt-1 text-center font-semibold">
+            <p class="text-slate-600 text-sm mt-1 text-center font-semibold" id="chatbot-text">
               What do you need help with today?
             </p>
-            <div class="flex gap-3 flex-col pt-3">
+            <div class="flex gap-3 flex-col pt-3" id="chatbot-buttons">
               <div
-                @click="scrollToSection('directory')"
+                @click="startSelection()"
                 class="hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
-              >
+                id="cb-find"
+                >
                 I want to find resources!
               </div>
 
               <div
                 @click="scrollToSection('submit')"
                 class="hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
-              >
+                id="cb-submit"
+                >
                 I want to submit a resource!
               </div>
 
               <div
-                @click="scrollToSection('about')"
+                @click="scrollToSection('about'); resetChatbot();"
                 class="hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
-              >
+                id="cb-about"
+                >
                 I want to learn more about this tool!
+              </div>
+              <div
+                @click="selectionCommunity()"
+                class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
+                id="cb-community"
+                >
+                I want to help out the community!
+              </div>
+              <div
+                @click="selectionPersonal()"
+                class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
+                id="cb-personal"
+                >
+                I'm looking for personal aid or assistance!
+              </div>
+              <div
+                @click="filterByGuide('Students'); resetChatbot();"
+                class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
+                id="cb-children"
+                >
+                I want to find something for my children!
+              </div>
+              <div
+                @click="filterByGuide('Other'); resetChatbot();"
+                class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
+                id="cb-other"
+                >
+                I'm looking for something else!
+              </div>
+              <div
+                @click="filterByGuide('Everyone'); resetChatbot();"
+                class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
+                id="cb-browse"
+                >
+                I just want to browse!
+              </div>
+              <div
+                @click="filterByGuide('Food'); resetChatbot();"
+                class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
+                id="cb-food"
+                >
+                I want to help with food!
+              </div>
+              <div
+                @click="filterByGuide('Families'); resetChatbot();"
+                class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
+                id="cb-housing"
+                >
+                I want to help with housing and shelter!
+              </div>
+              <div
+                @click="filterByGuide('Health'); resetChatbot();"
+                class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
+                id="cb-health"
+                >
+                I need help with health and personal wellness!
+              </div>
+              <div
+                @click="filterByGuide('Job'); resetChatbot();"
+                class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
+                id="cb-career"
+                >
+                I need career help!
+              </div>
+              <div
+                @click="filterByGuide('Food'); resetChatbot();"
+                class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
+                id="cb-foodhelp"
+                >
+                I need help with food!
+              </div>
+              <div
+                @click="filterByGuide('Families'); resetChatbot();"
+                class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
+                id="cb-housinghelp"
+                >
+                I need help with housing and shelter!
               </div>
             </div>
           </div>
@@ -938,6 +1018,69 @@ function toggleChatBot() {
   chatbot.classList.toggle("hidden");
   chatbot.classList.toggle("absolute");
 }
+/*const menu1 = [
+  "cb-find", 
+  "cb-submit",
+  "cb-about"
+];
+const menu2 = [
+  "cb-community", 
+  "cb-personal", 
+  "cb-children", 
+  "cb-other", 
+  "cb-browse"
+];
+*/
+
+function startSelection() {
+  document.getElementById("chatbot-text").textContent = "What are you interested in?";
+  document.getElementById("cb-find").style.display = "none";
+  document.getElementById("cb-submit").style.display = "none";
+  document.getElementById("cb-about").style.display = "none";
+  document.getElementById("cb-community").style.display = "block";
+  document.getElementById("cb-personal").style.display = "block";
+  document.getElementById("cb-children").style.display = "block";
+  document.getElementById("cb-other").style.display = "block";
+  document.getElementById("cb-browse").style.display = "block";
+}
+
+function selectionCommunity() {
+  document.getElementById("chatbot-text").textContent = "What do you want to help out in?";
+  document.getElementById("cb-community").style.display = "none";
+  document.getElementById("cb-personal").style.display = "none";
+  document.getElementById("cb-children").style.display = "none";
+  document.getElementById("cb-other").style.display = "none";
+  document.getElementById("cb-browse").style.display = "none";
+  document.getElementById("cb-food").style.display = "block";
+  document.getElementById("cb-housing").style.display = "block";
+}
+
+function selectionPersonal() {
+  document.getElementById("chatbot-text").textContent = "What do you need help with?";
+  document.getElementById("cb-community").style.display = "none";
+  document.getElementById("cb-personal").style.display = "none";
+  document.getElementById("cb-children").style.display = "none";
+  document.getElementById("cb-other").style.display = "none";
+  document.getElementById("cb-browse").style.display = "none";
+  document.getElementById("cb-health").style.display = "block";
+  document.getElementById("cb-career").style.display = "block";
+  document.getElementById("cb-foodhelp").style.display = "block";
+  document.getElementById("cb-housing").style.display = "block";
+}
+
+function resetChatbot() {
+  document.getElementById("chatbot-text").textContent = "What do you need help with today?";
+  const chatbot = document.getElementById("chatbot-body");
+  const allElements = document.getElementById("chatbot-buttons").querySelectorAll('*');
+  allElements.forEach(element => {
+    element.style.display = "none";
+  });
+  document.getElementById("cb-find").style.display = "block";
+  document.getElementById("cb-submit").style.display = "block";
+  document.getElementById("cb-about").style.display = "block";
+  chatbot.classList.add("hidden");
+  chatbot.classList.remove("absolute");
+}
 
 // -- BACKPACK LOGIC --
 const isBackpackOpen = ref(false);
@@ -963,6 +1106,7 @@ const isSaved = (resource) => {
 };
 
 // -- DATA --
+
 const categories = [
   "Food & Groceries",
   "Housing & Shelter",
@@ -1229,9 +1373,12 @@ const clearFilters = () => {
 };
 const filterByGuide = (guide) => {
   searchQuery.value = "";
+  if (guide === "Food") selectedCategory.value = "Food & Groceries";
   if (guide === "Families") selectedCategory.value = "Housing & Shelter";
   if (guide === "Students") selectedCategory.value = "Youth & Education";
-  if (guide === "Seniors") selectedCategory.value = "Health & Wellness";
+  if (guide === "Seniors" || guide == "Health") selectedCategory.value = "Health & Wellness";
+  if (guide === "Job") selectedCategory.value = "Jobs & Legal Help";
+  if (guide === "Other") selectedCategory.value = "Other Support";
   if (guide === "Everyone") selectedCategory.value = "";
   scrollToSection("directory");
 };
