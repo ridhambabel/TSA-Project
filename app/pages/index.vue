@@ -123,7 +123,6 @@
             </button>
           </div>
         </div>
-        <!-- Print button removed -->
       </div>
     </div>
 
@@ -242,19 +241,19 @@
         id="hero"
         class="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center text-amber-50 pt-16"
       >
-        <div ref="heroContent">
+        <div ref="heroContent" class="text-center">
           <p
             class="hero-elem mb-3 text-[11px] uppercase tracking-[0.35em] text-amber-200/90 opacity-0 translate-y-4"
           >
             Welcome to
           </p>
           <h1
-            class="hero-elem max-w-4xl text-3xl sm:text-5xl md:text-6xl font-extrabold leading-tight opacity-0 translate-y-4"
+            class="mx-auto hero-elem max-w-4xl text-3xl sm:text-5xl md:text-6xl font-extrabold leading-tight opacity-0 translate-y-4"
           >
             <span class="block">Harborough Community Resource Hub</span>
           </h1>
           <p
-            class="hero-elem mt-4 max-w-2xl text-sm sm:text-base md:text-lg text-amber-100/90 opacity-0 translate-y-4"
+            class="mx-auto hero-elem mt-4 max-w-2xl text-sm sm:text-base md:text-lg text-amber-100/90 opacity-0 translate-y-4"
           >
             One place to find local food, housing, health, education, and
             support services. Curated for residents, students, and families.
