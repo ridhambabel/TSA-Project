@@ -313,7 +313,10 @@
             id="chatbot-body"
             class="hidden h-[400px] w-[300px] bg-white rounded-3xl border border-black bottom-14 right-1 z-1000 transition-all duration-300 p-4"
           >
-            <p class="text-slate-600 text-sm mt-1 text-center font-semibold" id="chatbot-text">
+            <p
+              class="text-slate-600 text-sm mt-1 text-center font-semibold"
+              id="chatbot-text"
+            >
               What do you need help with today?
             </p>
             <div class="flex gap-3 flex-col pt-3" id="chatbot-buttons">
@@ -321,100 +324,130 @@
                 @click="startSelection()"
                 class="hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
                 id="cb-find"
-                >
+              >
                 I want to find resources!
               </div>
 
-              <div
-                @click="scrollToSection('submit')"
+              <NuxtLink
+                to="/Addresource"
                 class="hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
                 id="cb-submit"
-                >
+              >
                 I want to submit a resource!
-              </div>
+              </NuxtLink>
 
               <div
-                @click="scrollToSection('about'); resetChatbot();"
+                @click="
+                  scrollToSection('about');
+                  resetChatbot();
+                "
                 class="hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
                 id="cb-about"
-                >
+              >
                 I want to learn more about this tool!
               </div>
               <div
                 @click="selectionCommunity()"
                 class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
                 id="cb-community"
-                >
+              >
                 I want to help out the community!
               </div>
               <div
                 @click="selectionPersonal()"
                 class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
                 id="cb-personal"
-                >
+              >
                 I'm looking for personal aid or assistance!
               </div>
               <div
-                @click="filterByGuide('Students'); resetChatbot();"
+                @click="
+                  filterByGuide('Students');
+                  resetChatbot();
+                "
                 class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
                 id="cb-children"
-                >
+              >
                 I want to find something for my children!
               </div>
               <div
-                @click="filterByGuide('Other'); resetChatbot();"
+                @click="
+                  filterByGuide('Other');
+                  resetChatbot();
+                "
                 class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
                 id="cb-other"
-                >
+              >
                 I'm looking for something else!
               </div>
               <div
-                @click="filterByGuide('Everyone'); resetChatbot();"
+                @click="
+                  filterByGuide('Everyone');
+                  resetChatbot();
+                "
                 class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
                 id="cb-browse"
-                >
+              >
                 I just want to browse!
               </div>
               <div
-                @click="filterByGuide('Food'); resetChatbot();"
+                @click="
+                  filterByGuide('Food');
+                  resetChatbot();
+                "
                 class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
                 id="cb-food"
-                >
+              >
                 I want to help with food!
               </div>
               <div
-                @click="filterByGuide('Families'); resetChatbot();"
+                @click="
+                  filterByGuide('Families');
+                  resetChatbot();
+                "
                 class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
                 id="cb-housing"
-                >
+              >
                 I want to help with housing and shelter!
               </div>
               <div
-                @click="filterByGuide('Health'); resetChatbot();"
+                @click="
+                  filterByGuide('Health');
+                  resetChatbot();
+                "
                 class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
                 id="cb-health"
-                >
+              >
                 I need help with health and personal wellness!
               </div>
               <div
-                @click="filterByGuide('Job'); resetChatbot();"
+                @click="
+                  filterByGuide('Job');
+                  resetChatbot();
+                "
                 class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
                 id="cb-career"
-                >
+              >
                 I need career help!
               </div>
               <div
-                @click="filterByGuide('Food'); resetChatbot();"
+                @click="
+                  filterByGuide('Food');
+                  resetChatbot();
+                "
                 class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
                 id="cb-foodhelp"
-                >
+              >
                 I need help with food!
               </div>
               <div
-                @click="filterByGuide('Families'); resetChatbot();"
+                @click="
+                  filterByGuide('Families');
+                  resetChatbot();
+                "
                 class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
                 id="cb-housinghelp"
-                >
+              >
                 I need help with housing and shelter!
               </div>
             </div>
@@ -891,10 +924,10 @@
             <h2 class="text-3xl font-bold text-slate-900">About this hub</h2>
             <p class="mt-3 text-sm md:text-base text-slate-700">
               This Community Resource Hub was created by
-              <span class="font-semibold">the Coppell community</span>. Our goal
-              is to make it easier for residents to connect with local support,
-              especially students and families who might not know where to
-              start.
+              <span class="font-semibold">the Harborough community</span>. Our
+              goal is to make it easier for residents to connect with local
+              support, especially students and families who might not know where
+              to start.
             </p>
             <p class="mt-3 text-sm md:text-base text-slate-700">
               We focus on resources that are low-cost or free, within or near
@@ -971,10 +1004,11 @@
       >
         <div class="space-y-1">
           <p class="font-semibold text-amber-100">
-            Coppell Community Resource Hub
+            Harborough Community Resource Hub
           </p>
           <p>
-            Created by the <span class="font-semibold">Names</span> • 2025–2026
+            Created by the
+            <span class="font-semibold">Harborough Community</span> • 2025–2026
           </p>
         </div>
         <div class="flex flex-wrap gap-4 text-xs">
@@ -1033,7 +1067,8 @@ const menu2 = [
 */
 
 function startSelection() {
-  document.getElementById("chatbot-text").textContent = "What are you interested in?";
+  document.getElementById("chatbot-text").textContent =
+    "What are you interested in?";
   document.getElementById("cb-find").style.display = "none";
   document.getElementById("cb-submit").style.display = "none";
   document.getElementById("cb-about").style.display = "none";
@@ -1045,7 +1080,8 @@ function startSelection() {
 }
 
 function selectionCommunity() {
-  document.getElementById("chatbot-text").textContent = "What do you want to help out in?";
+  document.getElementById("chatbot-text").textContent =
+    "What do you want to help out in?";
   document.getElementById("cb-community").style.display = "none";
   document.getElementById("cb-personal").style.display = "none";
   document.getElementById("cb-children").style.display = "none";
@@ -1056,7 +1092,8 @@ function selectionCommunity() {
 }
 
 function selectionPersonal() {
-  document.getElementById("chatbot-text").textContent = "What do you need help with?";
+  document.getElementById("chatbot-text").textContent =
+    "What do you need help with?";
   document.getElementById("cb-community").style.display = "none";
   document.getElementById("cb-personal").style.display = "none";
   document.getElementById("cb-children").style.display = "none";
@@ -1069,10 +1106,13 @@ function selectionPersonal() {
 }
 
 function resetChatbot() {
-  document.getElementById("chatbot-text").textContent = "What do you need help with today?";
+  document.getElementById("chatbot-text").textContent =
+    "What do you need help with today?";
   const chatbot = document.getElementById("chatbot-body");
-  const allElements = document.getElementById("chatbot-buttons").querySelectorAll('*');
-  allElements.forEach(element => {
+  const allElements = document
+    .getElementById("chatbot-buttons")
+    .querySelectorAll("*");
+  allElements.forEach((element) => {
     element.style.display = "none";
   });
   document.getElementById("cb-find").style.display = "block";
@@ -1376,7 +1416,8 @@ const filterByGuide = (guide) => {
   if (guide === "Food") selectedCategory.value = "Food & Groceries";
   if (guide === "Families") selectedCategory.value = "Housing & Shelter";
   if (guide === "Students") selectedCategory.value = "Youth & Education";
-  if (guide === "Seniors" || guide == "Health") selectedCategory.value = "Health & Wellness";
+  if (guide === "Seniors" || guide == "Health")
+    selectedCategory.value = "Health & Wellness";
   if (guide === "Job") selectedCategory.value = "Jobs & Legal Help";
   if (guide === "Other") selectedCategory.value = "Other Support";
   if (guide === "Everyone") selectedCategory.value = "";

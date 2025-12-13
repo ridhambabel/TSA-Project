@@ -497,10 +497,9 @@
       </div>
 
       <!-- Call to Action -->
-      <div
+      <!-- <div
         class="mt-24 relative overflow-hidden bg-slate-900 rounded-3xl p-10 md:p-14 text-center text-amber-50 animate-fade-up shadow-2xl shadow-slate-900/40"
       >
-        <!-- Decorative bg pattern -->
         <div class="absolute inset-0 opacity-10">
           <svg
             class="h-full w-full"
@@ -533,8 +532,8 @@
               Contact Support
             </button>
           </div>
-        </div>
-      </div>
+        </div> 
+      </div> -->
     </main>
   </div>
 </template>
