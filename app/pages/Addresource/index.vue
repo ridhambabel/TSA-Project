@@ -191,9 +191,17 @@
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label
-                        class="block text-xs font-bold text-slate-500 uppercase mb-1"
-                        >Date</label
+                        class="flex gap-1 flex-row text-xs font-bold text-slate-500 uppercase mb-1"
                       >
+                        Date
+                        <div class="tooltip">
+                          <font-awesome-icon
+                          icon="fa-solid fa-circle-question"
+                          class="text-md text-amber-700 z-5"
+                          />
+                          <span class="tooltiptext normal-case">If it's a multi-day event, enter the staring date and put details in the description below.</span>
+                        </div>
+                      </label>
                       <input
                         required
                         type="date"
@@ -203,8 +211,16 @@
                     <div>
                       <label
                         class="block text-xs font-bold text-slate-500 uppercase mb-1"
-                        >Time</label
                       >
+                        Time
+                        <div class="tooltip">
+                          <font-awesome-icon
+                          icon="fa-solid fa-circle-question"
+                          class="text-md text-amber-700 z-5"
+                          />
+                          <span class="tooltiptext normal-case">If it's a longer event, enter the staring time and put details in the description below.</span>
+                        </div>
+                      </label>
                       <input
                         required
                         type="time"
@@ -437,4 +453,41 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
   opacity: 0.6;
 }
+
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: black;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 150%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltiptext::after {
+  content: " ";
+  position: absolute;
+  top: 12px;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
+
 </style>
