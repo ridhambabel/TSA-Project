@@ -123,7 +123,7 @@
           </p>
 
           <div
-            class="bg-white rounded-3xl p-6 border border-slate-200/60 shadow-sm"
+            class="bg-white rounded-3xl p-6 border border-slate-200/60 shadow-sm hover:scale-101 transition-all duration-300"
           >
             <h3 class="font-bold text-slate-900 mb-4 flex items-center gap-2">
               <svg

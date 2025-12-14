@@ -704,11 +704,11 @@
       <!-- HIGHLIGHTS SECTION -->
       <section
         id="highlights"
-        class="scroll-section bg-slate-900 text-amber-50 py-16 px-6 md:px-10 lg:px-20 scroll-mt-20"
+        class="scroll-section bg-slate-900 text-amber-50 py-16 scroll-mt-20 overflow-hidden"
       >
-        <div class="max-w-6xl mx-auto">
+        <div class="max-w-screen mx-auto relative">
           <div
-            class="animate-on-scroll flex flex-col md:flex-row md:items-end md:justify-between gap-6 opacity-0 translate-y-8"
+            class="animate-on-scroll flex flex-col md:flex-row md:items-end md:justify-between gap-6 opacity-0 translate-y-8 mb-5 px-6 md:px-10 lg:px-20"
           >
             <div>
               <h2 class="text-3xl font-bold">Spotlight: Featured resources</h2>
@@ -717,31 +717,56 @@
               </p>
             </div>
           </div>
-          <div class="mt-8 grid gap-6 md:grid-cols-3 stagger-container">
-            <article
-              v-for="resource in featuredResources"
-              :key="resource.id"
-              class="stagger-item opacity-0 translate-y-8 rounded-2xl bg-slate-800/70 p-5 border border-slate-700/80 hover:bg-slate-800 transition-colors duration-300"
-            >
-              <h3 class="text-lg font-semibold">{{ resource.name }}</h3>
-              <p class="mt-2 text-sm text-amber-100/90">
-                {{ resource.highlight }}
-              </p>
-              <ul class="mt-3 space-y-1 text-xs text-amber-200/85">
-                <li>
-                  <span class="font-semibold">Impact:</span>
-                  {{ resource.impact }}
-                </li>
-              </ul>
-              <!-- <a
-                v-if="resource.website"
-                :href="resource.website"
-                target="_blank"
-                rel="noopener"
-                class="mt-4 inline-flex text-xs font-semibold text-amber-300 hover:text-white transition-colors"
-                >Learn more →</a 
-              >-->
-            </article>
+          <div class="relative z-2">
+            <div class="carousel gap-6">
+              <div class="mt-8 flex gap-6 md:grid-cols-3 stagger-container carousel-group">
+                <article
+                  v-for="resource in featuredResources"
+                  :key="resource.id"
+                  class="stagger-item opacity-0 translate-y-8 rounded-2xl bg-slate-800/70 p-5 border border-slate-700/80 hover:bg-slate-800 hover:opacity-100 transition-all duration-300 w-[100%]"
+                >
+                  <h3 class="text-lg font-semibold">{{ resource.name }}</h3>
+                  <p class="mt-2 text-sm text-amber-100/90">
+                    {{ resource.highlight }}
+                  </p>
+                  <ul class="mt-3 space-y-1 text-xs text-amber-200/85">
+                    <li>
+                      <span class="font-semibold">Impact:</span>
+                      {{ resource.impact }}
+                    </li>
+                  </ul>
+                  <!-- <a
+                    v-if="resource.website"
+                    :href="resource.website"
+                    target="_blank"
+                    rel="noopener"
+                    class="mt-4 inline-flex text-xs font-semibold text-amber-300 hover:text-white transition-colors"
+                    >Learn more →</a 
+                  >-->
+                </article>
+              </div>
+              <div aria-hidden class="mt-8 flex gap-6 stagger-container overflow-hidden carousel-group" id="cgroup-2">
+                <article
+                  v-for="resource in featuredResources"
+                  :key="resource.id"
+                  class="stagger-item opacity-0 translate-y-8 rounded-2xl bg-slate-800/70 p-5 border border-slate-700/80 hover:bg-slate-800 hover:opacity-100 transition-all duration-300"
+                >
+                  <h3 class="text-lg font-semibold">{{ resource.name }}</h3>
+                  <p class="mt-2 text-sm text-amber-100/90">
+                    {{ resource.highlight }}
+                  </p>
+                  <ul class="mt-3 space-y-1 text-xs text-amber-200/85">
+                    <li>
+                      <span class="font-semibold">Impact:</span>
+                      {{ resource.impact }}
+                    </li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+            <div class="fade-overlay left"></div>
+            <div class="fade-overlay right"></div>
+            <span class="spotlight-backdrop"></span>
           </div>
         </div>
       </section>
@@ -1371,7 +1396,7 @@ const events = ref([
   },
 ]);
 // -- LOGIC --
-const featuredIds = [1, 3, 4];
+const featuredIds = [1, 3, 4, 6];
 const featuredResources = computed(() =>
   resources.value
     .filter((r) => featuredIds.includes(r.id))
@@ -1381,9 +1406,13 @@ const featuredResources = computed(() =>
       impact:
         r.id === 1
           ? "Provides groceries to over 120 families each month."
-          : r.id === 3
+        : r.id === 3
           ? "Offers low-cost care to residents who lack insurance."
-          : "Supports dozens of students with academic and career prep.",
+        : r.id === 4
+          ? "Supports dozens of students with academic and career prep."
+        : r.id === 6
+          ? "Provides many different resources for evicted citizens and gives highly impactful legal advice."
+          : "Highly impactful service across the Harborough community.",
       serves: r.tags ? r.tags.join(", ") : "",
     }))
 );
@@ -1530,5 +1559,82 @@ onUnmounted(() => {
 .list-leave-to {
   opacity: 0;
   transform: scale(0.95);
+}
+
+@keyframes scrolling {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+.carousel {
+  display: flex;
+  overflow: hidden;
+  > * {
+      flex: 0 0 100%;
+    }
+  &:hover .carousel-group {
+      animation-play-state: paused;
+    }
+}
+
+.carousel-group {
+  will-change: transform;
+  animation: scrolling 25s linear infinite;
+}
+
+.fade-overlay {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  pointer-events: none;
+  z-index: 1; 
+}
+
+fade-overlay.left {
+  left: 0;
+  background: linear-gradient(to right, #0f172a, transparent);
+}
+
+.fade-overlay.right {
+  right: 0;
+  background: linear-gradient(to left, #0f172a, transparent);
+}
+
+.spotlight-backdrop {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 500px;
+  height: 500px;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 200, 0.3) 0%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  filter: brightness(0.8) contrast(1.2);
+}
+
+@media (max-width: 900px) {
+  #cgroup-2 {
+    display: hidden;
+  }
+  .fade-overlay {
+    display: hidden;
+    background: none;
+  }
+  .carousel-group {
+    animation: none;
+    margin: 0 20px;
+    max-width: 95%;
+    display: flex;
+    flex-direction: column;
+  }
 }
 </style>
