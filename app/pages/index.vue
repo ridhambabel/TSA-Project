@@ -301,6 +301,7 @@
     </header>
 
     <main>
+      <!-- CHATBOT -->
       <div id="chatbot" class="fixed right-10 bottom-10 z-100">
         <div class="relative z-1000">
           <font-awesome-icon
@@ -310,7 +311,7 @@
           />
           <div
             id="chatbot-body"
-            class="hidden h-[400px] w-[300px] bg-white rounded-3xl border border-black bottom-14 right-1 z-1000 transition-all duration-300 p-4"
+            class="hidden h-[400px] w-[300px] bg-white rounded-xl border border-black bottom-16 right-1 z-1000 transition-all duration-300 p-4 shadow-lg hover:shadow-2xl"
           >
             <p
               class="text-slate-600 text-sm mt-1 text-center font-semibold"
@@ -1561,6 +1562,17 @@ onUnmounted(() => {
   transform: scale(0.95);
 }
 
+#chatbot-body::after {
+  content: " ";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 91.5%;
+  margin-left: -15px;
+  border-width: 15px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
 @keyframes scrolling {
     0% {
       transform: translateX(0);
@@ -1615,7 +1627,7 @@ fade-overlay.left {
   pointer-events: none;
   background: radial-gradient(
     circle at center,
-    rgba(255, 255, 200, 0.3) 0%,
+    rgba(255, 255, 200, 0.4) 0%,
     rgba(0, 0, 0, 0) 70%
   );
   filter: brightness(0.8) contrast(1.2);
