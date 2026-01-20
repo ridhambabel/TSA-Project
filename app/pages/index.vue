@@ -690,6 +690,15 @@
                   {{ resource.tags.slice(0, 2).join(" • ") }}
                 </span>
               </div>
+              <div class="h-10 aspect-square rounded-full border-1 border-gray-200 flex items-center justify-center absolute bottom-4 right-4 
+                          text-gray-500 hover:scale-105 hover:text-[#EEBC1D] transition-all duration-300"
+                  @click.stop="nominationOpen(resource)"
+                          >
+                <font-awesome-icon
+                    icon="fa-solid fa-trophy"
+                    class="text-lg z-5"
+                  />
+              </div>
             </article>
           </TransitionGroup>
 
@@ -715,6 +724,16 @@
               <h2 class="text-3xl font-bold">Spotlight: Featured resources</h2>
               <p class="mt-2 text-sm md:text-base text-amber-100/90">
                 Programs nominated by students, families, and neighbors.
+                <div class="tooltip">
+                  <font-awesome-icon
+                  icon="fa-solid fa-circle-question"
+                  class="text-md text-amber-700 z-5"
+                  />
+                  <span class="tooltiptext normal-case text-xs">
+                    To nominate a resource, look for it in the section above and
+                    tap on the trophy icon!
+                  </span>
+                </div>
               </p>
             </div>
           </div>
@@ -1021,6 +1040,100 @@
       </section>
     </main>
 
+    <!-- NOMINATION POPUP MODAL -->
+    <div
+      v-if="showNominationModal"
+      class="fixed inset-0 z-100 flex items-center justify-center p-4"
+    >
+      <!-- Backdrop -->
+      <div
+        class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"
+        @click="closeModal"
+      ></div>
+
+      <!-- Modal Content -->
+      <div
+        class="relative bg-white rounded-3xl p-8 max-w-3xl w-full shadow-2xl text-center transform transition-all animate-fade-up border border-white/20"
+      >
+        <h2 contenteditable="true" class="text-xl font-semibold text-slate-900 mb-2">
+          Why would you like to nominate <strong contenteditable="true">{{nom_text}}</strong> for the spotlight?
+        </h2>
+        <div>
+          <textarea
+            rows="7"
+            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium 
+            focus:outline-none focus:ring-1 focus:ring-amber-400/50 focus:border-amber-400 transition-all placeholder:text-slate-400"
+            placeholder="Why is this resource special? Include any specific impact, benefits, special recognition from news/media, etc..."
+            id="nom_details"
+          ></textarea>
+        </div>
+        <!--<p class="text-slate-600 mb-8 leading-relaxed">
+          Thank you for contributing to the Harborough community. Your nomination has
+          been sent to our team and will be processed within 24 hours.
+        </p>-->
+
+        <button
+          @click="submitNomination()"
+          class="w-[50%] max-w-50 py-3.5 rounded-xl bg-green-100 text-slate-900 font-bold hover:bg-green-300 
+          transition-colors shadow-lg bg-green-400/20 flex justify-center items-center mx-auto gap-2 mt-3"
+        >
+          Submit
+          <font-awesome-icon
+            icon="fa-solid fa-circle-arrow-right"
+            class="text-lg z-5"
+          />
+        </button>
+      </div>
+    </div>
+
+    <!-- NOMINATION SUCCESS POPUP MODAL -->
+    <div
+      v-if="showSuccessModal"
+      class="fixed inset-0 z-100 flex items-center justify-center p-4"
+    >
+      <!-- Backdrop -->
+      <div
+        class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"
+        @click="closeModal"
+      ></div>
+
+      <!-- Modal Content -->
+      <div
+        class="relative bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl text-center transform transition-all animate-fade-up border border-white/20"
+      >
+        <div
+          class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-green-600"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-8 h-8"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+
+        <h2 class="text-2xl font-black text-slate-900 mb-2">
+          Nomination Received!
+        </h2>
+        <p class="text-slate-600 mb-8 leading-relaxed">
+          Thank you for contributing to the Harborough community. Your nomination has
+          been sent to our team and will be processed within 24 hours.
+        </p>
+
+        <button
+          @click="closeModal"
+          class="w-full py-3.5 rounded-xl bg-amber-400 text-slate-900 font-bold hover:bg-amber-300 transition-colors shadow-lg shadow-amber-400/20"
+        >
+          Got it!
+        </button>
+      </div>
+    </div>
     <footer
       class="bg-slate-950 text-slate-300 py-8 px-6 md:px-10 lg:px-20 text-sm"
     >
@@ -1165,6 +1278,25 @@ const toggleSave = (resource) => {
     );
   }
 };
+
+const showNominationModal = ref(false);
+const showSuccessModal = ref(false);
+const nom_text = ref(' ');
+
+const nominationOpen = (resource) => {
+  nom_text.value = resource.name;
+  showNominationModal.value = true;
+};
+
+function closeModal() {
+  showNominationModal.value = false;
+  showSuccessModal.value = false;
+}
+
+function submitNomination() {
+  showNominationModal.value = false;
+  showSuccessModal.value = true;
+}
 
 const isSaved = (resource) => {
   return savedResources.value.some((r) => r.id === resource.id);
@@ -1648,5 +1780,40 @@ fade-overlay.left {
     display: flex;
     flex-direction: column;
   }
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 260px;
+  background-color: black;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 150%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltiptext::after {
+  content: " ";
+  position: absolute;
+  top: 12px;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
 }
 </style>
