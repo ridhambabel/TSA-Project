@@ -131,7 +131,7 @@
             </p>
 
             <ul class="mt-4 grid gap-3 text-sm text-slate-700">
-              <li class="flex gap-2 content-box">
+              <li class="flex gap-2 content-box hover:scale-102 duration-300 transition-all">
                 <span class="mt-1 h-2.5 min-w-2.5 w-2.5 rounded-full bg-amber-500"></span>
                 <span>
                   <strong>Curated directory:</strong>
@@ -139,7 +139,7 @@
                   filters, so you can find what you need at a glance.
                 </span>
               </li>
-              <li class="flex gap-2 content-box">
+              <li class="flex gap-2 content-box hover:scale-102 duration-300 transition-all">
                 <span
                   class="mt-1 h-2.5 min-w-2.5 w-2.5 rounded-full bg-amber-500"
                 ></span>
@@ -150,7 +150,7 @@
                   community.
                 </span>
               </li>
-              <li class="flex gap-2 content-box">
+              <li class="flex gap-2 content-box hover:scale-102 duration-300 transition-all">
                 <span class="mt-1 h-2.5 min-w-2.5 w-2.5 rounded-full bg-amber-500"></span>
                 <span>
                   <strong>Community-driven:</strong>
@@ -189,10 +189,224 @@
           </aside>
         </div>
       </section>
+
+      <!-- TESTIMONIALS
+      <section
+        id="testimonials"
+        class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20"
+      >
+        <div class="max-w-6xl mx-auto">
+          <div
+            class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 translate-y-8"
+          >
+            <div>
+              <h2 class="text-3xl font-bold text-slate-900">
+                Upcoming community events
+              </h2>
+              <p class="mt-2 text-slate-600 text-sm md:text-base">
+                Workshops, food distributions, and health fairs.
+              </p>
+            </div>
+          </div>
+          <div class="mt-8 grid gap-4 md:grid-cols-2 stagger-container">
+            <article
+              v-for="event in events"
+              :key="event.id"
+              class="stagger-item translate-y-8 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <h3 class="font-semibold text-lg text-slate-900">
+                    {{ event.title }}
+                  </h3>
+                  <p class="mt-1 text-sm text-slate-600">{{ event.host }}</p>
+                </div>
+                <div class="flex flex-col items-end text-right">
+                  <span
+                    class="inline-flex items-center rounded-xl bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800"
+                    >{{ event.date }}</span
+                  >
+                  <span class="mt-1 text-[11px] text-slate-500">{{
+                    event.time
+                  }}</span>
+                </div>
+              </div>
+              <p class="mt-3 text-sm text-slate-600">{{ event.description }}</p>
+              <dl class="mt-3 space-y-1 text-xs text-slate-500">
+                <div class="flex gap-2">
+                  <dt class="font-semibold">Location:</dt>
+                  <dd>{{ event.location }}</dd>
+                </div>
+              </dl>
+            </article>
+          </div>
+        </div>
+      </section> -->
+
+      <!-- REVIEW/SUGGESTION SUBMISSION -->
+       
+      <section
+      class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20">
+        <h1
+            class="text-2xl md:text-3xl font-black text-slate-900 mb-4 leading-tight tracking-tight"
+            >
+            Suggestions
+        </h1>
+        <div class="flex flex-col md:grid grid-cols-2 grid-rows-2 w-full gap-4 mb-4">
+        
+            <textarea
+                rows="6"
+                class="resize-none row-span-2 col-span-1 w-full max-w-5xl bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 
+                text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all placeholder:text-slate-400"
+                placeholder="Have any suggestions that could make your experience better, or any issues you'd like to report?"
+            ></textarea>
+            <div>
+                <label
+                class="block text-xs font-bold text-slate-500 uppercase mb-1"
+                >Email Address
+                    <div class="tooltip">
+                        <font-awesome-icon
+                        icon="fa-solid fa-circle-question"
+                        class="text-md text-amber-700 z-5"
+                        />
+                        <span class="tooltiptext normal-case">This is optional, but it allows us to reach out to you with any follow-up questions!</span>
+                    </div>
+                </label
+                >
+                <input
+                required
+                type="email"
+                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all"
+                />
+            </div>
+            <div>
+                <label
+                class="block text-xs font-bold text-slate-500 uppercase mb-1"
+                >Phone Number
+                    <div class="tooltip">
+                        <font-awesome-icon
+                        icon="fa-solid fa-circle-question"
+                        class="text-md text-amber-700 z-5"
+                        />
+                        <span class="tooltiptext normal-case">This is optional, but it allows us to reach out to you with any follow-up questions!</span>
+                    </div>
+                </label
+                >
+                <input
+                required
+                type="phone"
+                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all"
+                />
+            </div>
+            </div>
+            <button
+                @click="openModal"
+                class="w-[50%] max-w-50 py-3.5 rounded-xl bg-green-100 text-slate-900 font-bold hover:bg-green-300 
+                transition-colors shadow-lg bg-green-400/20 flex justify-center items-center mx-auto gap-2 mt-3"
+                >
+                Submit
+                <font-awesome-icon
+                    icon="fa-solid fa-circle-arrow-right"
+                    class="text-lg z-5"
+                />
+            </button>
+        </section>
+
+
+    <!-- SUGGESTION POPUP MODAL -->
+    <div
+      v-if="showSuggestModal"
+      class="fixed inset-0 z-100 flex items-center justify-center p-4"
+    >
+      <!-- Backdrop -->
+      <div
+        class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"
+        @click="closeModal"
+      ></div>
+
+      <!-- Success Modal Content -->
+      <div
+        class="relative bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl text-center transform transition-all animate-fade-up border border-white/20"
+      >
+        <div
+          class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-green-600"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-8 h-8"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+
+        <h2 class="text-2xl font-black text-slate-900 mb-2">
+          Suggestion Received!
+        </h2>
+        <p class="text-slate-600 mb-8 leading-relaxed">
+          Your suggestion has been sent to our developer team, and we hope to get back to you (or resolve the issue) within 24 hours.
+        </p>
+
+        <button
+          @click="closeModal"
+          class="w-full py-3.5 rounded-xl bg-amber-400 text-slate-900 font-bold hover:bg-amber-300 transition-colors shadow-lg shadow-amber-400/20"
+        >
+          Got it!
+        </button>
+      </div>
+    </div>
+    
+      <footer
+      class="bg-slate-950 text-slate-300 py-8 px-6 md:px-10 lg:px-20 text-sm"
+      >
+        <div
+            class="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+        >
+            <div class="space-y-1">
+            <p class="font-semibold text-amber-100">
+                Harborough Community Resource Hub
+            </p>
+            <p>
+                Created by the
+                <span class="font-semibold">Harborough Community</span> • 2025–2026
+            </p>
+            </div>
+            <div class="flex flex-wrap gap-4 text-xs">
+            <a href="#directory" class="hover:text-amber-200 transition-colors"
+                >Browse</a
+            >
+            <a href="#events" class="hover:text-amber-200 transition-colors"
+                >Events</a
+            >
+            <NuxtLink
+                to="/Addresource"
+                class="hover:text-amber-200 transition-colors"
+            >
+                Suggest
+            </NuxtLink>
+            </div>
+        </div>
+        </footer>
       </div>
 </template>
 
+<script setup>
+    import { ref, computed, onMounted, onUnmounted } from "vue";
+    import gsap from "gsap";
 
+    const showSuggestModal = ref(false);
+    function openModal() {
+        showSuggestModal.value = true;
+    }
+    function closeModal() {
+        showSuggestModal.value = false;
+    }
+</script>
 <style scoped>
     .animate-fade-up {
         animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -213,5 +427,40 @@
         border-radius: 1rem;
         padding: 1.25rem;
         border: 1px solid #f1f5f9;
+    }
+
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .tooltiptext {
+        visibility: hidden;
+        width: 160px;
+        background-color: black;
+        color: #ffffff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        top: -5px;
+        left: 150%;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
+
+    .tooltiptext::after {
+        content: " ";
+        position: absolute;
+        top: 12px;
+        right: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent black transparent transparent;
     }
 </style>

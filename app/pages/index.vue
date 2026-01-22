@@ -1097,7 +1097,7 @@
         @click="closeModal"
       ></div>
 
-      <!-- Modal Content -->
+      <!-- Success Modal Content -->
       <div
         class="relative bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl text-center transform transition-all animate-fade-up border border-white/20"
       >
@@ -1134,6 +1134,8 @@
         </button>
       </div>
     </div>
+
+
     <footer
       class="bg-slate-950 text-slate-300 py-8 px-6 md:px-10 lg:px-20 text-sm"
     >
