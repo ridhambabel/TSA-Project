@@ -1768,7 +1768,7 @@ fade-overlay.left {
   pointer-events: none;
   background: radial-gradient(
     circle at center,
-    rgba(255, 255, 200, 0.4) 0%,
+    rgba(255, 255, 200, 0.25) 0%,
     rgba(0, 0, 0, 0) 70%
   );
   filter: brightness(0.8) contrast(1.2);
