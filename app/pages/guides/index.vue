@@ -69,6 +69,13 @@
         >
           Add Resource
         </NuxtLink>
+        <NuxtLink
+          to="/About"
+          class="nav-link hover:text-amber-300 transition-colors"
+          :class="{ 'drop-shadow-sm': !isScrolled }"
+        >
+          About
+        </NuxtLink>
       </div>
 
       <!-- RIGHT SIDE ACTIONS -->

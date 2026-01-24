@@ -61,6 +61,13 @@
         >
           Add Resource
         </NuxtLink>
+        <NuxtLink
+          to="/About"
+          class="nav-link hover:text-amber-300 transition-colors"
+          :class="{ 'drop-shadow-sm': !isScrolled }"
+        >
+          About
+        </NuxtLink>
       </div>
 
       <div class="flex items-center gap-3">
@@ -190,61 +197,85 @@
         </div>
       </section>
 
-      <!-- TESTIMONIALS
+      <!-- REFERENCE PAGE-->
       <section
-        id="testimonials"
-        class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20"
-      >
-        <div class="max-w-6xl mx-auto">
-          <div
-            class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 translate-y-8"
-          >
-            <div>
-              <h2 class="text-3xl font-bold text-slate-900">
-                Upcoming community events
-              </h2>
-              <p class="mt-2 text-slate-600 text-sm md:text-base">
-                Workshops, food distributions, and health fairs.
-              </p>
-            </div>
-          </div>
-          <div class="mt-8 grid gap-4 md:grid-cols-2 stagger-container">
-            <article
-              v-for="event in events"
-              :key="event.id"
-              class="stagger-item translate-y-8 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow"
+      class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20">
+        <h1
+            class="text-3xl md:text-4xl font-black text-slate-900 mb-4 leading-tight tracking-tight"
             >
-              <div class="flex items-center justify-between gap-3">
-                <div>
-                  <h3 class="font-semibold text-lg text-slate-900">
-                    {{ event.title }}
-                  </h3>
-                  <p class="mt-1 text-sm text-slate-600">{{ event.host }}</p>
+            Reference Page
+        </h1>
+        <div class="flex flex-col md:grid grid-cols-2 grid-rows-2 w-full gap-4 mb-4">
+            <div class="w-full max-w-3xl bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 
+                text-slate-900 font-medium order-1 transition-all duration-300 hover:scale-101">
+                <div class="flex flex-row content-center gap-2">
+                    <div>
+                        <font-awesome-icon
+                            icon="fa-solid fa-chart-simple"
+                            class="text-2xl text-green-500 z-5 mt-[2px]"
+                        />
+                    </div>
+                    <h1
+                        class="text-xl md:text-2xl font-bold text-slate-900 mb-2 leading-tight tracking-tight"
+                        >
+                        Work Log:
+                    </h1>
                 </div>
-                <div class="flex flex-col items-end text-right">
-                  <span
-                    class="inline-flex items-center rounded-xl bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800"
-                    >{{ event.date }}</span
-                  >
-                  <span class="mt-1 text-[11px] text-slate-500">{{
-                    event.time
-                  }}</span>
+                <a href="https://drive.google.com/file/d/149se40zU8wrDUoaozg8lup8iqpfNVSAv/view?usp=share_link"
+                   class="text-md md:text-lg font-semibold mb-4 leading-tight tracking-tight underline text-[#4285F4] hover:text-[#0a4ab3]">
+                    Click here to access our Work Log!
+                </a>
+            </div>
+            <div class="w-full max-w-3xl bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 
+                text-slate-900 font-medium order-2 md:order-3 transition-all duration-300 hover:scale-101">
+                <div class="flex flex-row content-center gap-2">
+                    <div>
+                        <font-awesome-icon
+                            icon="fa-solid fa-table-list"
+                            class="text-2xl text-green-500 z-5 mt-[2px]"
+                        />
+                    </div>
+                    <h1
+                        class="text-xl md:text-2xl font-bold text-slate-900 mb-2 leading-tight tracking-tight"
+                        >
+                        Student Copyright Checklist:
+                    </h1>
                 </div>
-              </div>
-              <p class="mt-3 text-sm text-slate-600">{{ event.description }}</p>
-              <dl class="mt-3 space-y-1 text-xs text-slate-500">
-                <div class="flex gap-2">
-                  <dt class="font-semibold">Location:</dt>
-                  <dd>{{ event.location }}</dd>
-                </div>
-              </dl>
-            </article>
-          </div>
+                <a href="https://drive.google.com/file/d/1OQ_MyCd4v6B_jY2zHq62EJ2xuDJuzjMa/view?usp=share_link"
+                   class="text-md md:text-lg font-semibold mb-4 leading-tight tracking-tight underline text-[#4285F4] hover:text-[#0a4ab3]">
+                    Click here to access our Copyright Checklist!
+                </a>
+            </div>
+            <div class="row-span-2 w-full max-w-3xl bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 
+                text-slate-900 font-medium h-full min-h-40 order-3 md:order-2 transition-all duration-300 hover:scale-101">
+                    <h1
+                        class="text-xl md:text-2xl font-bold text-slate-900 mb-2 leading-tight tracking-tight "
+                        >
+                        Other References:
+                        <div class="tooltip">
+                            <font-awesome-icon
+                            icon="fa-solid fa-circle-question"
+                            class="!text-sm text-amber-700 z-5"
+                            />
+                            <span class="!text-xs tooltiptext normal-case">These are additional references to research, images, etc.</span>
+                        </div>
+                    </h1>
+                    <ul class="mt-4 grid gap-3 text-sm text-slate-700 pl-4">
+                        <li class="flex gap-2">
+                            <span class="mt-1 h-2.5 min-w-2.5 w-2.5 rounded-full bg-amber-500"></span>
+                            <span>
+                            "Timelapse photo of people passing the street." *Unsplash*, 19 Apr. 2016, 
+                            https://unsplash.com/photos/timelapse-photo-of-people-passing-the-street-31-pOduwZGE.
+                            </span>
+                        </li>
+                    </ul>
+            </div>
+           
         </div>
-      </section> -->
+        </section>
+
 
       <!-- REVIEW/SUGGESTION SUBMISSION -->
-       
       <section
       class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20">
         <h1
