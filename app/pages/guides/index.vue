@@ -14,37 +14,43 @@
           : 'py-6 bg-transparent',
       ]"
     >
-      <!-- LOGO (Links to Home) -->
-      <NuxtLink to="/" class="flex items-center gap-3 cursor-pointer group">
-        <div
-          class="h-9 w-9 rounded-full bg-amber-400/90 grid place-items-center text-slate-900 font-black text-lg shadow-md group-hover:bg-amber-300 transition-colors"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            class="w-5 h-5"
+      <!-- TOP LEFT TEXT-->
+      <div class="flex items-center gap-3 cursor-pointer group z-20" @click="goHome">
+        <NuxtLink to="/">
+          <div
+            class="h-10 w-10 rounded-xl bg-amber-400 hidden md:grid place-items-center text-slate-900 shadow-amber-400/20 shadow-lg hover:bg-amber-300 hover:scale-105 transition-all duration-300"
           >
-            <path
-              d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"
-            />
-            <path
-              d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"
-            />
-          </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"
+              />
+              <path
+                d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"
+              />
+            </svg>
+          </div>
+        </NuxtLink>
+        <div
+          class="h-10 w-10 rounded-xl bg-amber-400 grid md:hidden place-items-center text-slate-900 shadow-amber-400/20 shadow-lg hover:bg-amber-300 hover:scale-105 transition-all duration-300"
+        >
+          <font-awesome-icon
+            icon="fa-solid fa-bars"
+            class="text-2xl z-5 relative"
+            @click="toggleNavbar()"
+          />
         </div>
-        <div class="leading-tight text-amber-50">
-          <p class="text-xs uppercase tracking-[0.25em] text-amber-200">
+        <div class="leading-tight text-amber-50 block">
+          <p class="text-[10px] uppercase tracking-[0.2em] text-amber-200/80">
             Harborough
           </p>
-          <p
-            class="text-sm font-semibold"
-            :class="{ 'drop-shadow-md': !isScrolled }"
-          >
-            Resource Hub
-          </p>
+          <p class="text-sm font-bold tracking-wide">Resource Hub</p>
         </div>
-      </NuxtLink>
+      </div>
 
       <!-- CENTER NAVIGATION LINKS -->
       <div class="hidden md:flex items-center gap-6 font-medium text-amber-50">
@@ -116,6 +122,39 @@
         >
           Find Help
         </NuxtLink>
+      </div>
+            <!-- MOBILE SIDEBAR -->
+      <div :style="{width: sideWidth}" class="h-screen w-0 fixed z-10 top-0 left-0 bg-slate-800 overflow-x-hidden pt-10 duration-400 md:hidden">
+        <div class="flex flex-col ml-10 text-amber-50 mt-15 gap-5 text-xl">
+          <NuxtLink
+          to="/"
+          class="nav-link hover:text-amber-300 duration-200 transition-colors"
+          :class="{ 'drop-shadow-sm': !isScrolled }"
+        >
+          Home
+        </NuxtLink>
+        <NuxtLink
+          to="/guides"
+          class="nav-link hover:text-amber-300 duration-200 transition-colors"
+          :class="{ 'drop-shadow-sm': !isScrolled }"
+        >
+          Guides
+        </NuxtLink>
+        <NuxtLink
+          to="/Addresource"
+          class="nav-link hover:text-amber-300 duration-200 transition-colors"
+          :class="{ 'drop-shadow-sm': !isScrolled }"
+        >
+          Add Resource
+        </NuxtLink>
+        <NuxtLink
+          to="/About"
+          class="nav-link hover:text-amber-300 duration-200 transition-colors"
+          :class="{ 'drop-shadow-sm': !isScrolled }"
+        >
+          About
+        </NuxtLink>
+        </div>
       </div>
     </nav>
 
@@ -568,6 +607,18 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
 });
+
+// -- SIDEBAR --
+const sideWidth = ref('0px');
+function toggleNavbar() {
+  if (sideWidth.value == '0px') {
+    sideWidth.value = "250px";
+  }
+  else {
+    sideWidth.value = "0px";
+  }
+} 
+
 </script>
 
 <style scoped>
