@@ -248,10 +248,13 @@
                         Date
                         <div class="tooltip">
                           <font-awesome-icon
-                          icon="fa-solid fa-circle-question"
-                          class="text-md text-amber-700 z-5"
+                            icon="fa-solid fa-circle-question"
+                            class="text-md text-amber-700 z-5"
                           />
-                          <span class="tooltiptext normal-case">If it's a multi-day event, enter the staring date and put details in the description below.</span>
+                          <span class="tooltiptext normal-case"
+                            >If it's a multi-day event, enter the staring date
+                            and put details in the description below.</span
+                          >
                         </div>
                       </label>
                       <input
@@ -267,10 +270,13 @@
                         Time
                         <div class="tooltip">
                           <font-awesome-icon
-                          icon="fa-solid fa-circle-question"
-                          class="text-md text-amber-700 z-5"
+                            icon="fa-solid fa-circle-question"
+                            class="text-md text-amber-700 z-5"
                           />
-                          <span class="tooltiptext normal-case">If it's a longer event, enter the staring time and put details in the description below.</span>
+                          <span class="tooltiptext normal-case"
+                            >If it's a longer event, enter the staring time and
+                            put details in the description below.</span
+                          >
                         </div>
                       </label>
                       <input
@@ -456,8 +462,16 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 
+// -- SCROLL LOGIC (Fixes the transparent navbar issue) --
+const isScrolled = ref(false);
+
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 20;
+};
+
+// -- FORM LOGIC --
 const showSuccessModal = ref(false);
 
 function handleSubmit() {
@@ -471,18 +485,15 @@ function closeModal() {
   // window.location.href = "/";
 }
 
-// -- SIDEBAR --
-const sideWidth = ref('0px');
-function toggleNavbar() {
-  if (sideWidth.value == '0px') {
-    sideWidth.value = "250px";
-  }
-  else {
-    sideWidth.value = "0px";
-  }
-} 
-</script>
+// -- LIFECYCLE HOOKS --
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+});
 
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
+</script>
 <style scoped>
 /* Animations */
 .animate-fade-up {
@@ -516,7 +527,6 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
   opacity: 0.6;
 }
-
 
 .tooltip {
   position: relative;
@@ -552,5 +562,4 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   border-style: solid;
   border-color: transparent black transparent transparent;
 }
-
 </style>
