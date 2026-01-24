@@ -1,5 +1,5 @@
 <template>
-<div
+  <div
     class="min-h-screen bg-amber-50/50 text-slate-900 font-sans selection:bg-amber-200 selection:text-amber-900 relative"
   >
     <div
@@ -110,239 +110,264 @@
     </nav>
 
     <!-- MAIN CONTENT -->
-      <section
-        id="about"
-        class="scroll-section pt-32 py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20 overflow-hidden"
+    <section
+      id="about"
+      class="scroll-section pt-32 py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20 overflow-hidden"
+    >
+      <div
+        class="max-w-5xl mx-auto grid gap-10 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] items-start"
+      >
+        <div class="animate-fade-up translate-y-8">
+          <h1
+            class="text-4xl md:text-5xl font-black text-slate-900 mb-6 leading-tight tracking-tight"
+          >
+            About This Hub
+          </h1>
+          <p class="mt-3 text-sm md:text-base text-slate-700">
+            This Community Resource Hub was created by
+            <span class="font-semibold">the Harborough community</span>. Our
+            goal is to make it easier for residents to connect with local
+            support, especially students and families who might not know where
+            to start.
+          </p>
+          <p class="mt-3 text-sm md:text-base text-slate-700">
+            We focus on resources that are low-cost or free, within or near our
+            community, and open to the public. We verify each listing, but
+            details such as hours and eligibility can change—always contact
+            organizations directly before visiting.
+          </p>
+
+          <ul class="mt-4 grid gap-3 text-sm text-slate-700">
+            <li
+              class="flex gap-2 content-box hover:scale-102 duration-300 transition-all"
+            >
+              <span
+                class="mt-1 h-2.5 min-w-2.5 w-2.5 rounded-full bg-amber-500"
+              ></span>
+              <span>
+                <strong>Curated directory:</strong>
+                resources are organized into clear categories with search and
+                filters, so you can find what you need at a glance.
+              </span>
+            </li>
+            <li
+              class="flex gap-2 content-box hover:scale-102 duration-300 transition-all"
+            >
+              <span
+                class="mt-1 h-2.5 min-w-2.5 w-2.5 rounded-full bg-amber-500"
+              ></span>
+              <span>
+                <strong>City-built:</strong>
+                designed, researched, and coded by specialists experienced in
+                finding underappreciated resources and presenting them to the
+                community.
+              </span>
+            </li>
+            <li
+              class="flex gap-2 content-box hover:scale-102 duration-300 transition-all"
+            >
+              <span
+                class="mt-1 h-2.5 min-w-2.5 w-2.5 rounded-full bg-amber-500"
+              ></span>
+              <span>
+                <strong>Community-driven:</strong>
+                residents can suggest new resources and events anytime, keeping
+                our Harborough community more connected and shining light on new
+                events that add to our town's rich culture.
+              </span>
+            </li>
+          </ul>
+        </div>
+
+        <aside
+          class="animate-fade-up translate-x-12 rounded-2xl bg-white shadow-md border border-slate-200 p-5 space-y-4"
+        >
+          <h3 class="text-lg font-semibold text-slate-900">
+            Emergency & crisis contacts
+          </h3>
+          <p class="text-sm text-slate-700">
+            If you or someone you know is in immediate danger, call 911 or your
+            local emergency number.
+          </p>
+          <ul class="space-y-2 text-sm text-slate-700">
+            <li>
+              <strong>988 Suicide &amp; Crisis Lifeline:</strong> Call or text
+              988
+            </li>
+            <li>
+              <strong>National Domestic Violence Hotline:</strong>
+              1-800-799-SAFE (7233)
+            </li>
+            <li><strong>Local crisis hotline:</strong> 866-260-8000</li>
+          </ul>
+          <p class="text-xs text-slate-500">
+            These services are not run by this website, but we list them so help
+            is always easy to find.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- REFERENCE PAGE-->
+    <section
+      class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20"
+    >
+      <h1
+        class="text-3xl md:text-4xl font-black text-slate-900 mb-4 leading-tight tracking-tight"
+      >
+        Reference Page
+      </h1>
+      <div
+        class="flex flex-col md:grid grid-cols-2 grid-rows-2 w-full gap-4 mb-4"
       >
         <div
-          class="max-w-5xl mx-auto grid gap-10 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] items-start"
+          class="w-full max-w-3xl bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium order-1 transition-all duration-300 hover:scale-101"
         >
-          <div class="animate-fade-up translate-y-8">
+          <div class="flex flex-row content-center gap-2">
+            <div>
+              <font-awesome-icon
+                icon="fa-solid fa-chart-simple"
+                class="text-2xl text-green-500 z-5 mt-0.5"
+              />
+            </div>
             <h1
-            class="text-4xl md:text-5xl font-black text-slate-900 mb-6 leading-tight tracking-tight"
+              class="text-xl md:text-2xl font-bold text-slate-900 mb-2 leading-tight tracking-tight"
             >
-            About This Hub
+              Work Log:
             </h1>
-            <p class="mt-3 text-sm md:text-base text-slate-700">
-              This Community Resource Hub was created by
-              <span class="font-semibold">the Harborough community</span>. Our
-              goal is to make it easier for residents to connect with local
-              support, especially students and families who might not know where
-              to start.
-            </p>
-            <p class="mt-3 text-sm md:text-base text-slate-700">
-              We focus on resources that are low-cost or free, within or near
-              our community, and open to the public. We verify each listing, but
-              details such as hours and eligibility can change—always contact
-              organizations directly before visiting.
-            </p>
-
-            <ul class="mt-4 grid gap-3 text-sm text-slate-700">
-              <li class="flex gap-2 content-box hover:scale-102 duration-300 transition-all">
-                <span class="mt-1 h-2.5 min-w-2.5 w-2.5 rounded-full bg-amber-500"></span>
-                <span>
-                  <strong>Curated directory:</strong>
-                  resources are organized into clear categories with search and
-                  filters, so you can find what you need at a glance.
-                </span>
-              </li>
-              <li class="flex gap-2 content-box hover:scale-102 duration-300 transition-all">
-                <span
-                  class="mt-1 h-2.5 min-w-2.5 w-2.5 rounded-full bg-amber-500"
-                ></span>
-                <span>
-                  <strong>City-built:</strong>
-                  designed, researched, and coded by specialists experienced in
-                  finding underappreciated resources and presenting them to the
-                  community.
-                </span>
-              </li>
-              <li class="flex gap-2 content-box hover:scale-102 duration-300 transition-all">
-                <span class="mt-1 h-2.5 min-w-2.5 w-2.5 rounded-full bg-amber-500"></span>
-                <span>
-                  <strong>Community-driven:</strong>
-                  residents can suggest new resources and events anytime, keeping our Harborough community
-                  more connected and shining light on new events that add to our town's rich culture.
-                </span>
-              </li>
-            </ul>
           </div>
-
-          <aside
-            class="animate-fade-up translate-x-12 rounded-2xl bg-white shadow-md border border-slate-200 p-5 space-y-4"
+          <a
+            href="https://drive.google.com/file/d/149se40zU8wrDUoaozg8lup8iqpfNVSAv/view?usp=share_link"
+            class="text-md md:text-lg font-semibold mb-4 leading-tight tracking-tight underline text-[#4285F4] hover:text-[#0a4ab3]"
           >
-            <h3 class="text-lg font-semibold text-slate-900">
-              Emergency & crisis contacts
-            </h3>
-            <p class="text-sm text-slate-700">
-              If you or someone you know is in immediate danger, call 911 or
-              your local emergency number.
-            </p>
-            <ul class="space-y-2 text-sm text-slate-700">
-              <li>
-                <strong>988 Suicide &amp; Crisis Lifeline:</strong> Call or text
-                988
-              </li>
-              <li>
-                <strong>National Domestic Violence Hotline:</strong>
-                1-800-799-SAFE (7233)
-              </li>
-              <li><strong>Local crisis hotline:</strong> 866-260-8000</li>
-            </ul>
-            <p class="text-xs text-slate-500">
-              These services are not run by this website, but we list them so
-              help is always easy to find.
-            </p>
-          </aside>
+            Click here to access our Work Log!
+          </a>
         </div>
-      </section>
-
-      <!-- REFERENCE PAGE-->
-      <section
-      class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20">
-        <h1
-            class="text-3xl md:text-4xl font-black text-slate-900 mb-4 leading-tight tracking-tight"
+        <div
+          class="w-full max-w-3xl bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium order-2 md:order-3 transition-all duration-300 hover:scale-101"
+        >
+          <div class="flex flex-row content-center gap-2">
+            <div>
+              <font-awesome-icon
+                icon="fa-solid fa-table-list"
+                class="text-2xl text-green-500 z-5 mt-0.5"
+              />
+            </div>
+            <h1
+              class="text-xl md:text-2xl font-bold text-slate-900 mb-2 leading-tight tracking-tight"
             >
-            Reference Page
-        </h1>
-        <div class="flex flex-col md:grid grid-cols-2 grid-rows-2 w-full gap-4 mb-4">
-            <div class="w-full max-w-3xl bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 
-                text-slate-900 font-medium order-1 transition-all duration-300 hover:scale-101">
-                <div class="flex flex-row content-center gap-2">
-                    <div>
-                        <font-awesome-icon
-                            icon="fa-solid fa-chart-simple"
-                            class="text-2xl text-green-500 z-5 mt-[2px]"
-                        />
-                    </div>
-                    <h1
-                        class="text-xl md:text-2xl font-bold text-slate-900 mb-2 leading-tight tracking-tight"
-                        >
-                        Work Log:
-                    </h1>
-                </div>
-                <a href="https://drive.google.com/file/d/149se40zU8wrDUoaozg8lup8iqpfNVSAv/view?usp=share_link"
-                   class="text-md md:text-lg font-semibold mb-4 leading-tight tracking-tight underline text-[#4285F4] hover:text-[#0a4ab3]">
-                    Click here to access our Work Log!
-                </a>
-            </div>
-            <div class="w-full max-w-3xl bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 
-                text-slate-900 font-medium order-2 md:order-3 transition-all duration-300 hover:scale-101">
-                <div class="flex flex-row content-center gap-2">
-                    <div>
-                        <font-awesome-icon
-                            icon="fa-solid fa-table-list"
-                            class="text-2xl text-green-500 z-5 mt-[2px]"
-                        />
-                    </div>
-                    <h1
-                        class="text-xl md:text-2xl font-bold text-slate-900 mb-2 leading-tight tracking-tight"
-                        >
-                        Student Copyright Checklist:
-                    </h1>
-                </div>
-                <a href="https://drive.google.com/file/d/1OQ_MyCd4v6B_jY2zHq62EJ2xuDJuzjMa/view?usp=share_link"
-                   class="text-md md:text-lg font-semibold mb-4 leading-tight tracking-tight underline text-[#4285F4] hover:text-[#0a4ab3]">
-                    Click here to access our Copyright Checklist!
-                </a>
-            </div>
-            <div class="row-span-2 w-full max-w-3xl bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 
-                text-slate-900 font-medium h-full min-h-40 order-3 md:order-2 transition-all duration-300 hover:scale-101">
-                    <h1
-                        class="text-xl md:text-2xl font-bold text-slate-900 mb-2 leading-tight tracking-tight "
-                        >
-                        Other References:
-                        <div class="tooltip">
-                            <font-awesome-icon
-                            icon="fa-solid fa-circle-question"
-                            class="!text-sm text-amber-700 z-5"
-                            />
-                            <span class="!text-xs tooltiptext normal-case">These are additional references to research, images, etc.</span>
-                        </div>
-                    </h1>
-                    <ul class="mt-4 grid gap-3 text-sm text-slate-700 pl-4">
-                        <li class="flex gap-2">
-                            <span class="mt-1 h-2.5 min-w-2.5 w-2.5 rounded-full bg-amber-500"></span>
-                            <span>
-                            "Timelapse photo of people passing the street." *Unsplash*, 19 Apr. 2016, 
-                            https://unsplash.com/photos/timelapse-photo-of-people-passing-the-street-31-pOduwZGE.
-                            </span>
-                        </li>
-                    </ul>
-            </div>
-           
+              Student Copyright Checklist:
+            </h1>
+          </div>
+          <a
+            href="https://drive.google.com/file/d/1OQ_MyCd4v6B_jY2zHq62EJ2xuDJuzjMa/view?usp=share_link"
+            class="text-md md:text-lg font-semibold mb-4 leading-tight tracking-tight underline text-[#4285F4] hover:text-[#0a4ab3]"
+          >
+            Click here to access our Copyright Checklist!
+          </a>
         </div>
-        </section>
-
-
-      <!-- REVIEW/SUGGESTION SUBMISSION -->
-      <section
-      class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20">
-        <h1
-            class="text-2xl md:text-3xl font-black text-slate-900 mb-4 leading-tight tracking-tight"
-            >
-            Suggestions
-        </h1>
-        <div class="flex flex-col md:grid grid-cols-2 grid-rows-2 w-full gap-4 mb-4">
-        
-            <textarea
-                rows="6"
-                class="resize-none row-span-2 col-span-1 w-full max-w-5xl bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 
-                text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all placeholder:text-slate-400"
-                placeholder="Have any suggestions that could make your experience better, or any issues you'd like to report?"
-            ></textarea>
-            <div>
-                <label
-                class="block text-xs font-bold text-slate-500 uppercase mb-1"
-                >Email Address
-                    <div class="tooltip">
-                        <font-awesome-icon
-                        icon="fa-solid fa-circle-question"
-                        class="text-md text-amber-700 z-5"
-                        />
-                        <span class="tooltiptext normal-case">This is optional, but it allows us to reach out to you with any follow-up questions!</span>
-                    </div>
-                </label
-                >
-                <input
-                required
-                type="email"
-                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all"
-                />
+        <div
+          class="row-span-2 w-full max-w-3xl bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium h-full min-h-40 order-3 md:order-2 transition-all duration-300 hover:scale-101"
+        >
+          <h1
+            class="text-xl md:text-2xl font-bold text-slate-900 mb-2 leading-tight tracking-tight"
+          >
+            Other References:
+            <div class="tooltip">
+              <font-awesome-icon
+                icon="fa-solid fa-circle-question"
+                class="text-sm! text-amber-700 z-5"
+              />
+              <span class="text-xs! tooltiptext normal-case"
+                >These are additional references to research, images, etc.</span
+              >
             </div>
-            <div>
-                <label
-                class="block text-xs font-bold text-slate-500 uppercase mb-1"
-                >Phone Number
-                    <div class="tooltip">
-                        <font-awesome-icon
-                        icon="fa-solid fa-circle-question"
-                        class="text-md text-amber-700 z-5"
-                        />
-                        <span class="tooltiptext normal-case">This is optional, but it allows us to reach out to you with any follow-up questions!</span>
-                    </div>
-                </label
-                >
-                <input
-                required
-                type="phone"
-                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all"
-                />
-            </div>
-            </div>
-            <button
-                @click="openModal"
-                class="w-[50%] max-w-50 py-3.5 rounded-xl bg-green-100 text-slate-900 font-bold hover:bg-green-300 
-                transition-colors shadow-lg bg-green-400/20 flex justify-center items-center mx-auto gap-2 mt-3"
-                >
-                Submit
-                <font-awesome-icon
-                    icon="fa-solid fa-circle-arrow-right"
-                    class="text-lg z-5"
-                />
-            </button>
-        </section>
+          </h1>
+          <ul class="mt-4 grid gap-3 text-sm text-slate-700 pl-4">
+            <li class="flex gap-2">
+              <span
+                class="mt-1 h-2.5 min-w-2.5 w-2.5 rounded-full bg-amber-500"
+              ></span>
+              <span>
+                "Timelapse photo of people passing the street." *Unsplash*, 19
+                Apr. 2016,
+                https://unsplash.com/photos/timelapse-photo-of-people-passing-the-street-31-pOduwZGE.
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
+    <!-- REVIEW/SUGGESTION SUBMISSION -->
+    <section
+      class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20"
+    >
+      <h1
+        class="text-2xl md:text-3xl font-black text-slate-900 mb-4 leading-tight tracking-tight"
+      >
+        Suggestions
+      </h1>
+      <div
+        class="flex flex-col md:grid grid-cols-2 grid-rows-2 w-full gap-4 mb-4"
+      >
+        <textarea
+          rows="6"
+          class="resize-none row-span-2 col-span-1 w-full max-w-5xl bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all placeholder:text-slate-400"
+          placeholder="Have any suggestions that could make your experience better, or any issues you'd like to report?"
+        ></textarea>
+        <div>
+          <label class="block text-xs font-bold text-slate-500 uppercase mb-1"
+            >Email Address
+            <div class="tooltip">
+              <font-awesome-icon
+                icon="fa-solid fa-circle-question"
+                class="text-md text-amber-700 z-5"
+              />
+              <span class="tooltiptext normal-case"
+                >This is optional, but it allows us to reach out to you with any
+                follow-up questions!</span
+              >
+            </div>
+          </label>
+          <input
+            required
+            type="email"
+            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all"
+          />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-500 uppercase mb-1"
+            >Phone Number
+            <div class="tooltip">
+              <font-awesome-icon
+                icon="fa-solid fa-circle-question"
+                class="text-md text-amber-700 z-5"
+              />
+              <span class="tooltiptext normal-case"
+                >This is optional, but it allows us to reach out to you with any
+                follow-up questions!</span
+              >
+            </div>
+          </label>
+          <input
+            required
+            type="phone"
+            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all"
+          />
+        </div>
+      </div>
+      <button
+        @click="openModal"
+        class="w-[50%] max-w-50 py-3.5 rounded-xl bg-green-100 text-slate-900 font-bold hover:bg-green-300 transition-colors shadow-lg flex justify-center items-center mx-auto gap-2 mt-3"
+      >
+        Submit
+        <font-awesome-icon
+          icon="fa-solid fa-circle-arrow-right"
+          class="text-lg z-5"
+        />
+      </button>
+    </section>
 
     <!-- SUGGESTION POPUP MODAL -->
     <div
@@ -380,7 +405,8 @@
           Suggestion Received!
         </h2>
         <p class="text-slate-600 mb-8 leading-relaxed">
-          Your suggestion has been sent to our developer team, and we hope to get back to you (or resolve the issue) within 24 hours.
+          Your suggestion has been sent to our developer team, and we hope to
+          get back to you (or resolve the issue) within 24 hours.
         </p>
 
         <button
@@ -391,107 +417,128 @@
         </button>
       </div>
     </div>
-    
-      <footer
+
+    <footer
       class="bg-slate-950 text-slate-300 py-8 px-6 md:px-10 lg:px-20 text-sm"
+    >
+      <div
+        class="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6"
       >
-        <div
-            class="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6"
-        >
-            <div class="space-y-1">
-            <p class="font-semibold text-amber-100">
-                Harborough Community Resource Hub
-            </p>
-            <p>
-                Created by the
-                <span class="font-semibold">Harborough Community</span> • 2025–2026
-            </p>
-            </div>
-            <div class="flex flex-wrap gap-4 text-xs">
-            <a href="#directory" class="hover:text-amber-200 transition-colors"
-                >Browse</a
-            >
-            <a href="#events" class="hover:text-amber-200 transition-colors"
-                >Events</a
-            >
-            <NuxtLink
-                to="/Addresource"
-                class="hover:text-amber-200 transition-colors"
-            >
-                Suggest
-            </NuxtLink>
-            </div>
+        <div class="space-y-1">
+          <p class="font-semibold text-amber-100">
+            Harborough Community Resource Hub
+          </p>
+          <p>
+            Created by the
+            <span class="font-semibold">Harborough Community</span> • 2025–2026
+          </p>
         </div>
-        </footer>
+        <div class="flex flex-wrap gap-4 text-xs">
+          <a href="#directory" class="hover:text-amber-200 transition-colors"
+            >Browse</a
+          >
+          <a href="#events" class="hover:text-amber-200 transition-colors"
+            >Events</a
+          >
+          <NuxtLink
+            to="/Addresource"
+            class="hover:text-amber-200 transition-colors"
+          >
+            Suggest
+          </NuxtLink>
+        </div>
       </div>
+    </footer>
+  </div>
 </template>
 
 <script setup>
-    import { ref, computed, onMounted, onUnmounted } from "vue";
-    import gsap from "gsap";
+import { ref, onMounted, onUnmounted } from "vue";
 
-    const showSuggestModal = ref(false);
-    function openModal() {
-        showSuggestModal.value = true;
-    }
-    function closeModal() {
-        showSuggestModal.value = false;
-    }
+// -- SCROLL LOGIC (Fixes the transparent navbar issue) --
+const isScrolled = ref(false);
+
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 20;
+};
+
+// -- FORM LOGIC --
+const showSuccessModal = ref(false);
+
+function handleSubmit() {
+  // Simulating an API call or form submission
+  showSuccessModal.value = true;
+}
+
+function closeModal() {
+  showSuccessModal.value = false;
+  // Optional: Redirect to home or clear form here
+  // window.location.href = "/";
+}
+
+// -- LIFECYCLE HOOKS --
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
 </script>
 <style scoped>
-    .animate-fade-up {
-        animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        opacity: 0;
-        transform: translateY(30px);
-        }
+.animate-fade-up {
+  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
 
-    @keyframes fadeUp {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-    .content-box {
-        margin-top: auto;
-        background-color: rgba(248, 250, 252, 0.8);
-        border-radius: 1rem;
-        padding: 1.25rem;
-        border: 1px solid #f1f5f9;
-    }
+.content-box {
+  margin-top: auto;
+  background-color: rgba(248, 250, 252, 0.8);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  border: 1px solid #f1f5f9;
+}
 
-    .tooltip {
-        position: relative;
-        display: inline-block;
-        cursor: pointer;
-    }
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
 
-    .tooltiptext {
-        visibility: hidden;
-        width: 160px;
-        background-color: black;
-        color: #ffffff;
-        text-align: center;
-        border-radius: 6px;
-        padding: 5px;
-        position: absolute;
-        z-index: 1;
-        top: -5px;
-        left: 150%;
-    }
+.tooltiptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: black;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 150%;
+}
 
-    .tooltip:hover .tooltiptext {
-        visibility: visible;
-    }
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
 
-    .tooltiptext::after {
-        content: " ";
-        position: absolute;
-        top: 12px;
-        right: 100%;
-        margin-top: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: transparent black transparent transparent;
-    }
+.tooltiptext::after {
+  content: " ";
+  position: absolute;
+  top: 12px;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
 </style>
