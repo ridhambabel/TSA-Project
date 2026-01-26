@@ -508,17 +508,14 @@ const handleScroll = () => {
 };
 
 // -- FORM LOGIC --
-const showSuccessModal = ref(false);
+const showSuggestModal = ref(false);
 
-function handleSubmit() {
-  // Simulating an API call or form submission
-  showSuccessModal.value = true;
+function openModal() {
+  showSuggestModal.value = true;
 }
 
 function closeModal() {
-  showSuccessModal.value = false;
-  // Optional: Redirect to home or clear form here
-  // window.location.href = "/";
+  showSuggestModal.value = false;
 }
 
 // -- LIFECYCLE HOOKS --
