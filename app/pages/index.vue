@@ -490,16 +490,13 @@
                 I want to submit a resource!
               </NuxtLink>
 
-              <div
-                @click="
-                  scrollToSection('about');
-                  resetChatbot();
-                "
+              <NuxtLink
+                to="/About"
                 class="hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
                 id="cb-about"
               >
                 I want to learn more about this tool!
-              </div>
+              </NuxtLink>
               <div
                 @click="selectionCommunity()"
                 class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
@@ -1039,92 +1036,6 @@
               </dl>
             </article>
           </div>
-        </div>
-      </section>
-
-      <section
-        id="about"
-        class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20 overflow-hidden"
-      >
-        <div
-          class="max-w-5xl mx-auto grid gap-10 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] items-start"
-        >
-          <div class="animate-on-scroll opacity-0 translate-y-8">
-            <h2 class="text-3xl font-bold text-slate-900">About this hub</h2>
-            <p class="mt-3 text-sm md:text-base text-slate-700">
-              This Community Resource Hub was created by
-              <span class="font-semibold">the Harborough community</span>. Our
-              goal is to make it easier for residents to connect with local
-              support, especially students and families who might not know where
-              to start.
-            </p>
-            <p class="mt-3 text-sm md:text-base text-slate-700">
-              We focus on resources that are low-cost or free, within or near
-              our community, and open to the public. We verify each listing, but
-              details such as hours and eligibility can change—always contact
-              organizations directly before visiting.
-            </p>
-
-            <ul class="mt-4 grid gap-3 text-sm text-slate-700">
-              <li class="flex gap-2">
-                <span
-                  class="mt-1 h-2.5 w-2.5 rounded-full bg-amber-500"
-                ></span>
-                <span>
-                  <strong>Curated directory:</strong>
-                  resources are organized into clear categories with search and
-                  filters.
-                </span>
-              </li>
-              <li class="flex gap-2">
-                <span
-                  class="mt-1 h-2.5 min-w-2.5 rounded-full bg-amber-500"
-                ></span>
-                <span>
-                  <strong>City-built:</strong>
-                  designed, researched, and coded by specialists experienced in
-                  finding underappreciated resources and presenting them to the
-                  community.
-                </span>
-              </li>
-              <li class="flex gap-2">
-                <span
-                  class="mt-1 h-2.5 w-2.5 rounded-full bg-amber-500"
-                ></span>
-                <span>
-                  <strong>Community-driven:</strong>
-                  residents can suggest new resources and events anytime.
-                </span>
-              </li>
-            </ul>
-          </div>
-
-          <aside
-            class="animate-on-scroll-side opacity-0 translate-x-12 rounded-2xl bg-white shadow-md border border-slate-200 p-5 space-y-4"
-          >
-            <h3 class="text-lg font-semibold text-slate-900">
-              Emergency & crisis contacts
-            </h3>
-            <p class="text-sm text-slate-700">
-              If you or someone you know is in immediate danger, call 911 or
-              your local emergency number.
-            </p>
-            <ul class="space-y-2 text-sm text-slate-700">
-              <li>
-                <strong>988 Suicide &amp; Crisis Lifeline:</strong> Call or text
-                988
-              </li>
-              <li>
-                <strong>National Domestic Violence Hotline:</strong>
-                1-800-799-SAFE (7233)
-              </li>
-              <li><strong>Local crisis hotline:</strong> 866-260-8000</li>
-            </ul>
-            <p class="text-xs text-slate-500">
-              These services are not run by this website, but we list them so
-              help is always easy to find.
-            </p>
-          </aside>
         </div>
       </section>
     </main>
