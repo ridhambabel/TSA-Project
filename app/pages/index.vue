@@ -245,25 +245,37 @@
           : 'py-6 bg-transparent',
       ]"
     >
-      <div class="flex items-center gap-3 cursor-pointer group" @click="goHome">
-        <div
-          class="h-10 w-10 rounded-xl bg-amber-400 grid place-items-center text-slate-900 shadow-amber-400/20 shadow-lg group-hover:bg-amber-300 group-hover:scale-105 transition-all duration-300"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            class="w-6 h-6"
+      <!-- TOP LEFT TEXT-->
+      <div class="flex items-center gap-3 cursor-pointer group z-20" @click="goHome">
+        <NuxtLink to="/">
+          <div
+            class="h-10 w-10 rounded-xl bg-amber-400 hidden md:grid place-items-center text-slate-900 shadow-amber-400/20 shadow-lg hover:bg-amber-300 hover:scale-105 transition-all duration-300"
           >
-            <path
-              d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"
-            />
-            <path
-              d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"
-            />
-          </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"
+              />
+              <path
+                d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"
+              />
+            </svg>
+          </div>
+        </NuxtLink>
+        <div
+          class="h-10 w-10 rounded-xl bg-amber-400 grid md:hidden place-items-center text-slate-900 shadow-amber-400/20 shadow-lg hover:bg-amber-300 hover:scale-105 transition-all duration-300"
+        >
+          <font-awesome-icon
+            icon="fa-solid fa-bars"
+            class="text-2xl z-5 relative"
+            @click="toggleNavbar()"
+          />
         </div>
-        <div class="leading-tight text-amber-50 hidden sm:block">
+        <div class="leading-tight text-amber-50 block">
           <p class="text-[10px] uppercase tracking-[0.2em] text-amber-200/80">
             Harborough
           </p>
@@ -332,6 +344,39 @@
             {{ savedResources.length }}
           </span>
         </button>
+      </div>
+      <!-- MOBILE SIDEBAR -->
+      <div :style="{width: sideWidth}" class="h-screen w-0 fixed z-10 top-0 left-0 bg-slate-800 overflow-x-hidden pt-10 duration-400 md:hidden">
+        <div class="flex flex-col ml-10 text-amber-50 mt-15 gap-5 text-xl">
+          <NuxtLink
+          to="/"
+          class="nav-link hover:text-amber-300 duration-200 transition-colors"
+          :class="{ 'drop-shadow-sm': !isScrolled }"
+        >
+          Home
+        </NuxtLink>
+        <NuxtLink
+          to="/guides"
+          class="nav-link hover:text-amber-300 duration-200 transition-colors"
+          :class="{ 'drop-shadow-sm': !isScrolled }"
+        >
+          Guides
+        </NuxtLink>
+        <NuxtLink
+          to="/Addresource"
+          class="nav-link hover:text-amber-300 duration-200 transition-colors"
+          :class="{ 'drop-shadow-sm': !isScrolled }"
+        >
+          Add Resource
+        </NuxtLink>
+        <NuxtLink
+          to="/About"
+          class="nav-link hover:text-amber-300 duration-200 transition-colors"
+          :class="{ 'drop-shadow-sm': !isScrolled }"
+        >
+          About
+        </NuxtLink>
+        </div>
       </div>
     </nav>
 
@@ -445,16 +490,13 @@
                 I want to submit a resource!
               </NuxtLink>
 
-              <div
-                @click="
-                  scrollToSection('about');
-                  resetChatbot();
-                "
+              <NuxtLink
+                to="/About"
                 class="hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
                 id="cb-about"
               >
                 I want to learn more about this tool!
-              </div>
+              </NuxtLink>
               <div
                 @click="selectionCommunity()"
                 class="hidden hover:cursor-pointer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
@@ -851,6 +893,32 @@
                   :key="resource.id"
                   class="stagger-item opacity-0 translate-y-8 rounded-2xl bg-slate-800/70 p-5 border border-slate-700/80 hover:bg-slate-800 hover:opacity-100 transition-all duration-300 w-full"
                 >
+                  <button
+                    @click.stop="toggleSave(resource)"
+                    class="absolute top-4 right-4 z-10 h-8 w-8 rounded-full bg-slate-500 border border-slate-700 grid place-items-center transition-all hover:scale-110 active:scale-95 cursor-pointer"
+                    :class="
+                      isSaved(resource)
+                        ? 'text-red-500 bg-red-50 border-red-100'
+                        : 'text-slate-400 hover:text-red-400'
+                    "
+                    title="Save to Backpack"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      :fill="isSaved(resource) ? 'currentColor' : 'none'"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                      ></path>
+                    </svg>
+                  </button>
                   <h3 class="text-lg font-semibold">{{ resource.name }}</h3>
                   <p class="mt-2 text-sm text-amber-100/90">
                     {{ resource.highlight }}
@@ -873,6 +941,32 @@
                   :key="resource.id"
                   class="stagger-item opacity-0 translate-y-8 rounded-2xl bg-slate-800/70 p-5 border border-slate-700/80 hover:bg-slate-800 hover:opacity-100 transition-all duration-300"
                 >
+                  <button
+                    @click.stop="toggleSave(resource)"
+                    class="absolute top-4 right-4 z-10 h-8 w-8 rounded-full bg-slate-500 border border-slate-700 grid place-items-center transition-all hover:scale-110 active:scale-95 cursor-pointer"
+                    :class="
+                      isSaved(resource)
+                        ? 'text-red-500 bg-red-50 border-red-100'
+                        : 'text-slate-400 hover:text-red-400'
+                    "
+                    title="Save to Backpack"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      :fill="isSaved(resource) ? 'currentColor' : 'none'"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                      ></path>
+                    </svg>
+                  </button>
                   <h3 class="text-lg font-semibold">{{ resource.name }}</h3>
                   <p class="mt-2 text-sm text-amber-100/90">
                     {{ resource.highlight }}
@@ -942,92 +1036,6 @@
               </dl>
             </article>
           </div>
-        </div>
-      </section>
-
-      <section
-        id="about"
-        class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20 overflow-hidden"
-      >
-        <div
-          class="max-w-5xl mx-auto grid gap-10 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] items-start"
-        >
-          <div class="animate-on-scroll opacity-0 translate-y-8">
-            <h2 class="text-3xl font-bold text-slate-900">About this hub</h2>
-            <p class="mt-3 text-sm md:text-base text-slate-700">
-              This Community Resource Hub was created by
-              <span class="font-semibold">the Harborough community</span>. Our
-              goal is to make it easier for residents to connect with local
-              support, especially students and families who might not know where
-              to start.
-            </p>
-            <p class="mt-3 text-sm md:text-base text-slate-700">
-              We focus on resources that are low-cost or free, within or near
-              our community, and open to the public. We verify each listing, but
-              details such as hours and eligibility can change—always contact
-              organizations directly before visiting.
-            </p>
-
-            <ul class="mt-4 grid gap-3 text-sm text-slate-700">
-              <li class="flex gap-2">
-                <span
-                  class="mt-1 h-2.5 w-2.5 rounded-full bg-amber-500"
-                ></span>
-                <span>
-                  <strong>Curated directory:</strong>
-                  resources are organized into clear categories with search and
-                  filters.
-                </span>
-              </li>
-              <li class="flex gap-2">
-                <span
-                  class="mt-1 h-2.5 min-w-2.5 rounded-full bg-amber-500"
-                ></span>
-                <span>
-                  <strong>City-built:</strong>
-                  designed, researched, and coded by specialists experienced in
-                  finding underappreciated resources and presenting them to the
-                  community.
-                </span>
-              </li>
-              <li class="flex gap-2">
-                <span
-                  class="mt-1 h-2.5 w-2.5 rounded-full bg-amber-500"
-                ></span>
-                <span>
-                  <strong>Community-driven:</strong>
-                  residents can suggest new resources and events anytime.
-                </span>
-              </li>
-            </ul>
-          </div>
-
-          <aside
-            class="animate-on-scroll-side opacity-0 translate-x-12 rounded-2xl bg-white shadow-md border border-slate-200 p-5 space-y-4"
-          >
-            <h3 class="text-lg font-semibold text-slate-900">
-              Emergency & crisis contacts
-            </h3>
-            <p class="text-sm text-slate-700">
-              If you or someone you know is in immediate danger, call 911 or
-              your local emergency number.
-            </p>
-            <ul class="space-y-2 text-sm text-slate-700">
-              <li>
-                <strong>988 Suicide &amp; Crisis Lifeline:</strong> Call or text
-                988
-              </li>
-              <li>
-                <strong>National Domestic Violence Hotline:</strong>
-                1-800-799-SAFE (7233)
-              </li>
-              <li><strong>Local crisis hotline:</strong> 866-260-8000</li>
-            </ul>
-            <p class="text-xs text-slate-500">
-              These services are not run by this website, but we list them so
-              help is always easy to find.
-            </p>
-          </aside>
         </div>
       </section>
     </main>
@@ -1251,6 +1259,19 @@ function resetChatbot() {
   chatbot.classList.add("hidden");
   chatbot.classList.remove("absolute");
 }
+
+// -- SIDEBAR --
+const sideWidth = ref('0px');
+function toggleNavbar() {
+  if (sideWidth.value == '0px') {
+    sideWidth.value = "250px";
+  }
+  else {
+    sideWidth.value = "0px";
+  }
+} 
+
+
 
 // -- BACKPACK LOGIC --
 const isBackpackOpen = ref(false);
