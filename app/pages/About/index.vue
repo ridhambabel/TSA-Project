@@ -491,7 +491,7 @@ onUnmounted(() => {
   opacity: 0;
   transform: translateY(30px);
 }
-
+/* unc */
 @keyframes fadeUp {
   to {
     opacity: 1;
