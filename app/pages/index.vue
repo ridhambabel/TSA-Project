@@ -858,6 +858,7 @@
         </div>
       </section>
 
+      <!-- SPOTLIGHT -->
       <section
         id="highlights"
         class="scroll-section bg-slate-900 text-amber-50 py-16 scroll-mt-20 overflow-hidden"
@@ -980,63 +981,66 @@
                 </article>
               </div>
             </div>
-            <div class="fade-overlay left"></div>
-            <div class="fade-overlay right"></div>
+            <div class="fade-overlay left max-md:hidden"></div>
+            <div class="fade-overlay right max-md:hidden"></div>
             <span class="spotlight-backdrop"></span>
           </div>
         </div>
       </section>
 
+      <!-- EVENTS -->
       <section
         id="events"
-        class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20"
+        class="timeline scroll-section bg-amber-50 scroll-mt-20 py-16 "
       >
-        <div class="max-w-6xl mx-auto">
           <div
-            class="animate-on-scroll flex flex-col md:flex-row md:items-end md:justify-between gap-6 opacity-0 translate-y-8"
+            class="max-w-6xl mx-auto animate-on-scroll flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:max-lg:gap-4 opacity-0 translate-y-8 py-8 z-10"
           >
-            <div>
-              <h2 class="text-3xl font-bold text-slate-900">
+            <div class="px-25 md:px-10 lg:px-15">
+              <h2 class="text-3xl md:max-lg:text-2xl font-bold text-slate-900">
                 Upcoming community events
               </h2>
               <p class="mt-2 text-slate-600 text-sm md:text-base">
-                Workshops, food distributions, and health fairs.
+                Workshops, food distributions, health fairs, etc.
               </p>
             </div>
           </div>
-          <div class="mt-8 grid gap-4 md:grid-cols-2 stagger-container">
+          <div class="px-6 md:px-10 lg:px-20">
             <article
               v-for="event in events"
               :key="event.id"
-              class="stagger-item opacity-0 translate-y-8 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow"
+              :class="event.id % 2 === 0 ? 'timeline-right' : 'timeline-left'"
+              class="timeline-container animate-on-scroll opacity-0 translate-y-8"
             >
-              <div class="flex items-center justify-between gap-3">
-                <div>
-                  <h3 class="font-semibold text-lg text-slate-900">
-                    {{ event.title }}
-                  </h3>
-                  <p class="mt-1 text-sm text-slate-600">{{ event.host }}</p>
+              <div class="relative rounded-2xl border border-slate-200 p-5 bg-white shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between gap-3">
+                  <div>
+                    <h3 class="font-semibold text-lg text-slate-900">
+                      {{ event.title }}
+                    </h3>
+                    <p class="mt-1 text-sm text-slate-600">{{ event.host }}</p>
+                  </div>
+                  <div class="flex flex-col items-end text-right">
+                    <span
+                      class="inline-flex items-center rounded-xl bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800 w-fit"
+                      >{{ event.date }}</span
+                    >
+                    <span class="mt-1 text-[11px] text-slate-500">{{
+                      event.time
+                    }}</span>
+                  </div>
                 </div>
-                <div class="flex flex-col items-end text-right">
-                  <span
-                    class="inline-flex items-center rounded-xl bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800"
-                    >{{ event.date }}</span
-                  >
-                  <span class="mt-1 text-[11px] text-slate-500">{{
-                    event.time
-                  }}</span>
-                </div>
+                <p class="mt-3 text-sm text-slate-600">{{ event.description }}</p>
+                <dl class="mt-3 space-y-1 text-xs text-slate-500">
+                  <div class="flex gap-2">
+                    <dt class="font-semibold">Location:</dt>
+                    <dd>{{ event.location }}</dd>
+                  </div>
+                </dl>
               </div>
-              <p class="mt-3 text-sm text-slate-600">{{ event.description }}</p>
-              <dl class="mt-3 space-y-1 text-xs text-slate-500">
-                <div class="flex gap-2">
-                  <dt class="font-semibold">Location:</dt>
-                  <dd>{{ event.location }}</dd>
-                </div>
-              </dl>
             </article>
           </div>
-        </div>
+          <
       </section>
     </main>
 
@@ -1520,17 +1524,6 @@ const events = ref([
   },
   {
     id: 5,
-    title: "Community Garden Spring Kickoff",
-    host: "Green Harborough",
-    date: "Mar 12",
-    time: "10:00 AM–3:00 PM",
-    location: "Harborough Community Gardens",
-    contact: "grow@harboroughgreen.org",
-    description:
-      "Learn how to grow your own vegetables. Seeds, soil, and tools provided for free. Lunch included.",
-  },
-  {
-    id: 6,
     title: "Tenants Rights Town Hall",
     host: "Citizens Legal Aid",
     date: "Feb 18",
@@ -1540,6 +1533,17 @@ const events = ref([
     description:
       "Know your rights regarding eviction, rent increases, and repairs. Free consultation available after.",
   },
+  {
+    id: 6,
+    title: "Community Garden Spring Kickoff",
+    host: "Green Harborough",
+    date: "Mar 12",
+    time: "10:00 AM–3:00 PM",
+    location: "Harborough Community Gardens",
+    contact: "grow@harboroughgreen.org",
+    description:
+      "Learn how to grow your own vegetables. Seeds, soil, and tools provided for free. Lunch included.",
+  }
 ]);
 // -- LOGIC --
 const featuredIds = [1, 3, 4, 6];
@@ -1850,4 +1854,109 @@ onUnmounted(() => {
     break-inside: avoid;
   }
 }
+
+  .timeline {
+    max-width: 1200px;
+    position: relative;
+    margin: 0 auto;
+    z-index: 0;
+  }
+
+  .timeline::after {
+    content: '';
+    position: absolute;
+    width: 13px;
+    background-color: white;
+    border-color: #e2e8f0;
+    border-width: 1px;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -3px;
+    z-index: -1;
+  }
+
+  .timeline-container {
+    padding: 10px 40px;
+    position: relative;
+    width: 50%;
+  }
+
+  .timeline-container::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    right: -16px;
+    background-color: white;
+    border: 4px solid #ffd230;
+    top: 20px;
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  .timeline-left {
+    left: 0;
+  }
+
+  .timeline-right {
+    left: 50%;
+  }
+
+  .timeline-left::before {
+    content: " ";
+    height: 0;
+    position: absolute;
+    top: 22px;
+    width: 0;
+    z-index: 1;
+    right: 30px;
+    border: medium solid #e2e8f0;
+    border-width: 10px 0 10px 10px;
+    border-color: transparent transparent transparent #e2e8f0;
+  }
+
+  .timeline-right::before {
+    content: " ";
+    height: 0;
+    position: absolute;
+    top: 22px;
+    width: 0;
+    z-index: 1;
+    left: 30px;
+    border: medium solid #e2e8f0;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent #e2e8f0 transparent transparent;
+  }
+
+  .timeline-right::after {
+    left: -9px;
+  }
+
+  @media screen and (max-width: 768px) { /* md breakpoint for tailwind */
+    .timeline::after {
+      left: 31px;
+    }
+    
+    .timeline-container {
+      width: 100%;
+      padding-left: 70px;
+      padding-right: 25px;
+    }
+    
+    .timeline-container::before {
+      left: 60px;
+      border: medium solid #e2e8f0;
+      border-width: 10px 10px 10px 0;
+      border-color: transparent #e2e8f0 transparent transparent;
+    }
+
+    .timeline-left::after, .timeline-right::after {
+      left: -2px;
+    }
+    
+    .timeline-right {
+      left: 0%;
+    }
+  }
 </style>
