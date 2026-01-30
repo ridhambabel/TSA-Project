@@ -364,7 +364,7 @@
         </NuxtLink>
         <NuxtLink
           to="/Addresource"
-          class="nav-link hover:text-amber-300 duration-200 transition-colors"
+          class="nav-link hover:text-amber-300 duration-200 transition-colors whitespace-nowrap"
           :class="{ 'drop-shadow-sm': !isScrolled }"
         >
           Add Resource
@@ -981,8 +981,8 @@
                 </article>
               </div>
             </div>
-            <div class="fade-overlay left max-md:hidden"></div>
-            <div class="fade-overlay right max-md:hidden"></div>
+            <div class="fade-overlay left max-lg:hidden"></div>
+            <div class="fade-overlay right max-lg:hidden"></div>
             <span class="spotlight-backdrop"></span>
           </div>
         </div>
@@ -1040,7 +1040,13 @@
               </div>
             </article>
           </div>
-          <NuxtLink to="/Addresource">
+          <NuxtLink
+            :to="{
+              path: '/Addresource',
+              query: {
+                command: 'event',
+              }
+            }">
           <button
             class="w-[50%] max-w-50 py-3.5 rounded-xl bg-blue-100 text-slate-900 font-bold hover:bg-blue-300 transition-colors shadow-lg flex justify-center items-center mx-auto gap-2 mt-3 translate-x-1"
           >
