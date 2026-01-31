@@ -70,7 +70,7 @@
         </NuxtLink>
         <NuxtLink
           to="/Addresource"
-          class="nav-link hover:text-amber-300 transition-colors"
+          class="nav-link hover:text-amber-300 transition-colors whitespace-nowrap"
           :class="{ 'drop-shadow-sm': !isScrolled }"
         >
           Add Resource

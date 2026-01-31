@@ -68,7 +68,7 @@
         </NuxtLink>
         <NuxtLink
           to="/Addresource"
-          class="nav-link hover:text-amber-300 transition-colors"
+          class="nav-link hover:text-amber-300 transition-colors whitespace-nowrap"
           :class="{ 'drop-shadow-sm': !isScrolled }"
         >
           Add Resource
@@ -154,24 +154,26 @@
       </div>
     </nav>
 
+    
     <!-- MAIN CONTENT -->
-    <main class="pt-32 pb-24 px-4 sm:px-6 md:px-8 lg:px-12 max-w-7xl mx-auto">
+    <main class="pt-32 pt-5 pb-24 px-4 sm:px-6 md:px-8 lg:px-12 max-w-7xl mx-auto">
       <div class="grid lg:grid-cols-5 gap-12 items-start">
         <!-- Left Side: Context & Info -->
         <div class="lg:col-span-2 animate-fade-up">
           <span
             class="inline-block py-1.5 px-4 rounded-full bg-amber-100 border border-amber-200 text-amber-900 font-bold tracking-widest text-[10px] uppercase mb-6 shadow-sm"
           >
-            Community Calendar
+            Community Hub/Calendar
           </span>
           <h1
-            class="text-4xl md:text-5xl font-black text-slate-900 mb-6 leading-tight tracking-tight"
+            class="text-3xl md:text-4xl font-black text-slate-900 mb-6 leading-tight tracking-tight"
           >
-            Share an Event
+            Share a Resource or Event
           </h1>
-          <p class="text-slate-600 text-lg leading-relaxed mb-8">
-            Help us keep Harborough connected. If you are hosting a food drive,
-            a job fair, or a free wellness workshop, let the community know.
+          <p class="text-slate-600 text-md leading-relaxed mb-8">
+            Help us keep Harborough connected. If you're hosting a food drive,
+            a job fair, or a free wellness workshop, let the community know. Or, if you're
+            creating a new service for those in need, post it here so we can benefit everyone!
           </p>
 
           <div
@@ -197,7 +199,7 @@
                 <div
                   class="h-1.5 w-1.5 rounded-full bg-slate-300 mt-2 shrink-0"
                 ></div>
-                <span>Events must be free or low-cost to attend.</span>
+                <span>Events and resources must be free or low-cost to attend.</span>
               </li>
               <li class="flex gap-3">
                 <div
@@ -217,7 +219,212 @@
 
         <!-- Right Side: The Form -->
         <div class="lg:col-span-3">
-          <div class="card-base animate-fade-up delay-100">
+          <div class="mb-2 mx-auto">
+            <label class="switch hover:scale-101 hover:-translate-y-[1px] transition-all duration-300">
+              <input type="checkbox" v-model="toggleMode">
+              <span class="slider text-slate-600"></span>
+            </label>
+          </div>
+          <!-- Resource Form -->
+          <div class="card-base animate-fade-up delay-100" v-if="!toggleMode">
+            <form @submit.prevent="handleSubmit" class="space-y-6">
+              <!-- Section 1: Event Details -->
+               
+              <div>
+                <h3
+                  class="text-sm font-bold text-slate-900 uppercase tracking-widest mb-4"
+                >
+                  Resource Details
+                </h3>
+                <div class="space-y-4">
+                  <div>
+                    <label
+                      class="block text-xs font-bold text-slate-500 uppercase mb-1"
+                      >Resource Title</label
+                    >
+                    <input
+                      required
+                      type="text"
+                      class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all placeholder:text-slate-400"
+                      placeholder="e.g. Harborough Community Pantry"
+                    />
+                  </div>
+                  <label
+                    class="block text-xs font-bold text-slate-500 uppercase mb-1"
+                  >
+                    Open Hours
+                    <div class="tooltip">
+                      <font-awesome-icon
+                        icon="fa-solid fa-circle-question"
+                        class="text-md text-amber-700 z-5"
+                      />
+                      <span class="tooltiptext normal-case"
+                        >Select your days of operation, 
+                        then the hours for each day.</span
+                      >
+                    </div>
+                  </label>
+                  <div class="flex flex-row items-center justify-center w-full">
+                    <input type="checkbox" v-model="fulltime">
+                    <label
+                      class="block text-md font-bold text-slate-500 uppercase ml-2"
+                    >
+                      Open 24/7
+                    </label>
+                  </div>
+                  <fieldset :disabled="fulltime">
+                    <div class="grid grid-cols-2 gap-4 mb-2"
+                        v-for="day in days" :key="day">
+                          <div class="flex flex-row items-center">
+                            <input type="checkbox" class="" @change="disableAllInputs($event)">
+                            <label
+                              class="block text-sm font-bold text-slate-500 uppercase ml-2"
+                            >
+                              {{day}}
+                            </label>
+                          </div>
+                          
+                        <div class="flex flex-row gap-2 items-center">
+                          <input
+                            required disabled
+                            type="time"
+                            class="w-[50%] bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none 
+                            focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all disabled:bg-slate-200"
+                          />
+                          <p class="text-sm font-bold text-slate-500">to</p>
+                          <input
+                            required disabled
+                            type="time"
+                            class="w-[50%] bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none 
+                            focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all disabled:bg-slate-200"
+                          />
+                        </div>
+                    </div>
+                  </fieldset>
+                  <div>
+                    <label
+                      class="block text-xs font-bold text-slate-500 uppercase mb-1"
+                      >Location / Address</label
+                    >
+                    <div class="relative">
+                      <input
+                        required
+                        type="text"
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 pl-10 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all placeholder:text-slate-400"
+                        placeholder="123 Main St, Harborough"
+                      />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        class="w-5 h-5 text-slate-400 absolute left-3 top-3.5"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      class="block text-xs font-bold text-slate-500 uppercase mb-1"
+                      >Category</label
+                    >
+                    <select
+                      class="h-7 w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all cursor-pointer"
+                    >
+                      <option>General Community</option>
+                      <option>Food & Pantry</option>
+                      <option>Housing Support</option>
+                      <option>Employment & Jobs</option>
+                      <option>Health & Wellness</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="h-px bg-slate-100 w-full"></div>
+
+              <!-- Section 2: Contact Info -->
+              <div>
+                <h3
+                  class="text-sm font-bold text-slate-900 uppercase tracking-widest mb-4"
+                >
+                  Organizer Info
+                </h3>
+                <div class="space-y-4">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label
+                        class="block text-xs font-bold text-slate-500 uppercase mb-1"
+                        >Organization Name</label
+                      >
+                      <input
+                        type="text"
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        class="block text-xs font-bold text-slate-500 uppercase mb-1"
+                        >
+                        Email Address
+                      </label>
+                      <input
+                        required
+                        type="email"
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      class="block text-xs font-bold text-slate-500 uppercase mb-1"
+                      >Description</label
+                    >
+                    <textarea
+                      rows="4"
+                      class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all placeholder:text-slate-400"
+                      placeholder="Tell us what you provide, who is eligible for your resource, etc..."
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="pt-2">
+                <button
+                  type="submit"
+                  class="w-full rounded-xl bg-slate-900 py-4 text-white font-bold text-lg shadow-xl shadow-slate-900/20 hover:bg-slate-800 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group"
+                >
+                  <span>Submit Resource</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+                <p class="text-center text-xs text-slate-400 mt-4">
+                  By submitting, you agree to the Harborough Community
+                  Guidelines.
+                </p>
+              </div>
+            </form>
+          </div>
+
+
+          <!-- Event Form -->
+          <div class="card-base animate-fade-up delay-100" v-if="toggleMode">
             <form @submit.prevent="handleSubmit" class="space-y-6">
               <!-- Section 1: Event Details -->
               <div>
@@ -268,22 +475,20 @@
                         class="block text-xs font-bold text-slate-500 uppercase mb-1"
                       >
                         Time
-                        <div class="tooltip">
-                          <font-awesome-icon
-                            icon="fa-solid fa-circle-question"
-                            class="text-md text-amber-700 z-5"
-                          />
-                          <span class="tooltiptext normal-case"
-                            >If it's a longer event, enter the staring time and
-                            put details in the description below.</span
-                          >
-                        </div>
                       </label>
+                      <div class="flex flex-row gap-2 items-center">
                       <input
                         required
                         type="time"
-                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all"
+                        class="w-[50%] bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all"
                       />
+                      <p class="text-sm font-bold text-slate-500">to</p>
+                      <input
+                        required
+                        type="time"
+                        class="w-[50%] bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all"
+                      />
+                      </div>
                     </div>
                   </div>
 
@@ -312,22 +517,6 @@
                         />
                       </svg>
                     </div>
-                  </div>
-
-                  <div>
-                    <label
-                      class="block text-xs font-bold text-slate-500 uppercase mb-1"
-                      >Category</label
-                    >
-                    <select
-                      class="h-7 w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all cursor-pointer"
-                    >
-                      <option>General Community</option>
-                      <option>Food & Pantry</option>
-                      <option>Housing Support</option>
-                      <option>Employment & Jobs</option>
-                      <option>Health & Wellness</option>
-                    </select>
                   </div>
                 </div>
               </div>
@@ -446,8 +635,9 @@
           Submission Received!
         </h2>
         <p class="text-slate-600 mb-8 leading-relaxed">
-          Thank you for contributing to the Harborough community. Your event has
-          been sent to our team and will be processed within 24 hours.
+          Thank you for contributing to the Harborough community! Your resource/event has
+          been sent to our team and will be processed within 24 hours. If we require any additional information,
+          we will send it to the email address you provided.
         </p>
 
         <button
@@ -471,6 +661,21 @@ const handleScroll = () => {
   isScrolled.value = window.scrollY > 20;
 };
 
+const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+function disableAllInputs(event) {
+    const el = event.target;
+    const parent = el.parentNode.parentNode;
+    const inputs = parent.querySelectorAll('input, button, select, textarea');
+
+    // Iterate through the found elements
+    inputs.forEach(input => {
+        if (input !== el) {
+            input.disabled = !el.checked;
+        }
+    });
+}
+
 // -- FORM LOGIC --
 const showSuccessModal = ref(false);
 
@@ -493,6 +698,20 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
 });
+
+const fulltime = ref(false);
+const toggleMode = ref(false);
+
+const route = useRoute();
+onMounted(() => {
+  if (route.query.command == "event") {
+    toggleMode.value = true;
+  } else {
+    // nothing
+  }
+});
+
+
 </script>
 <style scoped>
 /* Animations */
@@ -561,5 +780,73 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   border-width: 5px;
   border-style: solid;
   border-color: transparent black transparent transparent;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 208px;
+  height: 42px;
+  margin-left: calc(50% - 104px);
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  position: absolute;
+  content: "Resource";
+  height: 34px;
+  width: 100px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 32px;
+}
+
+input:checked + .slider {
+  background-color: #ffd230;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #ffd230;
+}
+
+input:checked + .slider:before {
+  content: "Event";
+  -webkit-transform: translateX(100px);
+  -ms-transform: translateX(100px);
+  transform: translateX(100px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 </style>
