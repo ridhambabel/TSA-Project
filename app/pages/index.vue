@@ -821,6 +821,7 @@
         </div>
       </section>
 
+      <!-- MAIN RESOURCE SEARCH -->
       <section
         id="directory"
         class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20 overflow-hidden"
@@ -988,7 +989,27 @@
         </div>
       </section>
 
-      
+      <!-- GUIDE SECTION-->
+      <section class="bg-slate-900 py-16 text-center scroll-section scroll-mt-20">
+        <h1 class="text-2xl md:text-3xl font-bold mb-5 text-slate-200 animate-on-scroll translate-y-4">Looking for more general help?</h1>
+        <p class="w-[75%] max-w-4xl text-md md:text-lg mx-auto mb-10 text-slate-100 animate-on-scroll translate-y-4">
+          You're in the right place: our community-oriented <strong>guides</strong> provide general advice regarding
+          <span class="text-emerald-400 font-bold">food benefits</span>, <span class="text-purple-400 font-bold">interviews</span>, and other important aspects that we believe shouldn't be confined to a single resource.
+        </p> 
+        <NuxtLink
+            to="/guides">
+          <button
+            class="w-[50%] max-w-50 py-3.5 rounded-xl bg-lime-100 text-slate-900 font-bold hover:bg-lime-200 transition-colors shadow-lg 
+            flex justify-center items-center mx-auto gap-2 mt-3 translate-x-1 "
+          >
+            Check them out!
+            <font-awesome-icon
+              icon="fa-solid fa-circle-arrow-right"
+              class="text-lg z-5"
+            />
+          </button>
+          </NuxtLink>
+      </section>
 
       <!-- EVENTS -->
       <section
