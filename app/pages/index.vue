@@ -245,7 +245,6 @@
           : 'py-6 bg-transparent',
       ]"
     >
-      <!-- TOP LEFT TEXT-->
       <div class="flex items-center gap-3 cursor-pointer group z-20" @click="goHome">
         <NuxtLink to="/">
           <div
@@ -300,6 +299,15 @@
         >
           Guides
         </NuxtLink>
+        
+        <NuxtLink
+          to="/Connect"
+          class="nav-link hover:text-amber-300 transition-colors"
+          :class="{ 'drop-shadow-sm': !isScrolled }"
+        >
+          Connect
+        </NuxtLink>
+
         <NuxtLink
           to="/Addresource"
           class="nav-link hover:text-amber-300 transition-colors"
@@ -345,37 +353,46 @@
           </span>
         </button>
       </div>
-      <!-- MOBILE SIDEBAR -->
+
       <div :style="{width: sideWidth}" class="h-screen w-0 fixed z-10 top-0 left-0 bg-slate-800 overflow-x-hidden pt-10 duration-400 md:hidden">
         <div class="flex flex-col ml-10 text-amber-50 mt-15 gap-5 text-xl">
           <NuxtLink
-          to="/"
-          class="nav-link hover:text-amber-300 duration-200 transition-colors"
-          :class="{ 'drop-shadow-sm': !isScrolled }"
-        >
-          Home
-        </NuxtLink>
-        <NuxtLink
-          to="/guides"
-          class="nav-link hover:text-amber-300 duration-200 transition-colors"
-          :class="{ 'drop-shadow-sm': !isScrolled }"
-        >
-          Guides
-        </NuxtLink>
-        <NuxtLink
-          to="/Addresource"
-          class="nav-link hover:text-amber-300 duration-200 transition-colors whitespace-nowrap"
-          :class="{ 'drop-shadow-sm': !isScrolled }"
-        >
-          Add Resource
-        </NuxtLink>
-        <NuxtLink
-          to="/About"
-          class="nav-link hover:text-amber-300 duration-200 transition-colors"
-          :class="{ 'drop-shadow-sm': !isScrolled }"
-        >
-          About
-        </NuxtLink>
+            to="/"
+            class="nav-link hover:text-amber-300 duration-200 transition-colors"
+            :class="{ 'drop-shadow-sm': !isScrolled }"
+          >
+            Home
+          </NuxtLink>
+          <NuxtLink
+            to="/guides"
+            class="nav-link hover:text-amber-300 duration-200 transition-colors"
+            :class="{ 'drop-shadow-sm': !isScrolled }"
+          >
+            Guides
+          </NuxtLink>
+
+          <NuxtLink
+            to="/Connect"
+            class="nav-link hover:text-amber-300 duration-200 transition-colors"
+            :class="{ 'drop-shadow-sm': !isScrolled }"
+          >
+            Connect
+          </NuxtLink>
+
+          <NuxtLink
+            to="/Addresource"
+            class="nav-link hover:text-amber-300 duration-200 transition-colors whitespace-nowrap"
+            :class="{ 'drop-shadow-sm': !isScrolled }"
+          >
+            Add Resource
+          </NuxtLink>
+          <NuxtLink
+            to="/About"
+            class="nav-link hover:text-amber-300 duration-200 transition-colors"
+            :class="{ 'drop-shadow-sm': !isScrolled }"
+          >
+            About
+          </NuxtLink>
         </div>
       </div>
     </nav>

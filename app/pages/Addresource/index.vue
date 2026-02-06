@@ -6,15 +6,17 @@
       class="absolute inset-0 bg-linear-to-b from-slate-900/90 via-slate-900/40 to-amber-50/50 h-[250px]"
     ></div>
     <nav
-      class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 transition-all duration-300"
+      class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 transition-all duration-300 print:hidden"
       :class="[
         isScrolled
           ? 'py-3 bg-slate-950/90 backdrop-blur-md shadow-lg border-b border-white/5'
           : 'py-6 bg-transparent',
       ]"
     >
-      <!-- TOP LEFT TEXT-->
-      <div class="flex items-center gap-3 cursor-pointer group z-20" @click="goHome">
+      <div
+        class="flex items-center gap-3 cursor-pointer group z-20"
+        @click="goHome"
+      >
         <NuxtLink to="/">
           <div
             class="h-10 w-10 rounded-xl bg-amber-400 hidden md:grid place-items-center text-slate-900 shadow-amber-400/20 shadow-lg hover:bg-amber-300 hover:scale-105 transition-all duration-300"
@@ -51,7 +53,9 @@
         </div>
       </div>
 
-      <div class="hidden md:flex items-center gap-6 font-medium text-amber-50">
+      <div
+        class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-6 font-medium text-amber-50"
+      >
         <NuxtLink
           to="/"
           class="nav-link hover:text-amber-300 transition-colors"
@@ -66,9 +70,18 @@
         >
           Guides
         </NuxtLink>
+
+        <NuxtLink
+          to="/Connect"
+          class="nav-link hover:text-amber-300 transition-colors"
+          :class="{ 'drop-shadow-sm': !isScrolled }"
+        >
+          Connect
+        </NuxtLink>
+
         <NuxtLink
           to="/Addresource"
-          class="nav-link hover:text-amber-300 transition-colors whitespace-nowrap"
+          class="nav-link hover:text-amber-300 transition-colors"
           :class="{ 'drop-shadow-sm': !isScrolled }"
         >
           Add Resource
@@ -82,81 +95,56 @@
         </NuxtLink>
       </div>
 
-      <div class="flex items-center gap-3">
-        <button
-          @click="isBackpackOpen = true"
-          class="relative rounded-full p-2 text-amber-50 hover:bg-white/10 transition cursor-pointer"
-          title="My Backpack"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path
-              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-            ></path>
-          </svg>
-          <!-- <span
-            v-if="savedResources.length > 0"
-            class="absolute top-0 right-0 h-4 w-4 rounded-full bg-amber-400 text-[10px] font-bold text-slate-900 grid place-items-center shadow-sm"
-          >
-            {{ savedResources.length }}
-          </span> -->
-        </button>
-
-        <!-- FIND HELP BUTTON -->
-        <NuxtLink
-          to="/"
-          class="hidden hover:cursor-pointer md:inline-flex rounded-full bg-amber-400 px-5 py-2 text-xs font-semibold text-slate-900 shadow-lg hover:bg-amber-300 hover:scale-105 active:scale-95 transition-all"
-        >
-          Find Help
-        </NuxtLink>
-      </div>
-            <!-- MOBILE SIDEBAR -->
-      <div :style="{width: sideWidth}" class="h-screen w-0 fixed z-10 top-0 left-0 bg-slate-800 overflow-x-hidden pt-10 duration-400 md:hidden">
+      <div
+        :style="{ width: sideWidth }"
+        class="h-screen w-0 fixed z-10 top-0 left-0 bg-slate-800 overflow-x-hidden pt-10 duration-400 md:hidden"
+      >
         <div class="flex flex-col ml-10 text-amber-50 mt-15 gap-5 text-xl">
           <NuxtLink
-          to="/"
-          class="nav-link hover:text-amber-300 duration-200 transition-colors"
-          :class="{ 'drop-shadow-sm': !isScrolled }"
-        >
-          Home
-        </NuxtLink>
-        <NuxtLink
-          to="/guides"
-          class="nav-link hover:text-amber-300 duration-200 transition-colors"
-          :class="{ 'drop-shadow-sm': !isScrolled }"
-        >
-          Guides
-        </NuxtLink>
-        <NuxtLink
-          to="/Addresource"
-          class="nav-link hover:text-amber-300 duration-200 transition-colors"
-          :class="{ 'drop-shadow-sm': !isScrolled }"
-        >
-          Add Resource
-        </NuxtLink>
-        <NuxtLink
-          to="/About"
-          class="nav-link hover:text-amber-300 duration-200 transition-colors"
-          :class="{ 'drop-shadow-sm': !isScrolled }"
-        >
-          About
-        </NuxtLink>
+            to="/"
+            class="nav-link hover:text-amber-300 duration-200 transition-colors"
+            :class="{ 'drop-shadow-sm': !isScrolled }"
+          >
+            Home
+          </NuxtLink>
+          <NuxtLink
+            to="/guides"
+            class="nav-link hover:text-amber-300 duration-200 transition-colors"
+            :class="{ 'drop-shadow-sm': !isScrolled }"
+          >
+            Guides
+          </NuxtLink>
+
+          <NuxtLink
+            to="/Connect"
+            class="nav-link hover:text-amber-300 duration-200 transition-colors"
+            :class="{ 'drop-shadow-sm': !isScrolled }"
+          >
+            Connect
+          </NuxtLink>
+
+          <NuxtLink
+            to="/Addresource"
+            class="nav-link hover:text-amber-300 duration-200 transition-colors whitespace-nowrap"
+            :class="{ 'drop-shadow-sm': !isScrolled }"
+          >
+            Add Resource
+          </NuxtLink>
+          <NuxtLink
+            to="/About"
+            class="nav-link hover:text-amber-300 duration-200 transition-colors"
+            :class="{ 'drop-shadow-sm': !isScrolled }"
+          >
+            About
+          </NuxtLink>
         </div>
       </div>
     </nav>
 
-    
     <!-- MAIN CONTENT -->
-    <main class="pt-32 pt-5 pb-24 px-4 sm:px-6 md:px-8 lg:px-12 max-w-7xl mx-auto">
+    <main
+      class="pt-32 pt-5 pb-24 px-4 sm:px-6 md:px-8 lg:px-12 max-w-7xl mx-auto"
+    >
       <div class="grid lg:grid-cols-5 gap-12 items-start">
         <!-- Left Side: Context & Info -->
         <div class="lg:col-span-2 animate-fade-up">
@@ -171,9 +159,10 @@
             Share a Resource or Event
           </h1>
           <p class="text-slate-600 text-md leading-relaxed mb-8">
-            Help us keep Harborough connected. If you're hosting a food drive,
-            a job fair, or a free wellness workshop, let the community know. Or, if you're
-            creating a new service for those in need, post it here so we can benefit everyone!
+            Help us keep Harborough connected. If you're hosting a food drive, a
+            job fair, or a free wellness workshop, let the community know. Or,
+            if you're creating a new service for those in need, post it here so
+            we can benefit everyone!
           </p>
 
           <div
@@ -199,7 +188,10 @@
                 <div
                   class="h-1.5 w-1.5 rounded-full bg-slate-300 mt-2 shrink-0"
                 ></div>
-                <span>Events and resources must be free or low-cost to attend.</span>
+                <span
+                  >Events and resources must be free or low-cost to
+                  attend.</span
+                >
               </li>
               <li class="flex gap-3">
                 <div
@@ -220,8 +212,10 @@
         <!-- Right Side: The Form -->
         <div class="lg:col-span-3">
           <div class="mb-2 mx-auto">
-            <label class="switch hover:scale-101 hover:-translate-y-[1px] transition-all duration-300">
-              <input type="checkbox" v-model="toggleMode">
+            <label
+              class="switch hover:scale-101 hover:-translate-y-[1px] transition-all duration-300"
+            >
+              <input type="checkbox" v-model="toggleMode" />
               <span class="slider text-slate-600"></span>
             </label>
           </div>
@@ -229,7 +223,7 @@
           <div class="card-base animate-fade-up delay-100" v-if="!toggleMode">
             <form @submit.prevent="handleSubmit" class="space-y-6">
               <!-- Section 1: Event Details -->
-               
+
               <div>
                 <h3
                   class="text-sm font-bold text-slate-900 uppercase tracking-widest mb-4"
@@ -259,13 +253,13 @@
                         class="text-md text-amber-700 z-5"
                       />
                       <span class="tooltiptext normal-case"
-                        >Select your days of operation, 
-                        then the hours for each day.</span
+                        >Select your days of operation, then the hours for each
+                        day.</span
                       >
                     </div>
                   </label>
                   <div class="flex flex-row items-center justify-center w-full">
-                    <input type="checkbox" v-model="fulltime">
+                    <input type="checkbox" v-model="fulltime" />
                     <label
                       class="block text-md font-bold text-slate-500 uppercase ml-2"
                     >
@@ -273,32 +267,39 @@
                     </label>
                   </div>
                   <fieldset :disabled="fulltime">
-                    <div class="grid grid-cols-2 gap-4 mb-2"
-                        v-for="day in days" :key="day">
-                          <div class="flex flex-row items-center">
-                            <input type="checkbox" class="" @change="disableAllInputs($event)">
-                            <label
-                              class="block text-sm font-bold text-slate-500 uppercase ml-2"
-                            >
-                              {{day}}
-                            </label>
-                          </div>
-                          
-                        <div class="flex flex-row gap-2 items-center">
-                          <input
-                            required disabled
-                            type="time"
-                            class="w-[50%] bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none 
-                            focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all disabled:bg-slate-200"
-                          />
-                          <p class="text-sm font-bold text-slate-500">to</p>
-                          <input
-                            required disabled
-                            type="time"
-                            class="w-[50%] bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none 
-                            focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all disabled:bg-slate-200"
-                          />
-                        </div>
+                    <div
+                      class="grid grid-cols-2 gap-4 mb-2"
+                      v-for="day in days"
+                      :key="day"
+                    >
+                      <div class="flex flex-row items-center">
+                        <input
+                          type="checkbox"
+                          class=""
+                          @change="disableAllInputs($event)"
+                        />
+                        <label
+                          class="block text-sm font-bold text-slate-500 uppercase ml-2"
+                        >
+                          {{ day }}
+                        </label>
+                      </div>
+
+                      <div class="flex flex-row gap-2 items-center">
+                        <input
+                          required
+                          disabled
+                          type="time"
+                          class="w-[50%] bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all disabled:bg-slate-200"
+                        />
+                        <p class="text-sm font-bold text-slate-500">to</p>
+                        <input
+                          required
+                          disabled
+                          type="time"
+                          class="w-[50%] bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all disabled:bg-slate-200"
+                        />
+                      </div>
                     </div>
                   </fieldset>
                   <div>
@@ -370,7 +371,7 @@
                     <div>
                       <label
                         class="block text-xs font-bold text-slate-500 uppercase mb-1"
-                        >
+                      >
                         Email Address
                       </label>
                       <input
@@ -421,7 +422,6 @@
               </div>
             </form>
           </div>
-
 
           <!-- Event Form -->
           <div class="card-base animate-fade-up delay-100" v-if="toggleMode">
@@ -477,17 +477,17 @@
                         Time
                       </label>
                       <div class="flex flex-row gap-2 items-center">
-                      <input
-                        required
-                        type="time"
-                        class="w-[50%] bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all"
-                      />
-                      <p class="text-sm font-bold text-slate-500">to</p>
-                      <input
-                        required
-                        type="time"
-                        class="w-[50%] bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all"
-                      />
+                        <input
+                          required
+                          type="time"
+                          class="w-[50%] bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all"
+                        />
+                        <p class="text-sm font-bold text-slate-500">to</p>
+                        <input
+                          required
+                          type="time"
+                          class="w-[50%] bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all"
+                        />
                       </div>
                     </div>
                   </div>
@@ -635,9 +635,10 @@
           Submission Received!
         </h2>
         <p class="text-slate-600 mb-8 leading-relaxed">
-          Thank you for contributing to the Harborough community! Your resource/event has
-          been sent to our team and will be processed within 24 hours. If we require any additional information,
-          we will send it to the email address you provided.
+          Thank you for contributing to the Harborough community! Your
+          resource/event has been sent to our team and will be processed within
+          24 hours. If we require any additional information, we will send it to
+          the email address you provided.
         </p>
 
         <button
@@ -661,19 +662,27 @@ const handleScroll = () => {
   isScrolled.value = window.scrollY > 20;
 };
 
-const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+const days = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
 
 function disableAllInputs(event) {
-    const el = event.target;
-    const parent = el.parentNode.parentNode;
-    const inputs = parent.querySelectorAll('input, button, select, textarea');
+  const el = event.target;
+  const parent = el.parentNode.parentNode;
+  const inputs = parent.querySelectorAll("input, button, select, textarea");
 
-    // Iterate through the found elements
-    inputs.forEach(input => {
-        if (input !== el) {
-            input.disabled = !el.checked;
-        }
-    });
+  // Iterate through the found elements
+  inputs.forEach((input) => {
+    if (input !== el) {
+      input.disabled = !el.checked;
+    }
+  });
 }
 
 // -- FORM LOGIC --
@@ -710,8 +719,6 @@ onMounted(() => {
     // nothing
   }
 });
-
-
 </script>
 <style scoped>
 /* Animations */
@@ -790,7 +797,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   margin-left: calc(50% - 104px);
 }
 
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -804,8 +811,8 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
   border-radius: 34px;
 }
 
@@ -821,8 +828,8 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   left: 4px;
   bottom: 4px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
   border-radius: 32px;
 }
 
