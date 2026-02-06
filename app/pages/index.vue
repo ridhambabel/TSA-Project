@@ -708,6 +708,137 @@
         </div>
       </section>
 
+      <!-- SPOTLIGHT -->
+      <section
+        id="highlights"
+        class="scroll-section bg-slate-900 text-amber-50 py-16 scroll-mt-20 overflow-hidden"
+      >
+        <div class="max-w-screen mx-auto relative">
+          <div
+            class="animate-on-scroll flex flex-col md:flex-row md:items-end md:justify-between gap-6 opacity-0 translate-y-8 mb-5 px-6 md:px-10 lg:px-20"
+          >
+            <div>
+              <h2 class="text-3xl font-bold">Spotlight: Featured resources</h2>
+              <p class="mt-2 text-sm md:text-base text-amber-100/90">
+                Programs nominated by students, families, and neighbors.
+                <div class="tooltip">
+                  <font-awesome-icon
+                    icon="fa-solid fa-circle-question"
+                    class="text-md text-amber-700 z-5"
+                  />
+                  <span class="tooltiptext normal-case text-xs">
+                    To nominate a resource, look for it in the section below and
+                    tap on the trophy icon!
+                  </span>
+                </div>
+              </p>
+            </div>
+          </div>
+          <div class="relative z-2">
+            <div class="carousel gap-6">
+              <div
+                class="mt-8 flex gap-6 md:grid-cols-3 stagger-container carousel-group"
+              >
+                <article
+                  v-for="resource in featuredResources"
+                  :key="resource.id"
+                  class="stagger-item opacity-0 translate-y-8 rounded-2xl bg-slate-800/70 p-5 border border-slate-700/80 hover:bg-slate-800 hover:opacity-100 transition-all duration-300 w-full"
+                >
+                  <button
+                    @click.stop="toggleSave(resource)"
+                    class="absolute top-4 right-4 z-10 h-8 w-8 rounded-full bg-slate-500 border border-slate-700 grid place-items-center transition-all hover:scale-110 active:scale-95 cursor-pointer"
+                    :class="
+                      isSaved(resource)
+                        ? 'text-red-500 bg-red-50 border-red-100'
+                        : 'text-slate-400 hover:text-red-400'
+                    "
+                    title="Save to Backpack"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      :fill="isSaved(resource) ? 'currentColor' : 'none'"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                      ></path>
+                    </svg>
+                  </button>
+                  <h3 class="text-lg font-semibold">{{ resource.name }}</h3>
+                  <p class="mt-2 text-sm text-amber-100/90">
+                    {{ resource.highlight }}
+                  </p>
+                  <ul class="mt-3 space-y-1 text-xs text-amber-200/85">
+                    <li>
+                      <span class="font-semibold">Impact:</span>
+                      {{ resource.impact }}
+                    </li>
+                  </ul>
+                </article>
+              </div>
+              <div
+                aria-hidden
+                class="mt-8 flex gap-6 stagger-container overflow-hidden carousel-group"
+                id="cgroup-2"
+              >
+                <article
+                  v-for="resource in featuredResources"
+                  :key="resource.id"
+                  class="stagger-item opacity-0 translate-y-8 rounded-2xl bg-slate-800/70 p-5 border border-slate-700/80 hover:bg-slate-800 hover:opacity-100 transition-all duration-300"
+                >
+                  <button
+                    @click.stop="toggleSave(resource)"
+                    class="absolute top-4 right-4 z-10 h-8 w-8 rounded-full bg-slate-500 border border-slate-700 grid place-items-center transition-all hover:scale-110 active:scale-95 cursor-pointer"
+                    :class="
+                      isSaved(resource)
+                        ? 'text-red-500 bg-red-50 border-red-100'
+                        : 'text-slate-400 hover:text-red-400'
+                    "
+                    title="Save to Backpack"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      :fill="isSaved(resource) ? 'currentColor' : 'none'"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                      ></path>
+                    </svg>
+                  </button>
+                  <h3 class="text-lg font-semibold">{{ resource.name }}</h3>
+                  <p class="mt-2 text-sm text-amber-100/90">
+                    {{ resource.highlight }}
+                  </p>
+                  <ul class="mt-3 space-y-1 text-xs text-amber-200/85">
+                    <li>
+                      <span class="font-semibold">Impact:</span>
+                      {{ resource.impact }}
+                    </li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+            <div class="fade-overlay left max-lg:hidden"></div>
+            <div class="fade-overlay right max-lg:hidden"></div>
+            <span class="spotlight-backdrop"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- MAIN RESOURCE SEARCH -->
       <section
         id="directory"
         class="scroll-section py-16 px-6 md:px-10 lg:px-20 bg-amber-50 scroll-mt-20 overflow-hidden"
@@ -875,134 +1006,26 @@
         </div>
       </section>
 
-      <!-- SPOTLIGHT -->
-      <section
-        id="highlights"
-        class="scroll-section bg-slate-900 text-amber-50 py-16 scroll-mt-20 overflow-hidden"
-      >
-        <div class="max-w-screen mx-auto relative">
-          <div
-            class="animate-on-scroll flex flex-col md:flex-row md:items-end md:justify-between gap-6 opacity-0 translate-y-8 mb-5 px-6 md:px-10 lg:px-20"
+      <!-- GUIDE SECTION-->
+      <section class="bg-slate-900 py-16 text-center scroll-section scroll-mt-20">
+        <h1 class="text-2xl md:text-3xl font-bold mb-5 text-slate-200 animate-on-scroll translate-y-4">Looking for more general help?</h1>
+        <p class="w-[75%] max-w-4xl text-md md:text-lg mx-auto mb-10 text-slate-100 animate-on-scroll translate-y-4">
+          You're in the right place: our community-oriented <strong>guides</strong> provide general advice regarding
+          <span class="text-emerald-400 font-bold">food benefits</span>, <span class="text-purple-400 font-bold">interviews</span>, and other important aspects that we believe shouldn't be confined to a single resource.
+        </p> 
+        <NuxtLink
+            to="/guides">
+          <button
+            class="w-[50%] max-w-50 py-3.5 rounded-xl bg-lime-100 text-slate-900 font-bold hover:bg-lime-200 transition-colors shadow-lg 
+            flex justify-center items-center mx-auto gap-2 mt-3 translate-x-1 "
           >
-            <div>
-              <h2 class="text-3xl font-bold">Spotlight: Featured resources</h2>
-              <p class="mt-2 text-sm md:text-base text-amber-100/90">
-                Programs nominated by students, families, and neighbors.
-                <div class="tooltip">
-                  <font-awesome-icon
-                    icon="fa-solid fa-circle-question"
-                    class="text-md text-amber-700 z-5"
-                  />
-                  <span class="tooltiptext normal-case text-xs">
-                    To nominate a resource, look for it in the section above and
-                    tap on the trophy icon!
-                  </span>
-                </div>
-              </p>
-            </div>
-          </div>
-          <div class="relative z-2">
-            <div class="carousel gap-6">
-              <div
-                class="mt-8 flex gap-6 md:grid-cols-3 stagger-container carousel-group"
-              >
-                <article
-                  v-for="resource in featuredResources"
-                  :key="resource.id"
-                  class="stagger-item opacity-0 translate-y-8 rounded-2xl bg-slate-800/70 p-5 border border-slate-700/80 hover:bg-slate-800 hover:opacity-100 transition-all duration-300 w-full"
-                >
-                  <button
-                    @click.stop="toggleSave(resource)"
-                    class="absolute top-4 right-4 z-10 h-8 w-8 rounded-full bg-slate-500 border border-slate-700 grid place-items-center transition-all hover:scale-110 active:scale-95 cursor-pointer"
-                    :class="
-                      isSaved(resource)
-                        ? 'text-red-500 bg-red-50 border-red-100'
-                        : 'text-slate-400 hover:text-red-400'
-                    "
-                    title="Save to Backpack"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      :fill="isSaved(resource) ? 'currentColor' : 'none'"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path
-                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-                      ></path>
-                    </svg>
-                  </button>
-                  <h3 class="text-lg font-semibold">{{ resource.name }}</h3>
-                  <p class="mt-2 text-sm text-amber-100/90">
-                    {{ resource.highlight }}
-                  </p>
-                  <ul class="mt-3 space-y-1 text-xs text-amber-200/85">
-                    <li>
-                      <span class="font-semibold">Impact:</span>
-                      {{ resource.impact }}
-                    </li>
-                  </ul>
-                </article>
-              </div>
-              <div
-                aria-hidden
-                class="mt-8 flex gap-6 stagger-container overflow-hidden carousel-group"
-                id="cgroup-2"
-              >
-                <article
-                  v-for="resource in featuredResources"
-                  :key="resource.id"
-                  class="stagger-item opacity-0 translate-y-8 rounded-2xl bg-slate-800/70 p-5 border border-slate-700/80 hover:bg-slate-800 hover:opacity-100 transition-all duration-300"
-                >
-                  <button
-                    @click.stop="toggleSave(resource)"
-                    class="absolute top-4 right-4 z-10 h-8 w-8 rounded-full bg-slate-500 border border-slate-700 grid place-items-center transition-all hover:scale-110 active:scale-95 cursor-pointer"
-                    :class="
-                      isSaved(resource)
-                        ? 'text-red-500 bg-red-50 border-red-100'
-                        : 'text-slate-400 hover:text-red-400'
-                    "
-                    title="Save to Backpack"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      :fill="isSaved(resource) ? 'currentColor' : 'none'"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path
-                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-                      ></path>
-                    </svg>
-                  </button>
-                  <h3 class="text-lg font-semibold">{{ resource.name }}</h3>
-                  <p class="mt-2 text-sm text-amber-100/90">
-                    {{ resource.highlight }}
-                  </p>
-                  <ul class="mt-3 space-y-1 text-xs text-amber-200/85">
-                    <li>
-                      <span class="font-semibold">Impact:</span>
-                      {{ resource.impact }}
-                    </li>
-                  </ul>
-                </article>
-              </div>
-            </div>
-            <div class="fade-overlay left max-lg:hidden"></div>
-            <div class="fade-overlay right max-lg:hidden"></div>
-            <span class="spotlight-backdrop"></span>
-          </div>
-        </div>
+            Check them out!
+            <font-awesome-icon
+              icon="fa-solid fa-circle-arrow-right"
+              class="text-lg z-5"
+            />
+          </button>
+          </NuxtLink>
       </section>
 
       <!-- EVENTS -->
@@ -1743,6 +1766,7 @@ onUnmounted(() => {
 .carousel {
   display: flex;
   overflow: hidden;
+  z-index: 10;
   > * {
     flex: 0 0 100%;
   }
@@ -1789,6 +1813,7 @@ onUnmounted(() => {
     rgba(0, 0, 0, 0) 70%
   );
   filter: brightness(0.8) contrast(1.2);
+  z-index: 2;
 }
 
 @media (max-width: 900px) {

@@ -268,7 +268,7 @@
                   </div>
                   <fieldset :disabled="fulltime">
                     <div
-                      class="grid grid-cols-2 gap-4 mb-2"
+                      class="flex flex-row sm:grid grid-cols-2 gap-4 mb-2"
                       v-for="day in days"
                       :key="day"
                     >
@@ -290,14 +290,14 @@
                           required
                           disabled
                           type="time"
-                          class="w-[50%] bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all disabled:bg-slate-200"
+                          class="text-sm md:text-md w-[50%] bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all disabled:bg-slate-200"
                         />
                         <p class="text-sm font-bold text-slate-500">to</p>
                         <input
                           required
                           disabled
                           type="time"
-                          class="w-[50%] bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all disabled:bg-slate-200"
+                          class="text-sm md:text-md w-[50%] bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all disabled:bg-slate-200"
                         />
                       </div>
                     </div>
